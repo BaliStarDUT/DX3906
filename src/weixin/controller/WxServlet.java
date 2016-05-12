@@ -33,6 +33,7 @@ public class WxServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request,response);
 	}
 
 	/**
@@ -44,6 +45,13 @@ public class WxServlet extends HttpServlet {
 		String timestamp = request.getParameter("timestamp");
 		String nonce = request.getParameter("nonce");
 		String echostr = request.getParameter("echostr");
+		if(signature==null||signature.length()==0
+				||timestamp==null||timestamp.length()==0
+				||nonce==null||nonce.length()==0
+				||echostr==null||echostr.length()==0){
+			System.out.println("请求参数错误");
+			return;
+		}
 		
 		String sortString = sort(TOKEN,timestamp,nonce);
 		String mySignature = sha1(sortString);
