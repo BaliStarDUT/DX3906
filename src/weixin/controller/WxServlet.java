@@ -40,7 +40,7 @@ public class WxServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("开始校验签名");
+		System.out.println("Start.....");
 		String signature = request.getParameter("signature");
 		String timestamp = request.getParameter("timestamp");
 		String nonce = request.getParameter("nonce");
@@ -49,18 +49,18 @@ public class WxServlet extends HttpServlet {
 				||timestamp==null||timestamp.length()==0
 				||nonce==null||nonce.length()==0
 				||echostr==null||echostr.length()==0){
-			System.out.println("请求参数错误");
+			System.out.println("Param error.....");
 			return;
 		}
 		
 		String sortString = sort(TOKEN,timestamp,nonce);
 		String mySignature = sha1(sortString);
 		if(mySignature!=null&&mySignature!=""&&mySignature.equals(signature)){
-			System.out.println("签名校验通过");
+			System.out.println("success!");
 			response.getWriter().write(echostr);
 			response.getWriter().flush();
 		}else{
-			System.out.println("签名校验失败");
+			System.out.println("failed!");
 		}
 		doGet(request, response);
 	}
