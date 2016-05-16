@@ -1,6 +1,10 @@
 package weixin.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -41,6 +45,20 @@ public class WxServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Start.....");
+//		Method[]  met = request.getClass().getMethods();
+//		for(Method me : met){
+//			request.getClass().getEnclosingMethod().getName();
+//		}
+		//Enumeration<String> headers = request.getHeaderNames();
+		InputStream in = request.getInputStream();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+		String lines;
+		StringBuffer sb = new StringBuffer();
+		if((lines = reader.readLine())!=null){
+			lines = new String(lines.getBytes(),"utf-8");
+			sb.append(lines);
+		}
+		System.out.println(lines);
 		String signature = request.getParameter("signature");
 		String timestamp = request.getParameter("timestamp");
 		String nonce = request.getParameter("nonce");
