@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class WxServlet
  * created by James yang on 2016/05/05
  */
-@WebServlet(urlPatterns="/WxServlet")
+@WebServlet(urlPatterns="/")
 public class WxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private final String TOKEN = "yangzhen";
