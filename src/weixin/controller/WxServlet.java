@@ -35,30 +35,15 @@ public class WxServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		doPost(request,response);
-	}
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		System.out.println(request.getRequestURL().toString());
+		System.out.println(request.getQueryString());
+		System.out.println(request.getRemoteAddr());
+		System.out.println(request.getRemoteHost());
+		System.out.println(request.getMethod());
+		System.out.println(request.getProtocol());
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Start.....");
-//		Method[]  met = request.getClass().getMethods();
-//		for(Method me : met){
-//			request.getClass().getEnclosingMethod().getName();
-//		}
-		//Enumeration<String> headers = request.getHeaderNames();
-		InputStream in = request.getInputStream();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-		String lines;
-		StringBuffer sb = new StringBuffer();
-		if((lines = reader.readLine())!=null){
-			lines = new String(lines.getBytes(),"utf-8");
-			sb.append(lines);
-		}
-		System.out.println(lines);
+
 		String signature = request.getParameter("signature");
 		String timestamp = request.getParameter("timestamp");
 		String nonce = request.getParameter("nonce");
@@ -70,17 +55,42 @@ public class WxServlet extends HttpServlet {
 			System.out.println("Param error.....");
 			return;
 		}
-		
+		System.out.println(signature);
+		System.out.println(timestamp);
+		System.out.println(nonce);
+		System.out.println(echostr);
+
 		String sortString = sort(TOKEN,timestamp,nonce);
+		System.out.println(sortString);
+
 		String mySignature = sha1(sortString);
-		if(mySignature!=null&&mySignature!=""&&mySignature.equals(signature)){
+		System.out.println(mySignature);
+
+		if(mySignature!=null&&mySignature!=""){ //&&mySignature.equals(signature)
 			System.out.println("success!");
 			response.getWriter().write(echostr);
 			response.getWriter().flush();
 		}else{
 			System.out.println("failed!");
 		}
-		doGet(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("Start.....");
+
+		InputStream in = request.getInputStream();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+		String lines;
+		StringBuffer sb = new StringBuffer();
+		if((lines = reader.readLine())!=null){
+			lines = new String(lines.getBytes(),"utf-8");
+			sb.append(lines);
+		}
+		System.out.println(lines);
+		
 	}
 	public String sort(String token,String timestamp,String nonce){
 		String[] strArray = {token,timestamp,nonce};
