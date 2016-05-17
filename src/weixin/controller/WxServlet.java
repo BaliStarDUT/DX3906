@@ -66,7 +66,7 @@ public class WxServlet extends HttpServlet {
 		String mySignature = sha1(sortString);
 		System.out.println(mySignature);
 
-		if(mySignature!=null&&mySignature!=""){ //&&mySignature.equals(signature)
+		if(mySignature!=null&&mySignature!=""&&mySignature.equals(signature)){ 
 			System.out.println("success!");
 			response.getWriter().write(echostr);
 			response.getWriter().flush();
