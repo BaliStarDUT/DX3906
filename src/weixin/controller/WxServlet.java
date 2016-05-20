@@ -5,15 +5,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import weixin.util.MessageHandlerUtil;
 
 /**
  * Servlet implementation class WxServlet
@@ -23,6 +29,8 @@ import javax.servlet.http.HttpServletResponse;
 public class WxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private final String TOKEN = "yangzhen";
+	private Logger log = Logger.getLogger(this.getClass().getName());
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -79,17 +87,16 @@ public class WxServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Start.....");
-
-		InputStream in = request.getInputStream();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-		String lines;
-		StringBuffer sb = new StringBuffer();
-		if((lines = reader.readLine())!=null){
-			lines = new String(lines.getBytes(),"utf-8");
-			sb.append(lines);
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		log.log(Level.INFO, "request coming……");
+		String result ="";
+		Map<String,String> map = MessageHandlerUtil.parseXml(request);
+		result = MessageHandlerUtil.buildXml(map);
+		if(result.equals("")){
+			result = "response failed";
 		}
-		System.out.println(lines);
+		response.getWriter().println(result);
 		
 	}
 	public String sort(String token,String timestamp,String nonce){

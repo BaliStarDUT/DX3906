@@ -61,7 +61,7 @@ public class NetWorkHelper {
 			while((inputLine=br.readLine())!=null){
 				resultData += inputLine+"\n";
 			}
-			log.log(Level.INFO, resultData);
+			//log.log(Level.INFO, resultData);
 		} catch (IOException | NoSuchAlgorithmException | KeyManagementException e) {
 			e.printStackTrace();
 		}
