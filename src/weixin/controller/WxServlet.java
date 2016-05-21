@@ -98,8 +98,8 @@ public class WxServlet extends HttpServlet {
 		if(result.equals("")){
 			result = "response failed";
 		}
+		System.out.println(result);
 		response.getWriter().println(result);
-		
 	}
 	public String sort(String token,String timestamp,String nonce){
 		String[] strArray = {token,timestamp,nonce};

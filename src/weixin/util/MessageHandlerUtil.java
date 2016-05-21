@@ -31,7 +31,13 @@ public class MessageHandlerUtil {
 			DocumentBuilderFactory docBuilderFac =  DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docBuilderFac.newDocumentBuilder();
 			Document document = docBuilder.parse(input);
-			NodeList nodelist = document.getChildNodes();
+
+//			System.out.println(document.getDocumentElement());
+
+//			System.out.println(document.getFirstChild());
+			Node firstnode = document.getFirstChild();
+			
+			NodeList nodelist = firstnode.getChildNodes();//document.getChildNodes();
 			for(int i=0;i<nodelist.getLength();i++){
 				Node node = nodelist.item(i);
 				log.log(Level.INFO, "node name:"+node.getNodeName()+" node value:"+node.getNodeValue()+" node textcontent:"+node.getTextContent());
@@ -46,12 +52,17 @@ public class MessageHandlerUtil {
 	public static String buildXml(Map<String,String> map){
 		String result;
 		String msgType = map.get("MsgType").toString();
-		if(msgType.equals("TEXT")){
-			result = buildTextMessage(map ,"Hello World!");
+//		System.out.println(msgType);
+		if(msgType.equals("text")){
+			result = buildTextMessage(map ,"Hello world!");
 		}else{
 			String fromUserName = map.get("FromUserName");
+//			System.out.println(fromUserName);
+
 			String toUserName = map.get("ToUserName");
-			String content = "Reply:\nText\nPicture\nVideo";
+//			System.out.println(toUserName);
+
+			String content = "Reply:Text";
 			result =  String.format("<xml>" +
 				      "<ToUserName><![CDATA[%s]]></ToUserName>" +
 				      "<FromUserName><![CDATA[%s]]></FromUserName>" +
@@ -60,12 +71,18 @@ public class MessageHandlerUtil {
 				      "<Content><![CDATA[%s]]></Content>" + "</xml>",
 				      fromUserName, toUserName, System.currentTimeMillis(), content );
 		}
+//		System.out.println(result);
+
 		return result;
 
 	}
 	private static String buildTextMessage(Map<String,String> map,String content){
 		String fromUserName = map.get("FromUserName");
+//		System.out.println(fromUserName);
+
 		String toUserName = map.get("ToUserName");
+//		System.out.println(toUserName);
+
 		return String.format("<xml>" +
 			      "<ToUserName><![CDATA[%s]]></ToUserName>" +
 			      "<FromUserName><![CDATA[%s]]></FromUserName>" +
