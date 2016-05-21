@@ -1,7 +1,9 @@
 package weixin.util;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -27,7 +29,16 @@ public class MessageHandlerUtil {
 		InputStream input;
 		try {
 			input = request.getInputStream();
-		
+//			BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+//			String lines;
+//			StringBuffer sb = new StringBuffer("");
+//			while((lines = reader.readLine())!=null){
+//				lines = new String(lines.getBytes(),"utf-8");
+//				sb.append(lines);
+//			}		
+//			System.out.println("From:"+request.getRemoteHost());
+//			System.out.println("Request:"+request.getRequestURL());
+//			System.out.println("Post data:"+sb);
 			DocumentBuilderFactory docBuilderFac =  DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docBuilderFac.newDocumentBuilder();
 			Document document = docBuilder.parse(input);
@@ -40,6 +51,9 @@ public class MessageHandlerUtil {
 			NodeList nodelist = firstnode.getChildNodes();//document.getChildNodes();
 			for(int i=0;i<nodelist.getLength();i++){
 				Node node = nodelist.item(i);
+				if(node.getTextContent().trim().equals("")){
+					continue;
+				}
 				log.log(Level.INFO, "node name:"+node.getNodeName()+" node value:"+node.getNodeValue()+" node textcontent:"+node.getTextContent());
 				map.put(node.getNodeName(), node.getTextContent());
 			}
