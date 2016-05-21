@@ -44,13 +44,14 @@ public class WxServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
-		System.out.println(request.getRequestURL().toString());
-		System.out.println(request.getQueryString());
-		System.out.println(request.getRemoteAddr());
-		System.out.println(request.getRemoteHost());
-		System.out.println(request.getMethod());
-		System.out.println(request.getProtocol());
-
+//		System.out.println(request.getRequestURL().toString());
+//		System.out.println(request.getQueryString());
+//		System.out.println(request.getRemoteAddr());
+//		System.out.println(request.getRemoteHost());
+//		System.out.println(request.getMethod());
+//		System.out.println(request.getProtocol());
+		Logger log = Logger.getLogger(this.getClass().getName());
+		
 
 		String signature = request.getParameter("signature");
 		String timestamp = request.getParameter("timestamp");
@@ -63,19 +64,20 @@ public class WxServlet extends HttpServlet {
 			System.out.println("Param error.....");
 			return;
 		}
-		System.out.println(signature);
-		System.out.println(timestamp);
-		System.out.println(nonce);
-		System.out.println(echostr);
+//		System.out.println(signature);
+//		System.out.println(timestamp);
+//		System.out.println(nonce);
+//		System.out.println(echostr);
 
 		String sortString = sort(TOKEN,timestamp,nonce);
-		System.out.println(sortString);
+//		System.out.println(sortString);
 
 		String mySignature = sha1(sortString);
-		System.out.println(mySignature);
+//		System.out.println(mySignature);
 
 		if(mySignature!=null&&mySignature!=""&&mySignature.equals(signature)){ 
-			System.out.println("success!");
+//			System.out.println("success!");
+			log.log(Level.INFO, "check out success");;
 			response.getWriter().write(echostr);
 			response.getWriter().flush();
 		}else{

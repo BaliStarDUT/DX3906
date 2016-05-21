@@ -26,7 +26,7 @@ import weixin.util.NetWorkHelper;
 @WebServlet(
 		name = "AccessTokenServlet",
 		urlPatterns = { "/AccessTokenServlet" }, 
-		loadOnStartup = 1,
+		loadOnStartup = 10,
 		initParams = { 
 				@WebInitParam(name = "appId", value = "wx438a019f03a2c758"), 
 				@WebInitParam(name = "appSecret", value = "34acd375ac856acd30d3671925aad8ee")
