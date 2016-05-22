@@ -136,7 +136,6 @@ public class WeChatApiUtil {
 				}
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			if(conn!=null){
@@ -146,7 +145,6 @@ public class WeChatApiUtil {
 				is.close();
 				fileout.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

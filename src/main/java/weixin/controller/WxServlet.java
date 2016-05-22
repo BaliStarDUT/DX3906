@@ -94,7 +94,7 @@ public class WxServlet extends HttpServlet {
 		log.log(Level.INFO, "request coming……");
 		String result ="";
 		Map<String,String> map = MessageHandlerUtil.parseXml(request);
-		result = MessageHandlerUtil.buildXml(map);
+		result = MessageHandlerUtil.buildResponseMessage(map);//.buildXml(map);
 		if(result.equals("")){
 			result = "response failed";
 		}

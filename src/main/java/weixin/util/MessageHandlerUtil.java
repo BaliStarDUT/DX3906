@@ -2,6 +2,7 @@ package weixin.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -62,12 +63,8 @@ public class MessageHandlerUtil {
 			result = buildTextMessage(map ,"Hello world!");
 		}else{
 			String fromUserName = map.get("FromUserName");
-//			System.out.println(fromUserName);
-
 			String toUserName = map.get("ToUserName");
-//			System.out.println(toUserName);
-
-			String content = "Reply:Text";
+			String content = "Reply:text,blog,date,你是谁,等";
 			result =  String.format("<xml>" +
 				      "<ToUserName><![CDATA[%s]]></ToUserName>" +
 				      "<FromUserName><![CDATA[%s]]></FromUserName>" +
@@ -76,8 +73,6 @@ public class MessageHandlerUtil {
 				      "<Content><![CDATA[%s]]></Content>" + "</xml>",
 				      fromUserName, toUserName, System.currentTimeMillis(), content );
 		}
-//		System.out.println(result);
-
 		return result;
 
 	}
@@ -85,29 +80,57 @@ public class MessageHandlerUtil {
 	public static String buildResponseMessage(Map map){
 		String responseMessage = "";
 		String msgType = map.get("MsgType").toString();
-		System.out.println(msgType);
 		MessageType messageEnumType = MessageType.valueOf(MessageType.class, msgType.toUpperCase());
 		switch(messageEnumType){
 			case TEXT:
 				responseMessage = handleTextMessage(map);
 				break;
+			case IMAGE:
+				responseMessage = handleImageMessage(map);
+				break;
+			case VOICE:
+//				responseMessage = handleVoiceMessage(map);
+				break;
+			case VIDEO:
+//				responseMessage = handleVideoMessage(map);
+				break;
+			case SHORTVIDEO:
+//				resposneMessage = handleShortVideoMessage(map);
+				break;
+			case LOCATION:
+				responseMessage = handleLocationMessage(map);
+				break;
+			case LINK:
+//				responseMessage = handleLinkMessage(map);
+				break;
+			case EVENT:
+//				responseMessage = handleEventMessage(map);
+				break;
 			default:
 				responseMessage = buildXml(map);
+				break;
 		}
-		
 		return responseMessage;
 	}
 	private static String handleTextMessage(Map<String,String> map){
 		String responseMessage;
 		String content = map.get("Content");
 		switch(content){
-		case "text":
-			String msgText = "DX3906的博客\n"
-					+ "<a href=\"http://balistardut.github.io\"></a>";
+		case "blog":
+			String msgText = "<a href=\"http://balistardut.github.io\">DX3906的博客</a>";
 			responseMessage = buildTextMessage(map,msgText);
 			break;
+		case "你是谁":
+			String msgText2 = "您好，我是杨振的公众号";
+			responseMessage = buildTextMessage(map,msgText2);
+			break;
+		case "date":
+			Date date = new Date();
+			String msgText3 = "现在的时间是"+(date.toString());
+			responseMessage = buildTextMessage(map,msgText3);
+			break;
 		case "picture":
-			String imgMeidaId = "";
+			String imgMeidaId = "pQE42wN_NCgDuTC9s0ohWdlhp0h0qc1TPFnnve-z9mKqJ6bbfRqTlt2hB6jua-2u";
 			responseMessage = buildImageMessage(map,imgMeidaId);
 			break;
 		case "music":
@@ -121,7 +144,7 @@ public class MessageHandlerUtil {
 		case "video":
 			Video vi = new Video();
 			vi.setTitle("FiddleSticks");
-			vi.setMediaid("");
+			vi.setMediaid("pQE42wN_NCgDuTC9s0ohWdlhp0h0qc1TPFnnve-z9mKqJ6bbfRqTlt2hB6jua-2u");
 			vi.setDescription("FiddleSticks");
 			responseMessage = buildVideoMessage(map,vi);
 			break;
@@ -141,6 +164,20 @@ public class MessageHandlerUtil {
 			      "<MsgType><![CDATA[text]]></MsgType>" +
 			      "<Content><![CDATA[%s]]></Content>" + "</xml>",
 			      fromUserName, toUserName, System.currentTimeMillis(), content);
+	}
+	private static String handleImageMessage(Map<String,String> map){
+		String responseMessage;
+		String content = map.get("Content");
+		switch(content){
+		case "picture":
+			String imgMeidaId = "pQE42wN_NCgDuTC9s0ohWdlhp0h0qc1TPFnnve-z9mKqJ6bbfRqTlt2hB6jua-2u";
+			responseMessage = buildImageMessage(map,imgMeidaId);
+			break;
+		default:
+			responseMessage = buildXml(map);
+			break;
+		}
+		return responseMessage;
 	}
 	/**
 	 * 
@@ -207,5 +244,19 @@ public class MessageHandlerUtil {
 				+ "</xml>",
 			      fromUserName, toUserName, System.currentTimeMillis(), video.getMediaid(),
 			      video.getTitle(),video.getDescription());
+	}
+	private static String handleLocationMessage(Map<String,String> map){
+		String responseMessage;
+		String content = map.get("Content");
+		switch(content){
+		case "picture":
+			String imgMeidaId = "pQE42wN_NCgDuTC9s0ohWdlhp0h0qc1TPFnnve-z9mKqJ6bbfRqTlt2hB6jua-2u";
+			responseMessage = buildImageMessage(map,imgMeidaId);
+			break;
+		default:
+			responseMessage = buildXml(map);
+			break;
+		}
+		return responseMessage;
 	}
 }
