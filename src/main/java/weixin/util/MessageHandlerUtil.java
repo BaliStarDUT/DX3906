@@ -58,7 +58,6 @@ public class MessageHandlerUtil {
 	public static String buildXml(Map<String,String> map){
 		String result;
 		String msgType = map.get("MsgType").toString();
-//		System.out.println(msgType);
 		if(msgType.equals("text")){
 			result = buildTextMessage(map ,"Hello world!");
 		}else{
@@ -89,22 +88,22 @@ public class MessageHandlerUtil {
 				responseMessage = handleImageMessage(map);
 				break;
 			case VOICE:
-//				responseMessage = handleVoiceMessage(map);
+				responseMessage = handleVoiceMessage(map);
 				break;
 			case VIDEO:
-//				responseMessage = handleVideoMessage(map);
+				responseMessage = handleVideoMessage(map);
 				break;
 			case SHORTVIDEO:
-//				resposneMessage = handleShortVideoMessage(map);
+				responseMessage = handleShortVideoMessage(map);
 				break;
 			case LOCATION:
 				responseMessage = handleLocationMessage(map);
 				break;
 			case LINK:
-//				responseMessage = handleLinkMessage(map);
+				responseMessage = handleLinkMessage(map);
 				break;
 			case EVENT:
-//				responseMessage = handleEventMessage(map);
+				responseMessage = handleEventMessage(map);
 				break;
 			default:
 				responseMessage = buildXml(map);
@@ -112,6 +111,7 @@ public class MessageHandlerUtil {
 		}
 		return responseMessage;
 	}
+	
 	private static String handleTextMessage(Map<String,String> map){
 		String responseMessage;
 		String content = map.get("Content");
@@ -130,15 +130,15 @@ public class MessageHandlerUtil {
 			responseMessage = buildTextMessage(map,msgText3);
 			break;
 		case "picture":
-			String imgMeidaId = "pQE42wN_NCgDuTC9s0ohWdlhp0h0qc1TPFnnve-z9mKqJ6bbfRqTlt2hB6jua-2u";
+			String imgMeidaId = "5I0urdYNfz0hLJSD2-HZdoHQG01hxqw-ZUnEUQEJZEdz7aR0yWsX9-jb6qw-E6dg";
 			responseMessage = buildImageMessage(map,imgMeidaId);
 			break;
 		case "music":
 			Music music = new Music();
-			music.setTitle("Jhin");
-			music.setDescription("Hero Jhin");
-			music.setMusicurl("http://localhost/Jhin.mp3");
-			music.setHqmusicurl("http://localhost/Jhin.mp3");
+			music.setTitle("上邪 ");
+			music.setDescription("小曲儿");
+			music.setMusicurl("http://music.163.com/outchain/player?type=2&id=28188382&auto=1&height=66");
+			music.setHqmusicurl("http://music.163.com/outchain/player?type=2&id=28188382&auto=1&height=66");
 			responseMessage = buildMusicMessage(map, music);
 			break;
 		case "video":
@@ -147,6 +147,9 @@ public class MessageHandlerUtil {
 			vi.setMediaid("pQE42wN_NCgDuTC9s0ohWdlhp0h0qc1TPFnnve-z9mKqJ6bbfRqTlt2hB6jua-2u");
 			vi.setDescription("FiddleSticks");
 			responseMessage = buildVideoMessage(map,vi);
+			break;
+		case "new":
+			responseMessage= buildArticleMessage(map,"1");
 			break;
 		default:
 			responseMessage = buildXml(map);
@@ -165,18 +168,33 @@ public class MessageHandlerUtil {
 			      "<Content><![CDATA[%s]]></Content>" + "</xml>",
 			      fromUserName, toUserName, System.currentTimeMillis(), content);
 	}
+	private static String buildArticleMessage(Map<String,String> map,String articleCount){
+		String fromUserName = map.get("FromUserName");
+		String toUserName = map.get("ToUserName");
+		return String.format("<xml>" +
+			      "<ToUserName><![CDATA[%s]]></ToUserName>" +
+			      "<FromUserName><![CDATA[%s]]></FromUserName>" +
+			      "<CreateTime>%s</CreateTime>" +
+			      "<MsgType><![CDATA[news]]></MsgType>" +
+			      "<ArticleCount>1</ArticleCount>"
+			      + "<Articles>"
+			      + "<item>"
+			      + "<Title><![CDATA[Burano, in the Venetian Lagoon, Italy]]></Title>"
+			      + "<Description><![CDATA[If nearby Venice is too crowded and drab, make your way to Burano, a tightly packed collection of small islands in the Venetian Lagoon. Legend holds that all the houses were painted in varying, bright colors so that fishermen could pick out their homes even while out casting nets. Today, if you want to paint your villa in Burano, you send a request to the local government, which will reply with the color options available to you.]]></Description>"
+			      + "<PicUrl><![CDATA[http://global.bing.com/az/hprichbg/rb/Burano_EN-US12610622868_1920x1080.jpg]]></PicUrl>"
+			      + "<Url><![CDATA[http://global.bing.com/?FORM=HPCNEN&setmkt=en-us&setlang=en-us]]></Url>"
+			      + "</item></Articles>" 
+			      + "</xml>",
+			      fromUserName, toUserName, System.currentTimeMillis());
+	}
 	private static String handleImageMessage(Map<String,String> map){
 		String responseMessage;
-		String content = map.get("Content");
-		switch(content){
-		case "picture":
-			String imgMeidaId = "pQE42wN_NCgDuTC9s0ohWdlhp0h0qc1TPFnnve-z9mKqJ6bbfRqTlt2hB6jua-2u";
-			responseMessage = buildImageMessage(map,imgMeidaId);
-			break;
-		default:
-			responseMessage = buildXml(map);
-			break;
-		}
+		String MsgType = map.get("MsgType");
+		System.out.println(MsgType);
+		String MediaId  = map.get("MediaId");
+		System.out.println(MediaId);
+
+		responseMessage = buildImageMessage(map,MediaId);
 		return responseMessage;
 	}
 	/**
@@ -247,16 +265,50 @@ public class MessageHandlerUtil {
 	}
 	private static String handleLocationMessage(Map<String,String> map){
 		String responseMessage;
-		String content = map.get("Content");
-		switch(content){
-		case "picture":
-			String imgMeidaId = "pQE42wN_NCgDuTC9s0ohWdlhp0h0qc1TPFnnve-z9mKqJ6bbfRqTlt2hB6jua-2u";
-			responseMessage = buildImageMessage(map,imgMeidaId);
-			break;
-		default:
-			responseMessage = buildXml(map);
-			break;
-		}
+		String Location_X = map.get("Location_X");
+		String Location_Y = map.get("Location_Y");
+		String Scale = map.get("Scale");
+		String Label = map.get("Label");
+		String content = "经度："+Location_X+"\n"
+				+ "纬度："+Location_Y+"\n"
+				+ "地图缩放大小："+Scale+"\n"
+				+ "位置信息："+Label+"\n";
+		responseMessage = buildTextMessage(map, content);
+		return responseMessage;
+	}
+	private static String handleEventMessage(Map<String,String> map) {
+		String responseMessage;
+		responseMessage = buildXml(map);
+		return responseMessage;
+	}
+	private static String handleLinkMessage(Map<String,String> map) {
+		String responseMessage;
+		String Title = map.get("Title");
+		String Description = map.get("Description");
+		String Url = map.get("Url");
+		String content = "消息标题："+Title+"\n"
+				+ "消息描述 ："+Description+"\n"
+				+ "消息链接："+Url+"\n";
+		responseMessage = buildTextMessage(map,content);
+		return responseMessage;
+	}
+	private static String handleShortVideoMessage(Map<String,String> map) {
+		String responseMessage;
+		String MsgType = map.get("MsgType");
+		responseMessage = buildTextMessage(map,MsgType);
+		return responseMessage;
+	}
+	private static String handleVideoMessage(Map<String,String> map) {
+		String responseMessage;
+		String MsgType = map.get("MsgType");
+		responseMessage = buildTextMessage(map,MsgType);
+		return responseMessage;
+	}
+	private static String handleVoiceMessage(Map<String,String> map) {
+		String responseMessage;
+		String MsgType = map.get("MsgType");
+		String Format = map.get("Format");
+		responseMessage = buildTextMessage(map,MsgType+"-"+Format);
 		return responseMessage;
 	}
 }

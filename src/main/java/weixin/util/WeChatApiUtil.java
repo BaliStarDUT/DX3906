@@ -154,8 +154,14 @@ public class WeChatApiUtil {
 		File  f = new File(filePath);
 		String appId = "wx438a019f03a2c758";
 		String appSecret = "34acd375ac856acd30d3671925aad8ee";
-		String token = AccessTokenInfo.accessToken.getAccessToken();
+		String token = "OpiYp-rNLDA8I2iFB4BrJNIbma6tOQ31yd6WEj950v5mTiN9bxe6k-hAnPiLnD7bdbO2CrjZwRB8OJBnnGRCl-E1NYU2N17ILNFXrxssGPSE02f34_Q5euRfm4yLlSLxOICcAGADXR";//AccessTokenInfo.accessToken.getAccessToken();
 		JSONObject jsonob = uploadMedia(f,token,type);
 		return jsonob;
+	}
+	public static void main(String[] args){
+		String filePath = "D:\\code\\DX3906\\src\\main\\resource\\Jhin.mp3";
+		String type = "voice";
+		JSONObject uploadResult = uploadMedia(filePath, type);
+		System.out.println(uploadResult.toJSONString());
 	}
 }
