@@ -135,11 +135,21 @@ public class MessageHandlerUtil {
 			break;
 		case "music":
 			Music music = new Music();
-			music.setTitle("上邪 ");
-			music.setDescription("小曲儿");
-			music.setMusicurl("http://music.163.com/outchain/player?type=2&id=28188382&auto=1&height=66");
-			music.setHqmusicurl("http://music.163.com/outchain/player?type=2&id=28188382&auto=1&height=66");
+			music.setTitle("黑默丁格");
+			music.setDescription("嗯，非常有趣");
+			music.setMusicurl("http://lol.52pk.com/pifu/sounds/heimodingge/8.mp3");
+			music.setHqmusicurl("http://lol.52pk.com/pifu/sounds/heimodingge/8.mp3");
+			music.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
 			responseMessage = buildMusicMessage(map, music);
+			break;
+		case "亚索":
+			Music music2 = new Music();
+			music2.setTitle("亚索");
+			music2.setDescription("亚索：我的剑比什么都重要！除了美酒");
+			music2.setMusicurl("http://lol.52pk.com/pifu/sounds/yasuo/30.mp3");
+			music2.setHqmusicurl("http://lol.52pk.com/pifu/sounds/yasuo/30.mp3");
+			music2.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
+			responseMessage = buildMusicMessage(map, music2);
 			break;
 		case "video":
 			Video vi = new Video();
@@ -278,7 +288,31 @@ public class MessageHandlerUtil {
 	}
 	private static String handleEventMessage(Map<String,String> map) {
 		String responseMessage;
-		responseMessage = buildXml(map);
+		String event = map.get("Event");
+		if(event.equals("subscribe")){
+			responseMessage = buildTextMessage(map, "欢迎订阅DX3960，这是我在开发中的一个订阅号");
+		}else if(event.equals("unsubscribe")){
+			responseMessage = buildTextMessage(map, "感谢您的关注，下次再见");
+		}else if(event.equals("SCAN")){
+			String ticket = map.get("Ticket");
+			responseMessage = buildTextMessage(map, "二维码的ticket:"+ticket);
+		}else if(event.equals("LOCATION")){
+			String Latitude = map.get("Latitude");
+			String Longitude = map.get("Longitude");
+			String Precision = map.get("Precision");
+			String content = "经度："+Longitude+"\n"
+					+ "纬度："+Latitude+"\n"
+					+ "地理位置精度："+Precision+"\n";
+			responseMessage = buildTextMessage(map, content);
+		}else if(event.equals("CLICK")){
+			String key = map.get("EventKey");
+			responseMessage = buildTextMessage(map,"事件KEY值："+key);
+		}else if(event.equals("VIEW")){
+			String  url= map.get("EventKey");
+			responseMessage = buildTextMessage(map,"将跳转到："+url);
+		}else{
+			responseMessage = buildXml(map);
+		}
 		return responseMessage;
 	}
 	private static String handleLinkMessage(Map<String,String> map) {
@@ -308,7 +342,13 @@ public class MessageHandlerUtil {
 		String responseMessage;
 		String MsgType = map.get("MsgType");
 		String Format = map.get("Format");
-		responseMessage = buildTextMessage(map,MsgType+"-"+Format);
+		String MediaId = map.get("MediaId");
+		if(map.containsKey("Recognition")){
+			String Recognition = map.get("Recognition");
+			responseMessage = buildTextMessage(map,"你是说："+Recognition+"，对吧？");
+		}else{
+			responseMessage = buildTextMessage(map,MsgType+"-"+Format);
+		}
 		return responseMessage;
 	}
 }
