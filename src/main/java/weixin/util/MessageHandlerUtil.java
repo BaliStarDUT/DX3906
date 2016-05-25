@@ -151,6 +151,15 @@ public class MessageHandlerUtil {
 			music2.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
 			responseMessage = buildMusicMessage(map, music2);
 			break;
+		case "提莫":
+			Music music3 = new Music();
+			music3.setTitle("提莫");
+			music3.setDescription("提莫：提莫队长正在待命。");
+			music3.setMusicurl("http://lol.52pk.com/pifu/sounds/Teemo.mp3");
+			music3.setHqmusicurl("http://lol.52pk.com/pifu/sounds/Teemo.mp3");
+			music3.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
+			responseMessage = buildMusicMessage(map, music3);
+			break;
 		case "video":
 			Video vi = new Video();
 			vi.setTitle("FiddleSticks");
