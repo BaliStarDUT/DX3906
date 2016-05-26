@@ -160,6 +160,15 @@ public class MessageHandlerUtil {
 			music3.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
 			responseMessage = buildMusicMessage(map, music3);
 			break;
+		case "伊泽瑞尔":
+			Music music4 = new Music();
+			music4.setTitle("伊泽瑞尔");
+			music4.setDescription("伊泽瑞尔：是时候表演真正的技术了");
+			music4.setMusicurl("http://lol.52pk.com/pifu/sounds/Ezreal.mp3");
+			music4.setHqmusicurl("http://lol.52pk.com/pifu/sounds/Ezreal.mp3");
+			music4.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
+			responseMessage = buildMusicMessage(map, music4);
+			break;
 		case "video":
 			Video vi = new Video();
 			vi.setTitle("FiddleSticks");
