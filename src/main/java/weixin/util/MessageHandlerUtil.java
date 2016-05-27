@@ -13,6 +13,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.juli.logging.Log;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -218,10 +219,8 @@ public class MessageHandlerUtil {
 	private static String handleImageMessage(Map<String,String> map){
 		String responseMessage;
 		String MsgType = map.get("MsgType");
-		System.out.println(MsgType);
 		String MediaId  = map.get("MediaId");
-		System.out.println(MediaId);
-
+		
 		responseMessage = buildImageMessage(map,MediaId);
 		return responseMessage;
 	}
@@ -324,7 +323,21 @@ public class MessageHandlerUtil {
 			responseMessage = buildTextMessage(map, content);
 		}else if(event.equals("CLICK")){
 			String key = map.get("EventKey");
-			responseMessage = buildTextMessage(map,"事件KEY值："+key);
+			if(key.equals("yinxiao")){
+				Music music2 = new Music();
+				music2.setTitle("费德提克");
+				music2.setDescription("费德提克：是，我的主人");
+				music2.setMusicurl("http://lol.52pk.com/pifu/sounds/feidetike/4.mp3");
+				music2.setHqmusicurl("http://lol.52pk.com/pifu/sounds/feidetike/4.mp3");
+				music2.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
+				responseMessage = buildMusicMessage(map, music2);
+			}else if(key.equals("tupian")){
+				String MediaId  = "CDALf_RW-eot0rS7BeN3kK1z54zcxRWNu_1R5mfHteT09TldYLogZQXYX7HkmAEa";
+				responseMessage = buildImageMessage(map,MediaId);
+				return responseMessage;
+			}else{
+				responseMessage = buildTextMessage(map,"事件KEY值："+key);
+			}
 		}else if(event.equals("VIEW")){
 			String  url= map.get("EventKey");
 			responseMessage = buildTextMessage(map,"将跳转到："+url);
