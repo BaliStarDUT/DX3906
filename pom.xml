@@ -30,15 +30,20 @@
            <groupId>org.hibernate</groupId>
            <artifactId>hibernate-validator</artifactId>
        </dependency>
+       <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <scope>test</scope>
+        </dependency>
 	<dependency>
 		<groupId>org.apache.tomcat.embed</groupId>
 		<artifactId>tomcat-embed-el</artifactId>
 	</dependency>
 	<dependency>
-    		<groupId>commons-httpclient</groupId>
-    		<artifactId>commons-httpclient</artifactId>
-    		<name>HttpClient</name>
-    	</dependency>
+		<groupId>commons-httpclient</groupId>
+		<artifactId>commons-httpclient</artifactId>
+		<version>3.1</version>
+	</dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -65,14 +70,4 @@
             <url>https://repo.spring.io/libs-release</url>
         </pluginRepository>
     </pluginRepositories>
-   
-    <dependencyManagement>
-    	<dependencies>
-    		<dependency>
-    			<groupId>commons-httpclient</groupId>
-    			<artifactId>commons-httpclient</artifactId>
-    			<version>3.1</version>
-    		</dependency>
-    	</dependencies>
-    </dependencyManagement>
 </project>

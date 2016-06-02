@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import lol.entity.Lolhero;
+import lol.entity.LolheroForm;
 
 /**
  *
@@ -22,21 +22,21 @@ import lol.entity.Lolhero;
 public class HerosUploadController extends WebMvcConfigurerAdapter{
 	@Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/results").setViewName("results");
+        registry.addViewController("/result").setViewName("result");
     }
 
     @RequestMapping(value="/lolheros", method=RequestMethod.GET)
-    public String showForm(Lolhero hero) {
+    public String showForm(LolheroForm lolheroForm) {
         return "form";
     }
 
     @RequestMapping(value="/lolheros", method=RequestMethod.POST)
-    public String checkHeroInfo(@Valid Lolhero hero, BindingResult bindingResult) {
+    public String checkHeroInfo(@Valid LolheroForm lolheroForm, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "form";
         }
 
-        return "redirect:/results";
+        return "redirect:/result";
     }
 }
