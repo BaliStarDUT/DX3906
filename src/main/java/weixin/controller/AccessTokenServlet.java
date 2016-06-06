@@ -12,10 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
+import net.minidev.json.parser.ParseException;
 import weixin.entity.AccessToken;
 import weixin.entity.AccessTokenInfo;
 import weixin.util.NetWorkHelper;
@@ -103,7 +102,7 @@ public class AccessTokenServlet extends HttpServlet {
 		log.log(Level.INFO, "get response:"+result);
 		JSONObject json = null;
 		try {
-			json = (JSONObject) new JSONParser().parse(result);
+			json = (JSONObject)new  JSONParser(JSONParser.MODE_JSON_SIMPLE).parse(result);
 		} catch (ParseException e) {
 			log.log(Level.WARNING, "JSON parse failed!");
 			e.printStackTrace();

@@ -13,6 +13,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.juli.logging.Log;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -21,6 +22,7 @@ import org.xml.sax.SAXException;
 import weixin.entity.MessageType;
 import weixin.entity.Music;
 import weixin.entity.Video;
+
 
 
 public class MessageHandlerUtil {
@@ -168,6 +170,14 @@ public class MessageHandlerUtil {
 			music4.setHqmusicurl("http://lol.52pk.com/pifu/sounds/Ezreal.mp3");
 			music4.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
 			responseMessage = buildMusicMessage(map, music4);
+		case "费德提克":
+			Music music5 = new Music();
+			music5.setTitle("费德提克");
+			music5.setDescription("费德提克：我知道你怕");
+			music5.setMusicurl("http://lol.52pk.com/pifu/sounds/feidetike/7.mp3");
+			music5.setHqmusicurl("http://lol.52pk.com/pifu/sounds/feidetike/7.mp3");
+			music5.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
+			responseMessage = buildMusicMessage(map, music5);
 			break;
 		case "video":
 			Video vi = new Video();
@@ -218,10 +228,8 @@ public class MessageHandlerUtil {
 	private static String handleImageMessage(Map<String,String> map){
 		String responseMessage;
 		String MsgType = map.get("MsgType");
-		System.out.println(MsgType);
 		String MediaId  = map.get("MediaId");
-		System.out.println(MediaId);
-
+		
 		responseMessage = buildImageMessage(map,MediaId);
 		return responseMessage;
 	}
@@ -324,7 +332,25 @@ public class MessageHandlerUtil {
 			responseMessage = buildTextMessage(map, content);
 		}else if(event.equals("CLICK")){
 			String key = map.get("EventKey");
-			responseMessage = buildTextMessage(map,"事件KEY值："+key);
+			if(key.equals("yinxiao")){
+				Music music2 = new Music();
+				music2.setTitle("费德提克");
+				music2.setDescription("费德提克：是，我的主人");
+				music2.setMusicurl("http://lol.52pk.com/pifu/sounds/feidetike/4.mp3");
+				music2.setHqmusicurl("http://lol.52pk.com/pifu/sounds/feidetike/4.mp3");
+				music2.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
+				responseMessage = buildMusicMessage(map, music2);
+			}else if(key.equals("tupian")){
+				Music music = new Music();
+				music.setTitle("黑默丁格");
+				music.setDescription("嗯，非常有趣");
+				music.setMusicurl("http://lol.52pk.com/pifu/sounds/heimodingge/8.mp3");
+				music.setHqmusicurl("http://lol.52pk.com/pifu/sounds/heimodingge/8.mp3");
+				music.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
+				responseMessage = buildMusicMessage(map, music);
+			}else{
+				responseMessage = buildTextMessage(map,"事件KEY值："+key);
+			}
 		}else if(event.equals("VIEW")){
 			String  url= map.get("EventKey");
 			responseMessage = buildTextMessage(map,"将跳转到："+url);
