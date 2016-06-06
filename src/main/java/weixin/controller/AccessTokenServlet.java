@@ -95,7 +95,7 @@ public class AccessTokenServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	private AccessToken getAccessToken(String appid,String appsecret){
+	public AccessToken getAccessToken(String appid,String appsecret){
 		NetWorkHelper netHelper = new NetWorkHelper();
 		String url = String.format("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s", appid,appsecret);
 		String result = netHelper.getHttpsResponse(url, "GET");
