@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-Title: DX3906
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.james.weixin
+Build-Jdk: 1.7.0_95
+Built-By: root
+Created-By: Maven Integration for Eclipse
+
