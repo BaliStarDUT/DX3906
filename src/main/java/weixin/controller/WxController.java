@@ -1,11 +1,6 @@
 package weixin.controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Method;
-import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -14,10 +9,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import weixin.util.MessageHandlerUtil;
 
@@ -25,23 +23,18 @@ import weixin.util.MessageHandlerUtil;
  * Servlet implementation class WxServlet
  * created by James yang on 2016/05/05
  */
-@WebServlet(urlPatterns="/")
-public class WxServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+@RestController
+@RequestMapping("/wx")
+public class WxController{
     private final String TOKEN = "yangzhen";
 	private Logger log = Logger.getLogger(this.getClass().getName());
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public WxServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 验证微信服务器
+	 * @author yangzhene
+	 * @param 
 	 */
+<<<<<<< HEAD:src/main/java/weixin/controller/WxServlet.java
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		System.out.println(request.getRequestURL().toString());
@@ -50,19 +43,27 @@ public class WxServlet extends HttpServlet {
 		System.out.println(request.getRemoteHost());
 		System.out.println(request.getMethod());
 		System.out.println(request.getProtocol());
+=======
+	@RequestMapping(value="/",method=RequestMethod.GET)
+	public String doGet(@RequestParam(value="signature",required=true) String signature,
+			@RequestParam(value="timestamp",required=true) String timestamp,
+			@RequestParam(value="nonce",required=true) String nonce,
+			@RequestParam(value="echostr",required=true) String echostr){
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		System.out.println(request.getRequestURL().toString());
+//		System.out.println(request.getQueryString());
+//		System.out.println(request.getRemoteAddr());
+//		System.out.println(request.getRemoteHost());
+//		System.out.println(request.getMethod());
+//		System.out.println(request.getProtocol());
+>>>>>>> 30d22714e95cebba565442197398c2c1a72dbdeb:src/main/java/weixin/controller/WxController.java
 		Logger log = Logger.getLogger(this.getClass().getName());
-		
-
-		String signature = request.getParameter("signature");
-		String timestamp = request.getParameter("timestamp");
-		String nonce = request.getParameter("nonce");
-		String echostr = request.getParameter("echostr");
 		if(signature==null||signature.length()==0
 				||timestamp==null||timestamp.length()==0
 				||nonce==null||nonce.length()==0
 				||echostr==null||echostr.length()==0){
 			System.out.println("Param error.....");
-			return;
+			return "Param error.....";
 		}
 		System.out.println(signature);
 		System.out.println(timestamp);
@@ -76,20 +77,28 @@ public class WxServlet extends HttpServlet {
 		System.out.println(mySignature);
 
 		if(mySignature!=null&&mySignature!=""&&mySignature.equals(signature)){ 
+<<<<<<< HEAD:src/main/java/weixin/controller/WxServlet.java
 			System.out.println("success!");
 			log.log(Level.INFO, "check out success");
 			System.out.println(echostr);
 			response.getWriter().write(echostr);
 			response.getWriter().flush();
+=======
+//			System.out.println("success!");
+			log.log(Level.INFO, "check out success");;
+			return (echostr);
+>>>>>>> 30d22714e95cebba565442197398c2c1a72dbdeb:src/main/java/weixin/controller/WxController.java
 		}else{
 			System.out.println("failed!");
 		}
+		return echostr;
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * 
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@RequestMapping(value="/",method=RequestMethod.POST)
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		log.log(Level.INFO, "request coming……");

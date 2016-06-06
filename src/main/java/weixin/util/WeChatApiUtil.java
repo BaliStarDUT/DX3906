@@ -1,6 +1,7 @@
 package weixin.util;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,9 +19,10 @@ import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
 import org.apache.commons.httpclient.methods.multipart.StringPart;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
+import net.minidev.json.parser.ParseException;
 
 /**
  * 
@@ -74,13 +76,18 @@ public class WeChatApiUtil {
 			int status = httpClient.executeMethod(post);
 			if(status==HttpStatus.SC_OK){
 				String text = post.getResponseBodyAsString();
-				jsonob = (JSONObject) new JSONParser().parse(text);
+				jsonob = (JSONObject) new JSONParser(JSONParser.MODE_JSON_SIMPLE).parse(text);
 			}else{
 				String text = post.getResponseBodyAsString();
-				jsonob = (JSONObject) new JSONParser().parse(text);
+				jsonob = (JSONObject) new JSONParser(JSONParser.MODE_JSON_SIMPLE).parse(text);
 				log.log(Level.WARNING, "upload Media failed ,status is:"+status);
 			}
-		} catch (IOException | ParseException e) {
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return jsonob;
