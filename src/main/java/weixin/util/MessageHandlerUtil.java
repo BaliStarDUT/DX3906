@@ -24,6 +24,7 @@ import weixin.entity.Music;
 import weixin.entity.Video;
 
 
+
 public class MessageHandlerUtil {
 
 	public static Map<String,String> parseXml(HttpServletRequest request){
@@ -169,6 +170,14 @@ public class MessageHandlerUtil {
 			music4.setHqmusicurl("http://lol.52pk.com/pifu/sounds/Ezreal.mp3");
 			music4.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
 			responseMessage = buildMusicMessage(map, music4);
+		case "费德提克":
+			Music music5 = new Music();
+			music5.setTitle("费德提克");
+			music5.setDescription("费德提克：我知道你怕");
+			music5.setMusicurl("http://lol.52pk.com/pifu/sounds/feidetike/7.mp3");
+			music5.setHqmusicurl("http://lol.52pk.com/pifu/sounds/feidetike/7.mp3");
+			music5.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
+			responseMessage = buildMusicMessage(map, music5);
 			break;
 		case "video":
 			Video vi = new Video();
@@ -332,9 +341,13 @@ public class MessageHandlerUtil {
 				music2.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
 				responseMessage = buildMusicMessage(map, music2);
 			}else if(key.equals("tupian")){
-				String MediaId  = "CDALf_RW-eot0rS7BeN3kK1z54zcxRWNu_1R5mfHteT09TldYLogZQXYX7HkmAEa";
-				responseMessage = buildImageMessage(map,MediaId);
-				return responseMessage;
+				Music music = new Music();
+				music.setTitle("黑默丁格");
+				music.setDescription("嗯，非常有趣");
+				music.setMusicurl("http://lol.52pk.com/pifu/sounds/heimodingge/8.mp3");
+				music.setHqmusicurl("http://lol.52pk.com/pifu/sounds/heimodingge/8.mp3");
+				music.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
+				responseMessage = buildMusicMessage(map, music);
 			}else{
 				responseMessage = buildTextMessage(map,"事件KEY值："+key);
 			}
