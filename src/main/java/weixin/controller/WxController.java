@@ -34,16 +34,6 @@ public class WxController{
 	 * @author yangzhene
 	 * @param 
 	 */
-<<<<<<< HEAD:src/main/java/weixin/controller/WxServlet.java
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		System.out.println(request.getRequestURL().toString());
-		System.out.println(request.getQueryString());
-		System.out.println(request.getRemoteAddr());
-		System.out.println(request.getRemoteHost());
-		System.out.println(request.getMethod());
-		System.out.println(request.getProtocol());
-=======
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	public String doGet(@RequestParam(value="signature",required=true) String signature,
 			@RequestParam(value="timestamp",required=true) String timestamp,
@@ -56,7 +46,6 @@ public class WxController{
 //		System.out.println(request.getRemoteHost());
 //		System.out.println(request.getMethod());
 //		System.out.println(request.getProtocol());
->>>>>>> 30d22714e95cebba565442197398c2c1a72dbdeb:src/main/java/weixin/controller/WxController.java
 		Logger log = Logger.getLogger(this.getClass().getName());
 		if(signature==null||signature.length()==0
 				||timestamp==null||timestamp.length()==0
@@ -77,17 +66,9 @@ public class WxController{
 		System.out.println(mySignature);
 
 		if(mySignature!=null&&mySignature!=""&&mySignature.equals(signature)){ 
-<<<<<<< HEAD:src/main/java/weixin/controller/WxServlet.java
-			System.out.println("success!");
-			log.log(Level.INFO, "check out success");
-			System.out.println(echostr);
-			response.getWriter().write(echostr);
-			response.getWriter().flush();
-=======
 //			System.out.println("success!");
 			log.log(Level.INFO, "check out success");;
 			return (echostr);
->>>>>>> 30d22714e95cebba565442197398c2c1a72dbdeb:src/main/java/weixin/controller/WxController.java
 		}else{
 			System.out.println("failed!");
 		}
