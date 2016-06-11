@@ -34,7 +34,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="D:/software/library/repository/net/minidev/json-smart/2.1.1/json-smart-2.1.1.jar"/>
-	<classpathentry kind="lib" path="D:/software/library/repository/net/minidev/asm/1.0.2/asm-1.0.2.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
