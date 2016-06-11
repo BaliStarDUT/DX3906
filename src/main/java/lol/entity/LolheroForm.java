@@ -17,7 +17,7 @@ public class LolheroForm implements Serializable {
 //	private static final long serialVersionUID = 1L;
 
 //	@Id
-//	private int id;
+	private long id;
 
 //	@Lob
 //	private byte[] headpic;
@@ -49,16 +49,27 @@ public class LolheroForm implements Serializable {
 	
 	private String type;
 
-//	public Lolhero() {
-//	}
-//
-//	public int getId() {
-//		return this.id;
-//	}
-//
-//	public void setId(int id) {
-//		this.id = id;
-//	}
+	public LolheroForm() {
+	}
+
+	public LolheroForm(long long1, String string, String string2) {
+		this.id=long1;
+		this.nameCn=string;
+		this.nameEn=string2;
+	}
+
+	@Override
+	public String toString() {
+		return "LolheroForm [id=" + id + ", nameCn=" + nameCn + ", nameEn=" + nameEn + "]";
+	}
+
+	public long getId() {
+		return this.id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 //
 //	public byte[] getHeadpic() {
 //		return this.headpic;
