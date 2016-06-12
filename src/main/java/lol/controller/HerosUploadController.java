@@ -21,10 +21,10 @@ import lol.entity.LolheroForm;
  */
 @Controller
 public class HerosUploadController extends WebMvcConfigurerAdapter{
-	@Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/result").setViewName("result");
-    }
+//	@Override
+//    public void addViewControllers(ViewControllerRegistry registry) {
+//        registry.addViewController("/result").setViewName("result");
+//    }
 	@RequestMapping("/")
     public String index() {
         return "Greetings from Spring Boot!";
