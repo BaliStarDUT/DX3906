@@ -170,6 +170,7 @@ public class MessageHandlerUtil {
 			music4.setHqmusicurl("http://lol.52pk.com/pifu/sounds/Ezreal.mp3");
 			music4.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
 			responseMessage = buildMusicMessage(map, music4);
+			break;
 		case "费德提克":
 			Music music5 = new Music();
 			music5.setTitle("费德提克");

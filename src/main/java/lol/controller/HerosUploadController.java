@@ -3,6 +3,7 @@ package lol.controller;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,17 +30,18 @@ public class HerosUploadController extends WebMvcConfigurerAdapter{
         return "Greetings from Spring Boot!";
     }
     @RequestMapping(value="/lolheros", method=RequestMethod.GET)
-    public String showForm(LolheroForm lolheroForm) {
+    public String showForm(Model model) {
+    	model.addAttribute("lolheroForm",new LolheroForm());
         return "form";
     }
 
     @RequestMapping(value="/lolheros", method=RequestMethod.POST)
-    public String checkHeroInfo(@Valid LolheroForm lolheroForm, BindingResult bindingResult) {
+    public String checkHeroInfo(@Valid LolheroForm lolheroForm, BindingResult bindingResult,Model model) {
 
         if (bindingResult.hasErrors()) {
             return "form";
         }
-
+        model.addAttribute("lolheroForm",lolheroForm);
         return "redirect:/result";
     }
 }

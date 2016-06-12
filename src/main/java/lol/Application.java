@@ -35,8 +35,8 @@ public class Application implements CommandLineRunner{
 //	        }
 	        
 	    }
-	 @Autowired
-	 JdbcTemplate jdbcTemplate;
+	@Autowired
+	JdbcTemplate jdbcTemplate;
 	@Override
 	public void run(String... arg0) throws Exception {
 		log.info("Creating tables");
