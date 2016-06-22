@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import groovy.lang.Grab;
 import lol.entity.LolheroForm;
 
 /**
@@ -22,6 +23,7 @@ import lol.entity.LolheroForm;
  * @since
  */
 @SpringBootApplication
+@Grab("org.webjars:jquery:2.0.3-1") 
 public class Application implements CommandLineRunner{
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
 	

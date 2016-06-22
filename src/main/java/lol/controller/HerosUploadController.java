@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import groovy.lang.Grab;
 import lol.entity.LolheroForm;
 
 /**
@@ -19,6 +20,7 @@ import lol.entity.LolheroForm;
  * @version 1.0
  * @since
  */
+@Grab("thymeleaf-spring4")
 @Controller
 public class HerosUploadController extends WebMvcConfigurerAdapter{
 //	@Override
