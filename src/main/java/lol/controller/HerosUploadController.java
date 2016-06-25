@@ -29,7 +29,7 @@ public class HerosUploadController extends WebMvcConfigurerAdapter{
 //    }
 	@RequestMapping("/")
     public String index() {
-        return "Greetings from Spring Boot!";
+        return "index";
     }
     @RequestMapping(value="/lolheros", method=RequestMethod.GET)
     public String showForm(Model model) {
