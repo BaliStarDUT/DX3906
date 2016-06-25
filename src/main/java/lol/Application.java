@@ -42,10 +42,10 @@ public class Application implements CommandLineRunner{
 	@Override
 	public void run(String... arg0) throws Exception {
 		log.info("Creating tables");
-		jdbcTemplate.execute("DROP TABLE heros IF EXISTS");
-		jdbcTemplate.execute("CREATE TABLE heros(" +
-                "id SERIAL, nameCn VARCHAR(255), nameEn VARCHAR(255))");
-
+//		jdbcTemplate.execute("DROP TABLE heros IF EXISTS");
+//		jdbcTemplate.execute("CREATE TABLE heros(" +
+//                "id SERIAL, nameCn VARCHAR(255), nameEn VARCHAR(255))");
+//		jdbcTemplate.
         // Split up the array of whole names into an array of first/last names
         List<Object[]> splitUpNames = Arrays.asList("John Woo", "Jeff Dean", "Josh Bloch", "Josh Long").stream()
                 .map(name -> name.split(" "))
