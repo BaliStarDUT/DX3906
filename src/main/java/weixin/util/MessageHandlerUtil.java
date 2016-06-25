@@ -45,11 +45,11 @@ public class MessageHandlerUtil {
 			NodeList nodelist = firstnode.getChildNodes();//document.getChildNodes();
 			for(int i=0;i<nodelist.getLength();i++){
 				Node node = nodelist.item(i);
-				if(node.getTextContent().trim().equals("")){
+				if(node.getNodeValue().trim().equals("")){
 					continue;
 				}
-				log.log(Level.INFO, "node name:"+node.getNodeName()+" node value:"+node.getNodeValue()+" node textcontent:"+node.getTextContent());
-				map.put(node.getNodeName(), node.getTextContent());
+				log.log(Level.INFO, "node name:"+node.getNodeName()+" node value:"+node.getNodeValue()+" node textcontent:"+node.getNodeValue());
+				map.put(node.getNodeName(), node.getNodeValue());
 			}
 		} catch (IOException | ParserConfigurationException | SAXException e) {
 			log.log(Level.INFO, "parse xml error");
