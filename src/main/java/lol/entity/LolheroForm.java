@@ -10,13 +10,14 @@ import javax.validation.constraints.Size;
  * The persistent class for the lolheros database table.
  * 
  */
-//@Entity
-//@Table(name="lolheros")
+@Entity
+@Table(name="heros")
 //@NamedQuery(name="Lolhero.findAll", query="SELECT l FROM Lolhero l")
 public class LolheroForm implements Serializable {
 //	private static final long serialVersionUID = 1L;
 
-//	@Id
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
 //	@Lob
@@ -25,12 +26,12 @@ public class LolheroForm implements Serializable {
 //	@Column(name="headpic_url")
 //	private String headpicUrl;
 
-//	@Column(name="name_cn")
+	@Column(name="NAMECN")
 	@NotNull
 	@Size(min=2, max=30,message="字符长度必须在2到30之间")
 	private String nameCn;
 
-//	@Column(name="name_en")
+	@Column(name="NAMEEN")
 	@NotNull
 	@Size(min=2, max=30,message="字符长度必须在2到30之间")
 	private String nameEn;

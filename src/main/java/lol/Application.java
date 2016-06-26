@@ -55,13 +55,13 @@ public class Application implements CommandLineRunner{
         splitUpNames.forEach(name -> log.info(String.format("Inserting heros record for %s %s", name[0], name[1])));
 
         // Uses JdbcTemplate's batchUpdate operation to bulk load data
-        jdbcTemplate.batchUpdate("INSERT INTO heros(nameCn, nameEn) VALUES (?,?)", splitUpNames);
-
-        log.info("Querying for hero records where nameCn = 'Josh':");
-        jdbcTemplate.query(
-                "SELECT id, nameCn, nameEn FROM heros WHERE nameCn = ?", new Object[] { "Josh" },
-                (rs, rowNum) -> new LolheroForm(rs.getLong("id"), rs.getString("nameCn"), rs.getString("nameEn"))
-        ).forEach(customer -> log.info(customer.toString()));
+//        jdbcTemplate.batchUpdate("INSERT INTO heros(nameCn, nameEn) VALUES (?,?)", splitUpNames);
+//
+//        log.info("Querying for hero records where nameCn = 'Josh':");
+//        jdbcTemplate.query(
+//                "SELECT id, nameCn, nameEn FROM heros WHERE nameCn = ?", new Object[] { "Josh" },
+//                (rs, rowNum) -> new LolheroForm(rs.getLong("id"), rs.getString("nameCn"), rs.getString("nameEn"))
+//        ).forEach(customer -> log.info(customer.toString()));
 		
 	}
 }
