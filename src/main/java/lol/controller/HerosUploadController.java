@@ -25,13 +25,8 @@ import lol.entity.LolheroForm;
  * @version 1.0
  * @since
  */
-@Grab("thymeleaf-spring4")
 @Controller
-public class HerosUploadController extends WebMvcConfigurerAdapter{
-//	@Override
-//    public void addViewControllers(ViewControllerRegistry registry) {
-//        registry.addViewController("/result").setViewName("result");
-//    }
+public class HerosUploadController{
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	private static final Logger log = LoggerFactory.getLogger(HerosUploadController.class);
@@ -47,18 +42,9 @@ public class HerosUploadController extends WebMvcConfigurerAdapter{
 
     @RequestMapping(value="/lolheros", method=RequestMethod.POST)
     public String checkHeroInfo(@Valid LolheroForm lolheroForm, BindingResult bindingResult,Model model) {
-
         if (bindingResult.hasErrors()) {
             return "form";
         }
-         //Uses JdbcTemplate's batchUpdate operation to bulk load data
-      jdbcTemplate.update("INSERT INTO heros(nameCn, nameEn,nickname) VALUES (?,?,?)", new Object[]{ lolheroForm.getNameCn(),lolheroForm.getNameEn(),lolheroForm.getNickname()});
-
-//      log.info("Querying for hero records where nameCn = 'Josh':");
-      jdbcTemplate.query(
-              "SELECT * FROM heros", 
-              (rs, rowNum) -> new LolheroForm(rs.getLong("id"), rs.getString("nameCn"), rs.getString("nameEn"))
-      ).forEach(heros -> log.info(heros.toString()));
         model.addAttribute("lolheroForm",lolheroForm);
         return "redirect:/result";
     }
