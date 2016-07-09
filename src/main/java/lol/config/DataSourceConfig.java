@@ -6,8 +6,15 @@ import javax.sql.DataSource;
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
-
-public class DataSourceConfig {
+import org.springframework.stereotype.Component;
+@Component(value="dataSource")
+public class DataSourceConfig extends BasicDataSource{
+	public DataSourceConfig(){
+		this.setDriverClassName("org.h2.Driver");
+		this.setUrl("jdbc:h2:tcp://localhost/~/test");
+		this.setUsername("sa");
+		this.setPassword("");
+	}
 	DataSource datasource ;
 	BasicDataSource basicDataSource;
 	
@@ -24,9 +31,9 @@ public class DataSourceConfig {
 	}
 
 	public void setBasicDataSource(BasicDataSource basicDataSource) {
-		basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		basicDataSource.setUrl("");
-		basicDataSource.setUsername("");
+		basicDataSource.setDriverClassName("org.h2.Driver");
+		basicDataSource.setUrl("jdbc:h2:tcp://localhost/~/test");
+		basicDataSource.setUsername("sa");
 		basicDataSource.setPassword("");
 		try {
 			basicDataSource.getConnection();
