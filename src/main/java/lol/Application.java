@@ -28,11 +28,9 @@ import lol.entity.LolheroForm;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
-public class Application{
+public class Application {
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
-	
 	 public static void main(String[] args) throws Exception {
 	        ApplicationContext ctx =  SpringApplication.run(Application.class, args);
-	        
 	    }
 }

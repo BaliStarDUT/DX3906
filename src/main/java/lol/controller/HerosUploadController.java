@@ -1,5 +1,9 @@
 package lol.controller;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -48,4 +52,28 @@ public class HerosUploadController{
         model.addAttribute("lolheroForm",lolheroForm);
         return "redirect:/result";
     }
+    @RequestMapping(value="/jdbc", method=RequestMethod.GET)
+    public String checkHeroInfo(Model model) {
+    	log.info("Creating tables");
+//    	jdbcTemplate.execute("DROP TABLE heros IF EXISTS");
+//    	jdbcTemplate.execute("CREATE TABLE heros(" +
+//    	              "id SERIAL, nameCn VARCHAR(255), nameEn VARCHAR(255))");
+    	       // Split up the array of whole names into an array of first/last names
+    	       List<Object[]> splitUpNames = Arrays.asList("John Woo", "Jeff Dean", "Josh Bloch", "Josh Long").stream()
+    	               .map(name -> name.split(" "))
+    	               .collect(Collectors.toList());
+    	        // Use a Java 8 stream to print out each tuple of the list
+    	       splitUpNames.forEach(name -> log.info(String.format("Inserting heros record for %s %s", name[0], name[1])));
+    	       // Uses JdbcTemplate's batchUpdate operation to bulk load data
+    	       jdbcTemplate.batchUpdate("INSERT INTO heros(nameCn, nameEn) VALUES (?,?)", splitUpNames);
+    	
+    	       log.info("Querying for hero records where nameCn = 'Josh':");
+    	       jdbcTemplate.query(
+    	               "SELECT id, nameCn, nameEn FROM heros WHERE nameCn = ?", new Object[] { "Josh" },
+    	               (rs, rowNum) -> new LolheroForm(rs.getLong("id"), rs.getString("nameCn"), rs.getString("nameEn"))
+    	        ).forEach(customer -> log.info(customer.toString()));
+        model.addAttribute("lolheroForm","");
+        return "redirect:/result";
+    }
+    
 }
