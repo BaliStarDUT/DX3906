@@ -7,7 +7,7 @@ import javax.sql.DataSource;
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Component;
-@Component(value="dataSource")
+//@Component(value="dataSource")
 public class DataSourceConfig extends BasicDataSource{
 	public DataSourceConfig(){
 		this.setDriverClassName("org.h2.Driver");
