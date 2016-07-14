@@ -20,16 +20,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+        	.headers().disable()
             .authorizeRequests()
-                .antMatchers("/", "/index").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/").hasRole("USER")
                 .and()
             .formLogin()
-                .loginPage("/form")
-                .permitAll()
-                .and()
-            .logout()
-                .permitAll();
+            	.permitAll()
+            	.and()
+            .sessionManagement()
+            	.maximumSessions(1)
+            	.expiredUrl("/login?expired");
     }
 
     @Autowired
