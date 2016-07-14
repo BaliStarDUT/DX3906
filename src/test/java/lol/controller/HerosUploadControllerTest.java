@@ -29,7 +29,7 @@ public class HerosUploadControllerTest {
 	private MockMvc mvc;
 	@Before
 	public void setUp() throws Exception{
-		mvc = MockMvcBuilders.standaloneSetup(new HerosUploadController()).build();
+//		mvc = MockMvcBuilders.standaloneSetup(new HerosUploadController()).build();
 	}
 	@Test
 	public void getHeros() throws Exception{

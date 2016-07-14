@@ -1,46 +1,29 @@
 package lol.config;
 
-import java.sql.SQLException;
-
 import javax.sql.DataSource;
 
-import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
-import org.springframework.stereotype.Component;
-@Component(value="dataSource")
-public class DataSourceConfig extends BasicDataSource{
-	public DataSourceConfig(){
-		this.setDriverClassName("org.h2.Driver");
-		this.setUrl("jdbc:h2:tcp://localhost/~/test");
-		this.setUsername("sa");
-		this.setPassword("");
-	}
-	DataSource datasource ;
-	BasicDataSource basicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Description;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+@Configuration
+@PropertySource("classpath:spring/data-access.properties")
+public class DataSourceConfig {
+	@Autowired
+	private Environment env;
 	
-	public DataSource getDatasource() {
-		return datasource;
-	}
-
-	public void setDatasource(DataSource datasource) {
-		this.datasource = datasource;
-	}
-
-	public BasicDataSource getBasicDataSource() {
-		return basicDataSource;
-	}
-
-	public void setBasicDataSource(BasicDataSource basicDataSource) {
-		basicDataSource.setDriverClassName("org.h2.Driver");
-		basicDataSource.setUrl("jdbc:h2:tcp://localhost/~/test");
-		basicDataSource.setUsername("sa");
-		basicDataSource.setPassword("");
-		try {
-			basicDataSource.getConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.basicDataSource = basicDataSource;
+	@Bean(name="dataSource")
+	@Description("DataSource configuration for the tomcat jdbc connection pool")
+	public DataSource dataSource(){
+		// See here for more details on commons-dbcp versus tomcat-jdbc:
+		// http://blog.ippon.fr/2013/03/13/improving-the-performance-of-the-spring-petclinic-sample-application-part-3-of-5/-->
+		org.apache.tomcat.jdbc.pool.DataSource dataSource = new org.apache.tomcat.jdbc.pool.DataSource();
+		dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
+		dataSource.setUrl(env.getProperty("jdbc.url"));
+		dataSource.setUsername(env.getProperty("jdbc.username"));
+		dataSource.setPassword(env.getProperty("jdbc.password"));
+		return dataSource;
 	}
 }
