@@ -8,6 +8,23 @@
 </head>
 <body>
 	<div class="container theme-showcase" role="main">
+	<div class="masthean">
+		<h3 class="muted">LoL heros</h3>
+		<div class="navbar">
+          <div class="navbar-inner">
+            <div class="container">
+              <ul class="nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="lolheros/new">Update Heros</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Downloads</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+	</div>
 	<div class="jumbotron">
 		<h1>League of Legend</h1>
 		<p>this is a templae showcasing the optional theme stylessheet included in bootstrap.Use it as starting point to 
@@ -32,9 +49,25 @@
 	<div class="col-md-2">
 		<img src="./resources/image/champions/Yorick_Square_0.png" alt="pic notfound"/>
 	</div>
-	<div class="col-md-2">
-		<img src="./resources/image/champions/Annie_Square_0.png" alt="pic notfound"/>
+	<!--  <div class="col-md-2">
+		<img src="http://localhost/web/lol/Air/assets/images/champions/Aatrox_0.jpg" alt="pic notfound"/>
 	</div>
+	<div th:each="path: ${paths}">
+			<a th:text="${path}"></a>
+	</div>
+	<div class="col-md-2" th:each="file: ${files}">
+			<a th:text="${file}"></a>
+			<img alt="pic notfound" th:attr="src=${file}"/>
+	</div>-->
+	</div>
+	<hr></hr>
+	
+	<div>
+		<ul>
+			<li th:each="file : ${files}">
+				<a th:text="${file}" />
+			</li>
+		</ul>
 	</div>
 </body>
 </html>

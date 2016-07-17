@@ -1,18 +1,32 @@
 package lol.dao;
 
 import java.util.Collection;
-import java.util.List;
-
-import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import lol.entity.Lolhero;
 
+/**
+ * Repository class for <code>Heros</code> domain objects All method names are compliant with Spring Data naming
+ * conventions so this interface can easily be extended for Spring Data See here: http://static.springsource.org/spring-data/jpa/docs/current/reference/html/jpa.repositories.html#jpa.query-methods.query-creation
+ * @author root
+ *
+ */
 public interface HerosRepository{
+	/**
+	 * 
+	 * @param type
+	 * @return
+	 */
 	Collection<Lolhero> findByType(String type);
 	Lolhero findById(int id);
+	/**
+	 * Retrieve all <code>Hero</code>s from the data store.
+     * @return a <code>Collection</code> of <code>Hero</code>s
+	 */
 	Collection<Lolhero> findAll();
+	/**
+     * Save an <code>Hero</code> to the data store, either inserting or updating it.
+	 * @param hero
+	 */
 	void save(Lolhero hero);
 }
 //@RepositoryRestResource(collectionResourceRel="heros",path="heros")

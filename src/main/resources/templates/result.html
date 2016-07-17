@@ -1,13 +1,23 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Handling Form Submission</title>
+    <title>Result</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1>Result</h1>
-    <p th:text="'Hero's Nick Name: ' + ${lolheroForm.nickname}" />
-    <p th:text="'Hero's CN Name: ' + ${lolheroForm.nameCn}" />
-    <a href="/lolheros">Submit another message</a>
+	<h1 th:text="${msg}" ></h1>
+	<div>
+		<ul>
+			<li th:each="hero : ${herosList}">
+				<p th:text="${hero.nameCn}" />
+				<p th:text="${hero.nameEn}" />
+				<p th:text="${hero.nickname}" />
+				<p th:text="${hero.type}" />
+				<p th:text="${hero.story}" />
+				<p th:text="${hero.headpicUrl}" />
+			</li>
+		</ul>
+	</div>
+   
 </body>
 </html>

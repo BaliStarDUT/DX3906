@@ -2,7 +2,10 @@ package lol.controller;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -24,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lol.entity.Lolhero;
 import lol.entity.LolheroForm;
+import lol.entity.model.Lolheros;
 import lol.service.HerosService;
 
 /**
@@ -36,35 +40,67 @@ import lol.service.HerosService;
 @Controller
 public class HerosUploadController{
 	private static final Logger log = LoggerFactory.getLogger(HerosUploadController.class);
-	public static final String ROOT = "upload-dir";
+	//资源文件的保存目录
+	public static final String ROOT = "/home/james/Videos/web/lol/Air/assets/images/champions/";
 	private HerosService herosService;
 	@Autowired
 	public void setHerosService(HerosService herosService) {
 		this.herosService = herosService;
 	}
+	//关于系统文件的获取需要用到ResourceLoader
+	private ResourceLoader resourceLoader;
 	@Autowired
 	public void setResourceLoader(ResourceLoader resourceLoader) {
 		this.resourceLoader = resourceLoader;
 	}
-	private ResourceLoader resourceLoader;
-
+	/**
+	 * 首页显示欢迎信息
+	 * @param model
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping("/")
-    public String index() {
+    public String index(Model model) throws IOException {
+		List<Path> pathList = Files.walk(Paths.get(ROOT)).collect(Collectors.toList());
+//		List<Path> fileNameList = new ArrayList();
+//		for(Path path:pathList){
+//			fileNameList.add(path.getFileName());
+//		}
+//		pathList.get(0).
+		model.addAttribute("files", pathList);
+//		model.addAttribute("paths", pathList);
         return "index";
     }
 	
-    @RequestMapping(value="/lolheros", method=RequestMethod.GET)
-    public String showForm(Model model) {
-//    	model.addAttribute("files", Files.
-//    			.walk(Paths.get(ROOT))
-//    			.filter(path -> !path.equals(Paths.get(ROOT)))
-//				.map(path -> Paths.get(ROOT).relativize(path))
-//				.map(path -> linkTo(methodOn(HerosUploadController.class).getFile(path.toString())).withRel(path.toString()))
-//				.collect(Collectors.toList()));
+    @RequestMapping(value="/lolheros/new", method=RequestMethod.GET)
+    public String showNewHeroForm(Model model) {
     	model.addAttribute("lolheroForm",new LolheroForm());
         return "form";
     }
-    @RequestMapping(method = RequestMethod.POST, value = "/upload")
+    @RequestMapping(value="/lolheros/new", method=RequestMethod.POST)
+    public String saveHeroInfo(@Valid LolheroForm lolheroForm, 
+    		BindingResult bindingResult,Model model) {
+        if (bindingResult.hasErrors()) {
+            return "form";
+        }else{
+        	Lolhero hero = new Lolhero(lolheroForm.getNameCn(),lolheroForm.getNameEn() ,
+        			lolheroForm.getNickname(),lolheroForm.getStory(),lolheroForm.getType()) ;
+        	this.herosService.saveHero(hero);
+        }
+        List<Lolhero> herosList = (List<Lolhero>) this.herosService.findHeros();
+        model.addAttribute("herosList",herosList);
+        model.addAttribute("msg","获取成功");
+        return "result";
+    }
+    @RequestMapping(value = { "/lolheros/heros.json", "/lolheros/heros.xml"})
+    public @ResponseBody  Lolheros showResourcesVetList() {
+        // Here we are returning an object of type 'Lolheros' rather than a collection of Lolhero objects
+        // so it is simpler for JSon/Object mapping
+    	Lolheros lolheros = new Lolheros();
+    	lolheros.getLolheros().addAll(this.herosService.findHeros());
+        return lolheros;
+    }
+    @RequestMapping(value = "/upload",method = RequestMethod.POST)
 	public String handleFileUpload(@RequestParam("heroheadpic") MultipartFile file,
 								   RedirectAttributes redirectAttributes) {
 
@@ -82,22 +118,15 @@ public class HerosUploadController{
 
 		return "redirect:/";
 	}
-    @RequestMapping(value="/lolheros", method=RequestMethod.POST)
-    public String checkHeroInfo(@Valid LolheroForm lolheroForm, BindingResult bindingResult,Model model) {
-        if (bindingResult.hasErrors()) {
-            return "form";
-        }else{
-        	Lolhero hero = new Lolhero(lolheroForm.getNameCn(),lolheroForm.getNameEn() ,
-        			lolheroForm.getNickname(),lolheroForm.getStory(),lolheroForm.getType()) ;
-        	this.herosService.saveHero(hero);
-        }
-        model.addAttribute("lolheroForm",lolheroForm);
-        return "result";
-    }
-    @RequestMapping(method = RequestMethod.GET, value = "/{filename:.+}")
+   
+    /**
+     * 用于获取ROOT目录下的文件资源
+     * @param filename
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/image/{filename:.+}")
 	@ResponseBody
 	public ResponseEntity<?> getFile(@PathVariable String filename) {
-
 		try {
 			return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(ROOT, filename).toString()));
 		} catch (Exception e) {

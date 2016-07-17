@@ -1,6 +1,11 @@
 package lol.controller;
 
-import static org.junit.Assert.*;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
 
@@ -27,6 +32,19 @@ public class ControllerTest {
 		System.out.println(object.get("hello"));
 		DataSource source = jdbcTemplate.getDataSource();
 //		source.
+	}
+	@Test
+	public void testFileTree(){
+		final String ROOT = "/media/james/home/yangz/code/hello-world/";
+		try {
+			List<Path> pathList = Files.walk(Paths.get(ROOT)).collect(Collectors.toList());
+			for(Path path:pathList){
+				System.out.println(path.toUri());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
