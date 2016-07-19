@@ -1,9 +1,11 @@
 package weixin.controller;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
@@ -12,9 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
-import net.minidev.json.parser.ParseException;
+import org.springframework.boot.json.JacksonJsonParser;
+
 import weixin.entity.AccessToken;
 import weixin.entity.AccessTokenInfo;
 import weixin.util.NetWorkHelper;
@@ -100,17 +101,11 @@ public class AccessTokenServlet extends HttpServlet {
 		String url = String.format("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s", appid,appsecret);
 		String result = netHelper.getHttpsResponse(url, "GET");
 		log.log(Level.INFO, "get response:"+result);
-		JSONObject json = null;
-		try {
-			json = (JSONObject)new  JSONParser(JSONParser.MODE_JSON_SIMPLE).parse(result);
-		} catch (ParseException e) {
-			log.log(Level.WARNING, "JSON parse failed!");
-			e.printStackTrace();
-			return null;
-		}
+		JacksonJsonParser parser = new JacksonJsonParser();
+		Map<String ,Object> jsonMap = parser.parseMap(result);
 		AccessToken token = new AccessToken();
-		token.setAccessToken((String) json.get("access_token"));
-		token.setExpiresin((long) json.get("expires_in"));
+		token.setAccessToken((String) jsonMap.get("access_token"));
+		token.setExpiresin((int) jsonMap.get("expires_in"));
 		return token;
 	}
 }
