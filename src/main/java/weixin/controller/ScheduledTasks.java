@@ -3,7 +3,8 @@ package weixin.controller;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import net.minidev.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
+
 import weixin.entity.AccessTokenInfo;
 
 @Component
