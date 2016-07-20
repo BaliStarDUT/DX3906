@@ -1,8 +1,11 @@
 package lol.config;
 
 import java.util.List;
+import java.util.Properties;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Description;
 import org.springframework.http.MediaType;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
@@ -10,9 +13,15 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.resource.VersionResourceResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 /**
  *
@@ -29,23 +38,25 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
 		configurer.ignoreAcceptHeader(true)
 		.defaultContentType(MediaType.TEXT_HTML);
-//		configurer.mediaType("html", MediaType.TEXT_HTML);
-//		configurer.mediaType("xml", MediaType.APPLICATION_XML);
+		configurer.mediaType("html", MediaType.TEXT_HTML);
+		configurer.mediaType("xml", MediaType.APPLICATION_XML);
 	}
-	
+	/**
+	 * 配置自定义的视图解析器，能够解析Thymeleaf格式的html文件
+	 */
 	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resources/**")
-		.addResourceLocations("classpath:/assets/").setCachePeriod(31556926)
-		.resourceChain(true).addResolver(
-				new VersionResourceResolver().addContentVersionStrategy("/**"));
-	}
-	
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("index");
-		registry.addViewController("/form").setViewName("form");
-
+	public void configureViewResolvers(ViewResolverRegistry registry) {
+		InternalResourceViewResolver bean = new InternalResourceViewResolver();
+		bean.setViewClass(ThymeleafViewResolver.class);
+		bean.setOrder(1);
+		Properties pro = new Properties();
+		pro.put("templateEngine", getTemplateEngine());
+		bean.setAttributes(pro);
+//		bean.setViewNames("*.html");
+//		bean.setPrefix("/WEB-INF/jsp/");
+//		bean.setSuffix(".jsp");
+		registry.viewResolver(bean);
+		super.configureViewResolvers(registry);
 	}
 
 	/* (non-Javadoc)
@@ -68,5 +79,36 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 		exceptionResolver.setWarnLogCategory("warn");
 		exceptionResolvers.add(exceptionResolver);
 	}
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**")
+		.addResourceLocations("classpath:/assets/").setCachePeriod(31556926)
+		.resourceChain(true).addResolver(
+				new VersionResourceResolver().addContentVersionStrategy("/**"));
+	}
 	
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/").setViewName("index");
+		registry.addViewController("/form").setViewName("form");
+
+	}
+	
+	@Bean(name="templateEngine")
+	@Description("org.thymeleaf.spring4.SpringTemplateEngine:"
+			+ "http://www.thymeleaf.org/doc/tutorials/2.1/thymeleafspring.html#integrating-thymeleaf-with-spring")
+	public SpringTemplateEngine getTemplateEngine(){
+		SpringTemplateEngine template = new SpringTemplateEngine();
+		template.setTemplateResolver(getTemplateResolver());
+		return template;
+	}
+	@Bean
+	@Description("org.thymeleaf.templateresolver.ServletContextTemplateResolver")
+	public ServletContextTemplateResolver getTemplateResolver(){
+		ServletContextTemplateResolver resolver = new ServletContextTemplateResolver();
+		resolver.setPrefix("/WEB-INF/templates/");
+		resolver.setSuffix(".html");
+		resolver.setTemplateMode("HTML5");
+		return resolver;
+	}
 }

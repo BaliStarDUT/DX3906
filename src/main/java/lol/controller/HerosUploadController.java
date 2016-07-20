@@ -48,26 +48,26 @@ public class HerosUploadController{
 		this.herosService = herosService;
 	}
 	//关于系统文件的获取需要用到ResourceLoader
-	private ResourceLoader resourceLoader;
-	@Autowired
-	public void setResourceLoader(ResourceLoader resourceLoader) {
-		this.resourceLoader = resourceLoader;
-	}
+//	private ResourceLoader resourceLoader;
+//	@Autowired
+//	public void setResourceLoader(ResourceLoader resourceLoader) {
+//		this.resourceLoader = resourceLoader;
+//	}
 	/**
 	 * 首页显示欢迎信息
 	 * @param model
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping("/")
+//	@RequestMapping("/")
     public String index(Model model) throws IOException {
-		List<Path> pathList = Files.walk(Paths.get(ROOT)).collect(Collectors.toList());
+//		List<Path> pathList = Files.walk(Paths.get(ROOT)).collect(Collectors.toList());
 //		List<Path> fileNameList = new ArrayList();
 //		for(Path path:pathList){
 //			fileNameList.add(path.getFileName());
 //		}
 //		pathList.get(0).
-		model.addAttribute("files", pathList);
+//		model.addAttribute("files", pathList);
 //		model.addAttribute("paths", pathList);
         return "index";
     }
@@ -127,11 +127,11 @@ public class HerosUploadController{
     @RequestMapping(method = RequestMethod.GET, value = "/image/{filename:.+}")
 	@ResponseBody
 	public ResponseEntity<?> getFile(@PathVariable String filename) {
-		try {
-			return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(ROOT, filename).toString()));
-		} catch (Exception e) {
+//		try {
+//			return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(ROOT, filename).toString()));
+//		} catch (Exception e) {
 			return ResponseEntity.notFound().build();
-		}
+//		}
 	}
     @RequestMapping(value="/jdbc", method=RequestMethod.GET)
     public String checkHeroInfo(Model model) {
