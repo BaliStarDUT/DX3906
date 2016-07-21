@@ -14,7 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @since
  */
 @SpringBootApplication
-@ComponentScan//(basePackages="lol") //lol,weixin
+@ComponentScan(basePackages="lol,weixin") //lol,weixin
 public class Application {
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
 	 public static void main(String[] args) throws Exception {

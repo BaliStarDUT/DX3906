@@ -47,11 +47,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 		InternalResourceViewResolver bean = new InternalResourceViewResolver();
-		bean.setViewClass(ThymeleafViewResolver.class);
-		bean.setOrder(1);
-		Properties pro = new Properties();
-		pro.put("templateEngine", getTemplateEngine());
-		bean.setAttributes(pro);
+//		bean.setViewClass(ThymeleafViewResolver.class);
+//		bean.setOrder(1);
+//		Properties pro = new Properties();
+//		pro.put("templateEngine", getTemplateEngine());
+//		bean.setAttributes(pro);
 //		bean.setViewNames("*.html");
 //		bean.setPrefix("/WEB-INF/jsp/");
 //		bean.setSuffix(".jsp");
@@ -89,26 +89,26 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("index");
+//		registry.addViewController("/").setViewName("index");
 		registry.addViewController("/form").setViewName("form");
 
 	}
 	
-	@Bean(name="templateEngine")
-	@Description("org.thymeleaf.spring4.SpringTemplateEngine:"
-			+ "http://www.thymeleaf.org/doc/tutorials/2.1/thymeleafspring.html#integrating-thymeleaf-with-spring")
-	public SpringTemplateEngine getTemplateEngine(){
-		SpringTemplateEngine template = new SpringTemplateEngine();
-		template.setTemplateResolver(getTemplateResolver());
-		return template;
-	}
-	@Bean
-	@Description("org.thymeleaf.templateresolver.ServletContextTemplateResolver")
-	public ServletContextTemplateResolver getTemplateResolver(){
-		ServletContextTemplateResolver resolver = new ServletContextTemplateResolver();
-		resolver.setPrefix("/WEB-INF/templates/");
-		resolver.setSuffix(".html");
-		resolver.setTemplateMode("HTML5");
-		return resolver;
-	}
+//	@Bean(name="templateEngine")
+//	@Description("org.thymeleaf.spring4.SpringTemplateEngine:"
+//			+ "http://www.thymeleaf.org/doc/tutorials/2.1/thymeleafspring.html#integrating-thymeleaf-with-spring")
+//	public SpringTemplateEngine getTemplateEngine(){
+//		SpringTemplateEngine template = new SpringTemplateEngine();
+//		template.setTemplateResolver(getTemplateResolver());
+//		return template;
+//	}
+//	@Bean
+//	@Description("org.thymeleaf.templateresolver.ServletContextTemplateResolver")
+//	public ServletContextTemplateResolver getTemplateResolver(){
+//		ServletContextTemplateResolver resolver = new ServletContextTemplateResolver();
+//		resolver.setPrefix("/WEB-INF/templates/");
+//		resolver.setSuffix(".html");
+//		resolver.setTemplateMode("HTML5");
+//		return resolver;
+//	}
 }

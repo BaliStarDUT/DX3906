@@ -1,3 +1,4 @@
+CREATE INDEX nicknameIndex ON lolheros (nickname);
 DROP TABLE lolheros IF EXISTS; 
 CREATE TABLE lolheros(
   id         INTEGER IDENTITY PRIMARY KEY,
