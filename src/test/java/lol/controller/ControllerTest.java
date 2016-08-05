@@ -11,6 +11,8 @@ import javax.sql.DataSource;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import net.minidev.json.JSONObject;
@@ -45,6 +47,13 @@ public class ControllerTest {
 			e.printStackTrace();
 		}
 
+	}
+	@SuppressWarnings("resource")
+	@Test
+	public void testMessage(){
+		MessageSource source = new ClassPathXmlApplicationContext("/lol/controller/beans.xml");
+		String message = source.getMessage("message", null, "Default",null);
+		System.out.println(message);
 	}
 
 }

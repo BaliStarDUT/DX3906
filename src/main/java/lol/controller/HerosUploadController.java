@@ -41,18 +41,18 @@ import lol.service.HerosService;
 public class HerosUploadController{
 	private static final Logger log = LoggerFactory.getLogger(HerosUploadController.class);
 	//资源文件的保存目录
-	public static final String ROOT = "/home/james/Videos/web/lol/Air/assets/images/champions/";
+	public static final String ROOT = "E:\\mycode\\DX3906\\src\\main\\resources\\assets";
 	private HerosService herosService;
 	@Autowired
 	public void setHerosService(HerosService herosService) {
 		this.herosService = herosService;
 	}
 	//关于系统文件的获取需要用到ResourceLoader
-//	private ResourceLoader resourceLoader;
-//	@Autowired
-//	public void setResourceLoader(ResourceLoader resourceLoader) {
-//		this.resourceLoader = resourceLoader;
-//	}
+	private final ResourceLoader resourceLoader;
+	@Autowired
+	public HerosUploadController(ResourceLoader resourceLoader) {
+		this.resourceLoader = resourceLoader;
+	}
 	/**
 	 * 首页显示欢迎信息
 	 * @param model
@@ -77,15 +77,33 @@ public class HerosUploadController{
     	model.addAttribute("lolheroForm",new LolheroForm());
         return "form";
     }
+    
     @RequestMapping(value="/lolheros/new", method=RequestMethod.POST)
     public String saveHeroInfo(@Valid LolheroForm lolheroForm, 
+    		@RequestParam(value = "heroheadpic",required = true) MultipartFile picFile,
+    		@RequestParam(value = "herosound",required = true) MultipartFile soundFile,
     		BindingResult bindingResult,Model model) {
         if (bindingResult.hasErrors()) {
             return "form";
         }else{
+        	if (!picFile.isEmpty()&&!soundFile.isEmpty()) {
+    			try {
+    				Files.copy(picFile.getInputStream(), Paths.get(ROOT, picFile.getOriginalFilename()));
+    				log.debug("message",
+    						"You successfully uploaded " + picFile.getOriginalFilename() + "!");
+    				Files.copy(soundFile.getInputStream(), Paths.get(ROOT, soundFile.getOriginalFilename()));
+    				log.debug("message",
+    						"You successfully uploaded " + soundFile.getOriginalFilename() + "!");
+    			} catch (IOException|RuntimeException e) {
+    				log.debug("message", "Failued to upload " + soundFile.getOriginalFilename() + " => " + e.getMessage());
+    			}
+    		} else {
+    			log.debug("message", "Failed to upload " + soundFile.getOriginalFilename() + " because it was empty");
+    		}
         	Lolhero hero = new Lolhero(lolheroForm.getNameCn(),lolheroForm.getNameEn() ,
         			lolheroForm.getNickname(),lolheroForm.getStory(),lolheroForm.getType()) ;
         	this.herosService.saveHero(hero);
+        	
         }
         List<Lolhero> herosList = (List<Lolhero>) this.herosService.findHeros();
         model.addAttribute("herosList",herosList);
