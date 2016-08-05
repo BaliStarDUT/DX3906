@@ -10,10 +10,20 @@
             class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basenames">
             <list>
-                <value>/lol/controller/format</value>
-                <value>/lol/controller/exceptions</value>
-                <value>/lol/controller/windows</value>
+                <value>lol/controller/format</value>
+                <value>lol/controller/exceptions</value>
+                <value>lol/controller/windows</value>
             </list>
         </property>
+    </bean>
+    
+     <!-- this MessageSource is being used in a web application 
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="lol/controller/exceptions"/>
+    </bean>-->
+
+    <!-- lets inject the above MessageSource into this POJO -->
+    <bean id="example" class="lol.controller.Example">
+        <property name="messages" ref="messageSource"/>
     </bean>
 </beans>

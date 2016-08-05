@@ -5,12 +5,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -55,5 +57,12 @@ public class ControllerTest {
 		String message = source.getMessage("message", null, "Default",null);
 		System.out.println(message);
 	}
-
+	@SuppressWarnings("resource")
+	@Test
+	public void testMessage2(){
+		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:/lol/controller/beans.xml");
+//		MessageSource source = new ClassPathXmlApplicationContext("/lol/controller/beans.xml");
+		Example example = (Example)context.getBean("example");;
+		example.excute();
+	}
 }

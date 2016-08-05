@@ -12,6 +12,9 @@ import java.nio.charset.Charset;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.alibaba.fastjson.JSONObject;
+import jdk.nashorn.internal.objects.Global;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.PostMethod;
@@ -19,10 +22,6 @@ import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
 import org.apache.commons.httpclient.methods.multipart.StringPart;
-
-import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
-import net.minidev.json.parser.ParseException;
 
 /**
  * 
@@ -49,7 +48,7 @@ public class WeChatApiUtil {
 	 * @param type
 	 * @return
 	 */
-	public static JSONObject uploadMedia(File file,String token,String type){
+	public static JSONObject uploadMedia(File file, String token, String type){
 		if(file == null||token==null||type==null){
 			return null;
 		}
@@ -76,18 +75,13 @@ public class WeChatApiUtil {
 			int status = httpClient.executeMethod(post);
 			if(status==HttpStatus.SC_OK){
 				String text = post.getResponseBodyAsString();
-				jsonob = (JSONObject) new JSONParser(JSONParser.MODE_JSON_SIMPLE).parse(text);
+				jsonob = (JSONObject) new JSONParser(text, Global.instance(),true).parse();//.parse(text);
 			}else{
 				String text = post.getResponseBodyAsString();
-				jsonob = (JSONObject) new JSONParser(JSONParser.MODE_JSON_SIMPLE).parse(text);
+				jsonob = (JSONObject) new JSONParser(text, Global.instance(),true).parse();//.parse(text);
 				log.log(Level.WARNING, "upload Media failed ,status is:"+status);
 			}
-		} catch (ParseException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return jsonob;
