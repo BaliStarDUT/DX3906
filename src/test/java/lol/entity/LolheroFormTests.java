@@ -1,6 +1,6 @@
 package lol.entity;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Locale;
 import java.util.Set;
@@ -11,8 +11,6 @@ import javax.validation.Validator;
 import org.junit.Test;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-
-import junit.framework.Assert;
 
 public class LolheroFormTests {
 	private Validator createValidator() {

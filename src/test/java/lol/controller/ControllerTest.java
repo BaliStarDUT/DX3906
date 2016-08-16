@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
@@ -15,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import net.minidev.json.JSONObject;
@@ -65,4 +65,20 @@ public class ControllerTest {
 		Example example = (Example)context.getBean("example");;
 		example.excute();
 	}
+	@SuppressWarnings({ "resource", "unused" })
+	@Test
+	public void testResource() throws IOException {
+		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:lol/controller/beans.xml");
+//		Resource template = context.getResource("classpath:lol/controller/format.properties");
+//		Resource template = context.getResource("file:///home/james/epel-6.repo");
+		Resource template = context.getResource("http://localhost/test.html");
+
+		String description = template.getDescription();
+//		File file = template.getFile();
+//		System.out.println(file.exists());
+		int a = template.getInputStream().read();
+//		FileReader reader = (FileReader) new InputStreamReader(template.getInputStream());
+//		int a = reader.read();
+		System.out.println(a);
+		}
 }
