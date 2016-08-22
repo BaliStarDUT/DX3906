@@ -43,6 +43,7 @@ public class HerosUploadController{
 	//资源文件的保存目录
 	public static final String ROOT = "E:\\mycode\\DX3906\\src\\main\\resources\\assets";
 	private HerosService herosService;
+	
 	@Autowired
 	public void setHerosService(HerosService herosService) {
 		this.herosService = herosService;
@@ -101,9 +102,8 @@ public class HerosUploadController{
     			log.debug("message", "Failed to upload " + soundFile.getOriginalFilename() + " because it was empty");
     		}
         	Lolhero hero = new Lolhero(lolheroForm.getNameCn(),lolheroForm.getNameEn() ,
-        			lolheroForm.getNickname(),lolheroForm.getStory(),lolheroForm.getType()) ;
+        			lolheroForm.getNickname(),lolheroForm.getStory(),lolheroForm.getType(),picFile.getOriginalFilename(),soundFile.getOriginalFilename()) ;
         	this.herosService.saveHero(hero);
-        	
         }
         List<Lolhero> herosList = (List<Lolhero>) this.herosService.findHeros();
         model.addAttribute("herosList",herosList);

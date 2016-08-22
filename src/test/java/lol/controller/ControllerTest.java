@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -11,11 +12,16 @@ import java.util.stream.Collectors;
 import javax.sql.DataSource;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.JdbcAccessor;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import net.minidev.json.JSONObject;
 
@@ -26,16 +32,16 @@ import net.minidev.json.JSONObject;
  * @version 1.0
  * @since
  */
-public class ControllerTest {
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations="lol/controller/beans.xml")
+public class ControllerTest extends AbstractJUnit4SpringContextTests {
 	@Test
 	public void test() {
 		JSONObject object = new JSONObject();
 		object.put("hello", "world");
 		System.out.println(object.get("hello"));
-		DataSource source = jdbcTemplate.getDataSource();
-//		source.
+//		DataSource source = jdbcTemplate.getDataSource();
+		
 	}
 	@Test
 	public void testFileTree(){
