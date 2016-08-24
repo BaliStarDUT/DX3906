@@ -2,10 +2,8 @@ package lol.controller;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -48,6 +46,7 @@ public class HerosUploadController{
 	public void setHerosService(HerosService herosService) {
 		this.herosService = herosService;
 	}
+	
 	//关于系统文件的获取需要用到ResourceLoader
 	private final ResourceLoader resourceLoader;
 	@Autowired
