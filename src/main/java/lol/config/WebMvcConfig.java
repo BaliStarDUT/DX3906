@@ -1,12 +1,14 @@
 package lol.config;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Properties;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Description;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -17,11 +19,7 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.resource.VersionResourceResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import org.springframework.web.servlet.view.ResourceBundleViewResolver;
 
 /**
  *
@@ -35,27 +33,22 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	@Override
 	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-		configurer.ignoreAcceptHeader(true)
+		configurer
 		.defaultContentType(MediaType.TEXT_HTML);
 		configurer.mediaType("html", MediaType.TEXT_HTML);
 		configurer.mediaType("xml", MediaType.APPLICATION_XML);
+		configurer.mediaType("json", MediaType.APPLICATION_JSON);
 	}
 	/**
-	 * 配置自定义的视图解析器，能够解析Thymeleaf格式的html文件
+	 * 配置自定义的视图解析器，能够解析FreeMarker文件
 	 */
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
-		InternalResourceViewResolver bean = new InternalResourceViewResolver();
-//		bean.setViewClass(ThymeleafViewResolver.class);
-//		bean.setOrder(1);
-//		Properties pro = new Properties();
-//		pro.put("templateEngine", getTemplateEngine());
-//		bean.setAttributes(pro);
-//		bean.setViewNames("*.html");
-//		bean.setPrefix("/WEB-INF/jsp/");
-//		bean.setSuffix(".jsp");
-		registry.viewResolver(bean);
-		super.configureViewResolvers(registry);
+		ResourceBundleViewResolver urlBasedViewResolver = new ResourceBundleViewResolver();
+		urlBasedViewResolver.setBasename("views");
+		urlBasedViewResolver.setDefaultParentView("parentView");;
+//		registry.enableContentNegotiation(new MappingJackson2JsonView());
+//		registry.jsp();
 	}
 
 	/* (non-Javadoc)
@@ -88,10 +81,18 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-//		registry.addViewController("/").setViewName("index");
-		registry.addViewController("/form").setViewName("form");
-
+		registry.addViewController("/").setViewName("index");
 	}
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder()
+                .indentOutput(true)
+                .dateFormat(new SimpleDateFormat("yyyy-MM-dd"));
+//                .modulesToInstall(new ParameterNamesModule());
+        converters.add(new MappingJackson2HttpMessageConverter(builder.build()));
+        converters.add(new MappingJackson2XmlHttpMessageConverter(builder.xml().build()));
+	}
+	
 	
 //	@Bean(name="templateEngine")
 //	@Description("org.thymeleaf.spring4.SpringTemplateEngine:"
