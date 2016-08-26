@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -29,6 +30,7 @@ import org.springframework.web.servlet.view.ResourceBundleViewResolver;
  * @since
  */
 @Configuration
+@ImportResource("classpath:spring/viewResolvers.xml")
 @EnableWebMvc
 public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	@Override
@@ -46,7 +48,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 		ResourceBundleViewResolver urlBasedViewResolver = new ResourceBundleViewResolver();
 		urlBasedViewResolver.setBasename("views");
-		urlBasedViewResolver.setDefaultParentView("parentView");;
+		urlBasedViewResolver.setDefaultParentView("parentView");
+		registry.viewResolver(urlBasedViewResolver);
 //		registry.enableContentNegotiation(new MappingJackson2JsonView());
 //		registry.jsp();
 	}

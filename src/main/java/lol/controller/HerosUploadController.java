@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lol.entity.Lolhero;
@@ -60,7 +61,9 @@ public class HerosUploadController{
 	 * @throws IOException
 	 */
 	@RequestMapping("/")
-    public String index(Model model) throws IOException {
+    public String index(ModelAndView model) throws IOException {
+//		model.setView(view);
+		return "index";
 //		List<Path> pathList = Files.walk(Paths.get(ROOT)).collect(Collectors.toList());
 //		List<Path> fileNameList = new ArrayList();
 //		for(Path path:pathList){
@@ -69,12 +72,12 @@ public class HerosUploadController{
 //		pathList.get(0).
 //		model.addAttribute("files", pathList);
 //		model.addAttribute("paths", pathList);
-        return "index";
+//        return "index";
     }
 	
-	@RequestMapping("jsp")
+	@RequestMapping("/jsp")
 	public String showJsp(){
-		return "index.jsp";
+		return "index";
 	}
 	
     @RequestMapping(value="/lolheros/new", method=RequestMethod.GET)
