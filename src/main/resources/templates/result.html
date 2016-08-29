@@ -1,23 +1,47 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Result</title>
+    <title>英雄联盟英雄图</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+     <link rel="stylesheet" href="/resources/bootstrap/css/bootstrap.min.css"></link>
+	  <script src="/resources/bootstrap/js/jquery-1.10.0.min.js"></script>
+	  <script src="/resources/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<h1 th:text="${msg}" ></h1>
-	<div>
-		<ul>
-			<li th:each="hero : ${herosList}">
-				<p th:text="${hero.nameCn}" />
-				<p th:text="${hero.nameEn}" />
-				<p th:text="${hero.nickname}" />
-				<p th:text="${hero.type}" />
-				<p th:text="${hero.story}" />
-				<p th:text="${hero.headpicUrl}" />
-			</li>
-		</ul>
+	<div class="container theme-showcase" role="main">
+		<div class="jumbotron">
+		<h1>英雄联盟</h1>
+		<p>在符文之地，魔法就是一切。	</p>
+		</div>
+		<div class="row">
+			<div class="col-md-4" th:each="hero : ${herosList}">
+					<div class="row">
+					  <div class="col-md-4">
+					  		<img title="荆棘之兴" class="img-rounded" src="/resources/image/champions/Zyra_Square_0.png" alt="pic notfound" /> 
+					  </div>
+					  <div class="col-md-8">
+					  		<p th:text="${hero.nickname}" />
+					  		<p th:text="${hero.nameCn}" />
+					  		<p>
+					  				<span class="label label-info"  th:text="${hero.type}"></span>
+<!-- 					  				<span class="label label-info">辅助</span> -->
+					  		</p>
+					  		<audio style="max-width: 90%" src="/resources/music/Zyra.mp3"  controls="controls" preload="none">Your browser does not support the audio tag.</audio>
+					  </div>
+				</div>
+			</div>
+		
+<!-- 		<ul> -->
+<!-- 			<li th:each="hero : ${herosList}"> -->
+<!-- 				<p th:text="${hero.nameCn}" /> -->
+<!-- 				<p th:text="${hero.nameEn}" /> -->
+<!-- 				<p th:text="${hero.nickname}" /> -->
+<!-- 				<p th:text="${hero.type}" /> -->
+<!-- 				<p th:text="${hero.story}" /> -->
+<!-- 				<p th:text="${hero.headpicUrl}" /> -->
+<!-- 			</li> -->
+<!-- 		</ul> -->
 	</div>
-   
+	</div>  
 </body>
 </html>

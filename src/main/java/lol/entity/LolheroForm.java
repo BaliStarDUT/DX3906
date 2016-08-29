@@ -1,7 +1,10 @@
 package lol.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -45,7 +48,7 @@ public class LolheroForm implements Serializable {
 //	@Column(name="sounds_url")
 //	@NotNull
 //	private String soundsUrl;
-	@Size(min=2,max=30)
+	@Size(min=2,max=300)
 	private String story;
 	
 	private String type;
