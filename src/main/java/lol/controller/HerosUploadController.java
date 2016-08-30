@@ -72,11 +72,13 @@ public class HerosUploadController{
         return "index";
     }
 	
-	@RequestMapping("jsp")
-	public String showJsp(){
-		return "index.jsp";
+	@RequestMapping(value="/lolheros",method=RequestMethod.GET)
+	public String  Form(Model model){
+		  List<Lolhero> herosList = (List<Lolhero>) this.herosService.findHeros();
+	        model.addAttribute("herosList",herosList);
+	        model.addAttribute("msg","获取成功");
+	        return "result";
 	}
-	
     @RequestMapping(value="/lolheros/new", method=RequestMethod.GET)
     public String showNewHeroForm(Model model) {
     	model.addAttribute("lolheroForm",new LolheroForm());
@@ -112,7 +114,6 @@ public class HerosUploadController{
         List<Lolhero> herosList = (List<Lolhero>) this.herosService.findHeros();
         model.addAttribute("herosList",herosList);
         model.addAttribute("msg","获取成功");
-        return "listheros";
     }
     @RequestMapping(value = { "/lolheros/heros.json", "/lolheros/heros.xml"})
     public @ResponseBody  Lolheros showResourcesVetList() {

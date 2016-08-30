@@ -3,6 +3,9 @@ package lol.config;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -19,7 +22,12 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.resource.VersionResourceResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.ResourceBundleViewResolver;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 /**
  *
@@ -30,7 +38,14 @@ import org.springframework.web.servlet.view.ResourceBundleViewResolver;
  */
 @Configuration
 @EnableWebMvc
-public class WebMvcConfig extends WebMvcConfigurerAdapter{
+public class WebMvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{
+	
+	/** ApplicationContext this object runs in */
+	private ApplicationContext applicationContext;
+	
+	/** Default if no other location is supplied */
+	public final static String ViEWS_LOCATION = "classpath:/spring/views.xml";
+	
 	@Override
 	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
 		configurer
@@ -44,9 +59,38 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	 */
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
+		
+		ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
+		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+		ServletContextTemplateResolver servletContextTemplateResolver = new ServletContextTemplateResolver();
+		servletContextTemplateResolver.setPrefix("/templates");
+		servletContextTemplateResolver.setSuffix(".html");
+		servletContextTemplateResolver.setTemplateMode("HTML5");
+		templateEngine.setTemplateResolver(servletContextTemplateResolver);
+		thymeleafViewResolver.setTemplateEngine(templateEngine);
+		thymeleafViewResolver.setOrder(1);
+		registry.viewResolver(thymeleafViewResolver);
+		
+		InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
+		internalResourceViewResolver.setViewClass(JstlView.class);
+		internalResourceViewResolver.setPrefix("/templates");
+		internalResourceViewResolver.setSuffix(".jsp");
+		internalResourceViewResolver.setOrder(3);
+		registry.viewResolver(internalResourceViewResolver);;
+
+
+	
+		
+//		XmlViewResolver xmlViewResolver = new XmlViewResolver();
+//		Resource viewXmlConfigLocation =this.applicationContext.getResource(ViEWS_LOCATION);
+//		xmlViewResolver.setLocation(viewXmlConfigLocation);
+//		xmlViewResolver.setOrder(1);
+		
 		ResourceBundleViewResolver urlBasedViewResolver = new ResourceBundleViewResolver();
-		urlBasedViewResolver.setBasename("views");
-		urlBasedViewResolver.setDefaultParentView("parentView");;
+		urlBasedViewResolver.setOrder(2);
+		registry.viewResolver(urlBasedViewResolver);
+//		urlBasedViewResolver.setBasename("views");
+//		urlBasedViewResolver.setDefaultParentView("parentView");;
 //		registry.enableContentNegotiation(new MappingJackson2JsonView());
 //		registry.jsp();
 	}
@@ -91,6 +135,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 //                .modulesToInstall(new ParameterNamesModule());
         converters.add(new MappingJackson2HttpMessageConverter(builder.build()));
         converters.add(new MappingJackson2XmlHttpMessageConverter(builder.xml().build()));
+	}
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = applicationContext;
 	}
 	
 	
