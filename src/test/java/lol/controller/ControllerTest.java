@@ -33,7 +33,7 @@ import net.minidev.json.JSONObject;
  * @since
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="lol/controller/beans.xml")
+@ContextConfiguration(locations="classpath:/lol/controller/beans.xml")
 public class ControllerTest extends AbstractJUnit4SpringContextTests {
 	@Test
 	public void test() {

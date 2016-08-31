@@ -11,7 +11,7 @@ import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 /**
- * root
+ * 初始化数据库，加入一些模拟数据
  * 2016年7月19日 下午11:41:27
  */
 @Configuration
