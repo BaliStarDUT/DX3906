@@ -114,6 +114,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
 		// needed otherwise exceptions won't be logged anywhere
 		exceptionResolver.setWarnLogCategory("warn");
 		exceptionResolvers.add(exceptionResolver);
+//		exceptionResolver.setDefaultErrorView("404");
 	}
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {

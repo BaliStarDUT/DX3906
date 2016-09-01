@@ -59,7 +59,7 @@ public class HerosUploadController{
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping("/")
+	@RequestMapping("/index")
     public String index(Model model) throws IOException {
 //		List<Path> pathList = Files.walk(Paths.get(ROOT)).collect(Collectors.toList());
 //		List<Path> fileNameList = new ArrayList();
