@@ -4,6 +4,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import lol.config.WebAppInitializer;
+import lol.service.storage.impl.StorageProperties;
 
 /**
  *
@@ -22,6 +24,7 @@ import lol.config.WebAppInitializer;
  */
 @Configuration
 @EnableAutoConfiguration
+@EnableConfigurationProperties(StorageProperties.class)
 @ComponentScan(basePackages="lol") //lol,weixin
 @Import(value = WebAppInitializer.class)
 public class Application extends SpringBootServletInitializer{

@@ -4,17 +4,21 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,12 +26,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lol.entity.Lolhero;
 import lol.entity.LolheroForm;
 import lol.entity.model.Lolheros;
 import lol.service.HerosService;
+import lol.service.storage.StorageService;
+import lol.service.storage.impl.StorageFileNotFoundException;
 
 /**
  *
@@ -41,6 +48,7 @@ public class HerosUploadController{
 	private static final Logger log = LoggerFactory.getLogger(HerosUploadController.class);
 	//资源文件的保存目录
 	public static final String ROOT = "E:\\mycode\\DX3906\\src\\main\\resources\\assets";
+	
 	private HerosService herosService;
 	
 	@Autowired
@@ -48,6 +56,13 @@ public class HerosUploadController{
 		this.herosService = herosService;
 	}
 	
+	private StorageService storageService;
+
+    @Autowired
+    public void setStorageService(StorageService storageService) {
+		this.storageService = storageService;
+	}
+    
 	//关于系统文件的获取需要用到ResourceLoader
 	private final ResourceLoader resourceLoader;
 	@Autowired
@@ -101,15 +116,13 @@ public class HerosUploadController{
         }else{
         	if (!picFile.isEmpty()&&!soundFile.isEmpty()) {
     			try {
-    				Files.copy(picFile.getInputStream(), Paths.get(ROOT, picFile.getOriginalFilename()));
-//    				Files.deleteIfExists(Paths.get(null));
-//    				Files.co
+    				storageService.store(picFile);
     				log.debug("message",
     						"You successfully uploaded " + picFile.getOriginalFilename() + "!");
-    				Files.copy(soundFile.getInputStream(), Paths.get(ROOT, soundFile.getOriginalFilename()));
+    				storageService.store(soundFile);
     				log.debug("message",
     						"You successfully uploaded " + soundFile.getOriginalFilename() + "!");
-    			} catch (IOException|RuntimeException e) {
+    			} catch (Exception e) {
     				log.debug("message", "Failued to upload " + soundFile.getOriginalFilename() + " => " + e.getMessage());
     			}
     		} else {
@@ -124,6 +137,37 @@ public class HerosUploadController{
         model.addAttribute("msg","获取成功");
         return "result";
     }
+    
+    @RequestMapping(value = "/files",method=RequestMethod.GET)
+    public String listUploadedFiles(Model model) throws IOException {
+        model.addAttribute("files", storageService
+                .loadAll()
+                .map(path ->
+                        MvcUriComponentsBuilder
+                                .fromMethodName(HerosUploadController.class, "serveFile", path.getFileName().toString())
+                                .build().toString())
+                .collect(Collectors.toList()));
+
+        return "uploadForm";
+    }
+    
+    @ExceptionHandler(StorageFileNotFoundException.class)
+    public ResponseEntity handleStorageFileNotFound(StorageFileNotFoundException exc) {
+        return ResponseEntity.notFound().build();
+    }
+    
+    @RequestMapping(value = "/files/{filename:.+}",method=RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+
+        Resource file = storageService.loadAsResource(filename);
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getFilename()+"\"")
+                .body(file);
+    }
+
+    
     @RequestMapping(value = { "/lolheros/heros.json", "/lolheros/heros.xml"})
     public @ResponseBody  Lolheros showResourcesVetList() {
         // Here we are returning an object of type 'Lolheros' rather than a collection of Lolhero objects
@@ -151,20 +195,6 @@ public class HerosUploadController{
 		return "redirect:/";
 	}
    
-    /**
-     * 用于获取ROOT目录下的文件资源
-     * @param filename
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.GET, value = "/image/{filename:.+}")
-	@ResponseBody
-	public ResponseEntity<?> getFile(@PathVariable String filename) {
-//		try {
-//			return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(ROOT, filename).toString()));
-//		} catch (Exception e) {
-			return ResponseEntity.notFound().build();
-//		}
-	}
     @RequestMapping(value="/jdbc", method=RequestMethod.GET)
     public String checkHeroInfo(Model model) {
         model.addAttribute("lolheroForm","heroList");
