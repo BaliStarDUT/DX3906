@@ -20,7 +20,6 @@ public class DataSourceConfig {
 	
 	@Autowired
 	private Environment env;
-	
 	@Bean(name="dataSource")
 	@Description("DataSource configuration for the tomcat jdbc connection pool")
 	public DataSource dataSource(){

@@ -73,7 +73,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
 		
 		InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
 		internalResourceViewResolver.setViewClass(JstlView.class);
-		internalResourceViewResolver.setPrefix("/templates");
+		internalResourceViewResolver.setPrefix("/templates/");
 		internalResourceViewResolver.setSuffix(".jsp");
 		internalResourceViewResolver.setOrder(3);
 		registry.viewResolver(internalResourceViewResolver);;

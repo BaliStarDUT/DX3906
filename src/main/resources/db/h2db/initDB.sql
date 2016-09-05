@@ -1,5 +1,5 @@
-DROP TABLE lolheros IF EXISTS; 
-CREATE TABLE lolheros(
+DROP TABLE heros IF EXISTS; 
+CREATE TABLE heros(
   id         INTEGER IDENTITY PRIMARY KEY,
 	nickname	VARCHAR(20),
 	name_en		VARCHAR(20),
@@ -11,4 +11,4 @@ CREATE TABLE lolheros(
 	sounds_url	VARCHAR(30),
 	sounds		BLOB
 );
-CREATE INDEX nicknameIndex ON lolheros (nickname);
+--CREATE INDEX nicknameIndex ON heros (nickname);

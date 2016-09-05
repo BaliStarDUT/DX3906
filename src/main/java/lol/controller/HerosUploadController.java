@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lol.entity.Lolhero;
@@ -71,13 +72,18 @@ public class HerosUploadController{
 //		model.addAttribute("paths", pathList);
         return "index";
     }
-	
+//	@RequestMapping("/login")
+//    public String login(Model model) throws IOException {
+//        return "login";
+//    }
+//	
 	@RequestMapping(value="/lolheros",method=RequestMethod.GET)
-	public String  Form(Model model){
+	public ModelAndView  Form(ModelAndView modelAndView){
 		List<Lolhero> herosList = (List<Lolhero>) this.herosService.findHeros();
-        model.addAttribute("herosList",herosList);
-        model.addAttribute("msg","获取成功");
-        return "result";
+		modelAndView.addObject("herosList",herosList);
+		modelAndView.addObject("msg","获取成功");
+		modelAndView.setViewName("result");;
+        return modelAndView;
 	}
     @RequestMapping(value="/lolheros/new", method=RequestMethod.GET)
     public String showNewHeroForm(Model model) {
@@ -96,6 +102,8 @@ public class HerosUploadController{
         	if (!picFile.isEmpty()&&!soundFile.isEmpty()) {
     			try {
     				Files.copy(picFile.getInputStream(), Paths.get(ROOT, picFile.getOriginalFilename()));
+//    				Files.deleteIfExists(Paths.get(null));
+//    				Files.co
     				log.debug("message",
     						"You successfully uploaded " + picFile.getOriginalFilename() + "!");
     				Files.copy(soundFile.getInputStream(), Paths.get(ROOT, soundFile.getOriginalFilename()));
