@@ -97,7 +97,7 @@ public class HerosUploadController{
 		List<Lolhero> herosList = (List<Lolhero>) this.herosService.findHeros();
 		modelAndView.addObject("herosList",herosList);
 		modelAndView.addObject("msg","获取成功");
-		modelAndView.setViewName("result");;
+		modelAndView.setViewName("result");
         return modelAndView;
 	}
     @RequestMapping(value="/lolheros/new", method=RequestMethod.GET)

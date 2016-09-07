@@ -19,17 +19,18 @@
 					  <div class="col-md-4">
 <!-- 					  		<img title="荆棘之兴" class="img-rounded" src="/resources/image/champions/Zyra_Square_0.png" alt="pic notfound" />  -->
 					  	<img src="/resources/image/champions/Zyra_Square_0.png" class="img-rounded"
-     th:attr="src=@{/resources/}+${hero.headpicUrl},title=${hero.nickname},alt=${hero.nickname}" />
+     th:attr="src=@{/resources/image/champions/}+${hero.headpicUrl},title=${hero.nickname},alt=${hero.nickname}" />
 					  </div>
 					  <div class="col-md-8">
 					  		<p th:text="${hero.nickname}" />
 					  		<p th:text="${hero.nameCn}" />
+<!-- 					  		<p th:text="${hero.story}" /> -->
 					  		<p>
 					  				<span class="label label-info"  th:text="${hero.type}"></span>
 <!--				  				<span class="label label-info">辅助</span> -->
 					  		</p>
 					  		<audio style="max-width: 90%" src="/resources/music/Zyra.mp3" controls="controls" preload="none"
-     th:attr="src=@{/resources/}+${hero.soundsUrl}" >Your browser does not support the audio tag.</audio>
+     th:attr="src=@{/resources/music/}+${hero.soundsUrl}" >Your browser does not support the audio tag.</audio>
 <!-- 					  		<audio style="max-width: 90%" src="/resources/music/Zyra.mp3"  controls="controls" preload="none">Your browser does not support the audio tag.</audio> -->
 					  </div>
 				</div>

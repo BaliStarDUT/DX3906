@@ -12,3 +12,16 @@ CREATE TABLE heros(
 	sounds		BLOB
 );
 --CREATE INDEX nicknameIndex ON heros (nickname);
+--CREATE TABLE `position` (
+--  `sid` int(11) NOT NULL AUTO_INCREMENT,
+--  `latitude` double DEFAULT NULL,
+--  `longitude` double DEFAULT NULL,
+--  `accuracy` double DEFAULT NULL,
+--  `altitude` double DEFAULT NULL,
+--  `altitudeAccuracy` double DEFAULT NULL,
+--  `heading` double DEFAULT NULL,
+--  `speed` double DEFAULT NULL,
+--  `timestamp` datetime DEFAULT NULL,
+--  PRIMARY KEY (`sid`),
+--  UNIQUE KEY `sid` (`sid`) USING BTREE
+--) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 
