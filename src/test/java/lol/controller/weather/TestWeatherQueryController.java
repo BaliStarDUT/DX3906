@@ -37,9 +37,9 @@ public class TestWeatherQueryController {
 		String urlString = "http://op.juhe.cn/onebox/weather/query";
 		Map<String ,String> params = new HashMap<String ,String>();
 		params.put("cityname","北京");
-        String APPKEY = "7c3913df657c1d30a9d284305f395e05";
+        	String APPKEY = "";
 		params.put("key",APPKEY );
-        params.put("dtype","json");
+        	params.put("dtype","json");
 		ResponseEntity<String> weather = 	restTemplate.getForEntity(urlString, String.class, params);
 		String weather2 = 	restTemplate.getForObject(urlString, String.class, params);
 		log.info(weather2);
