@@ -37,16 +37,24 @@ public class TestWeatherQueryController {
 		String urlString = "http://op.juhe.cn/onebox/weather/query";
 		Map<String ,String> params = new HashMap<String ,String>();
 		params.put("cityname","北京");
-        	String APPKEY = "";
+        String APPKEY = "";
 		params.put("key",APPKEY );
-        	params.put("dtype","json");
+        params.put("dtype","json");
 		ResponseEntity<String> weather = 	restTemplate.getForEntity(urlString, String.class, params);
 		String weather2 = 	restTemplate.getForObject(urlString, String.class, params);
 		log.info(weather2);
 //		weather.getBody()
-		String responseType = restTemplate.getForObject("http://op.juhe.cn/onebox/weather/query?cityname=北京&dtype=&key=7c3913df657c1d30a9d284305f395e05", String.class);
+		Map responseType = restTemplate.getForObject("http://op.juhe.cn/onebox/weather/query?cityname=北京&dtype=&key=7c3913df657c1d30a9d284305f395e05", Map.class);
 		System.out.println(responseType);
-        log.info(responseType);
+        log.info(responseType.toString());
 	}
-
+	@Test
+	public void testQueryWeather() {
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<Map> weather = 	restTemplate.getForEntity("http://localhost:81/weather/query?cityname=北京",
+				Map.class);
+//		ResponseEntity<Map> weather = 	restTemplate.getForEntity("http://op.juhe.cn/onebox/weather/query?cityname=北京&dtype=&key=7c3913df657c1d30a9d284305f395e05",
+//				Map.class);
+		log.info(weather.toString());
+	}
 }
