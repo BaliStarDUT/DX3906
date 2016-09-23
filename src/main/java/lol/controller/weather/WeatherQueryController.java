@@ -32,6 +32,7 @@ public class WeatherQueryController {
 	@JsonView(String.class)
 	public ResponseEntity<Map> queryWeather(@RequestParam(name="cityname",required=true,defaultValue="北京") String cityname, 
 			Model model) {
+		log.info("queryWeather:cityname = {}.", cityname);
 		RestTemplate restTemplate = new RestTemplate();
 		Map<String ,String> params = new HashMap<String ,String>();
 		final String DEFAULT_DTYPE = "json";
@@ -41,7 +42,7 @@ public class WeatherQueryController {
 		params.put("key",APPKEY );
         params.put("dtype",DEFAULT_DTYPE);
 		ResponseEntity<Map> weather = 	restTemplate.getForEntity(WEATHER_URL, Map.class, params);
-		 log.info(weather.toString());
+		log.info("queryWeather:weather= {}.", weather.toString());
 	    return weather;
 	}
 	

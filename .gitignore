@@ -1,4 +1,5 @@
 /target/
+!/target/classes/
 /build/
 .settings/
 .idea/
