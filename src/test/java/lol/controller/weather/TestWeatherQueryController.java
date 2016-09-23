@@ -34,13 +34,13 @@ public class TestWeatherQueryController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String urlString = "http://op.juhe.cn/onebox/weather/query";
+		String urlString = "http://op.juhe.cn/onebox/weather/query?cityname={cityname}&key={key}&dtype={dtype}";
 		Map<String ,String> params = new HashMap<String ,String>();
+        String APPKEY = "7c3913df657c1d30a9d284305f395e05";
 		params.put("cityname","北京");
-        	String APPKEY = "";
 		params.put("key",APPKEY );
-        	params.put("dtype","json");
-		ResponseEntity<String> weather = 	restTemplate.getForEntity(urlString, String.class, params);
+        params.put("dtype","json");
+		ResponseEntity<String> weather = restTemplate.getForEntity(urlString, String.class, params);
 		String weather2 = 	restTemplate.getForObject(urlString, String.class, params);
 		log.info(weather2);
 //		weather.getBody()
