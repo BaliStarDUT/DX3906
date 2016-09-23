@@ -12,27 +12,34 @@ import org.springframework.context.annotation.Configuration;
  */
 //@Configuration
 //@EnableWebSecurity
-public class WebSecurityConfig {//extends WebSecurityConfigurerAdapter 
+public class WebSecurityConfig {//extends WebSecurityConfigurerAdapter {
 //    @Override
 //    protected void configure(HttpSecurity http) throws Exception {
-////        http
-////        	.headers().disable()
-////            .authorizeRequests()
-////                .antMatchers("/").hasRole("USER")
-////                .and()
-////            .formLogin()
-////            	.permitAll()
-////            	.and()
-////            .sessionManagement()
-////            	.maximumSessions(1)
-////            	.expiredUrl("/login?expired");
+//    	http
+//		.authorizeRequests()
+//			.anyRequest().authenticated()
+//			.and()
+//		.formLogin()//.loginPage("/greeting")
+//			.and()
+//		.httpBasic();
+//        http
+//            .authorizeRequests()
+//	            .antMatchers("/resources/**", "/signup", "/about").permitAll()  
+//				.antMatchers("/admin/**").hasRole("ADMIN")       
+//				.antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')") 
+//				.anyRequest().authenticated() 
+//			.and()
+//		.formLogin()
+//			.permitAll(); 
 //    }
-//
+
 //    @Autowired
 //    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 //        auth
 //            .inMemoryAuthentication()
-//                .withUser("user").password("password").roles("USER");
+//                .withUser("user").password("password").roles("USER").and()
+//                .withUser("user1").password("password").roles("ADMIN").and()
+//                .withUser("user2").password("password").roles("DBA");
 //    }
     
 }

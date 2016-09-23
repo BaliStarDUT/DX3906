@@ -8,14 +8,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-
-@Configuration
+/**
+ * 配置数据库，从classpath:spring/data-access.properties中获取数据库配置
+ * 并将数据库配置的bean注入到Spring中
+ * @author Administrator
+ *
+ */
+@Configuration(value="dataSourceConfig")
 @PropertySource("classpath:spring/data-access.properties")
 public class DataSourceConfig {
 	
 	@Autowired
 	private Environment env;
-	
 	@Bean(name="dataSource")
 	@Description("DataSource configuration for the tomcat jdbc connection pool")
 	public DataSource dataSource(){

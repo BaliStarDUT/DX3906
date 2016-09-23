@@ -1,12 +1,17 @@
 package lol.config;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Properties;
 
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Description;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -19,6 +24,7 @@ import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.resource.VersionResourceResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.view.ResourceBundleViewResolver;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
@@ -32,31 +38,61 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
  */
 @Configuration
 @EnableWebMvc
-public class WebMvcConfig extends WebMvcConfigurerAdapter{
-
+public class WebMvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{
+	
+	/** ApplicationContext this object runs in */
+	private ApplicationContext applicationContext;
+	
+	/** Default if no other location is supplied */
+	public final static String ViEWS_LOCATION = "classpath:/spring/views.xml";
+	
 	@Override
 	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-		configurer.ignoreAcceptHeader(true)
+		configurer
 		.defaultContentType(MediaType.TEXT_HTML);
 		configurer.mediaType("html", MediaType.TEXT_HTML);
 		configurer.mediaType("xml", MediaType.APPLICATION_XML);
+		configurer.mediaType("json", MediaType.APPLICATION_JSON);
 	}
 	/**
-	 * 配置自定义的视图解析器，能够解析Thymeleaf格式的html文件
+	 * 配置自定义的视图解析器，能够解析FreeMarker文件
 	 */
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
-		InternalResourceViewResolver bean = new InternalResourceViewResolver();
-//		bean.setViewClass(ThymeleafViewResolver.class);
-//		bean.setOrder(1);
-//		Properties pro = new Properties();
-//		pro.put("templateEngine", getTemplateEngine());
-//		bean.setAttributes(pro);
-//		bean.setViewNames("*.html");
-//		bean.setPrefix("/WEB-INF/jsp/");
-//		bean.setSuffix(".jsp");
-		registry.viewResolver(bean);
-		super.configureViewResolvers(registry);
+		
+		ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
+		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+		ServletContextTemplateResolver servletContextTemplateResolver = new ServletContextTemplateResolver();
+		servletContextTemplateResolver.setPrefix("/templates");
+		servletContextTemplateResolver.setSuffix(".html");
+		servletContextTemplateResolver.setTemplateMode("HTML5");
+		templateEngine.setTemplateResolver(servletContextTemplateResolver);
+		thymeleafViewResolver.setTemplateEngine(templateEngine);
+		thymeleafViewResolver.setOrder(1);
+		registry.viewResolver(thymeleafViewResolver);
+		
+		InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
+		internalResourceViewResolver.setViewClass(JstlView.class);
+		internalResourceViewResolver.setPrefix("/templates/");
+		internalResourceViewResolver.setSuffix(".jsp");
+		internalResourceViewResolver.setOrder(3);
+		registry.viewResolver(internalResourceViewResolver);;
+
+
+	
+		
+//		XmlViewResolver xmlViewResolver = new XmlViewResolver();
+//		Resource viewXmlConfigLocation =this.applicationContext.getResource(ViEWS_LOCATION);
+//		xmlViewResolver.setLocation(viewXmlConfigLocation);
+//		xmlViewResolver.setOrder(1);
+		
+		ResourceBundleViewResolver urlBasedViewResolver = new ResourceBundleViewResolver();
+		urlBasedViewResolver.setOrder(2);
+		registry.viewResolver(urlBasedViewResolver);
+//		urlBasedViewResolver.setBasename("views");
+//		urlBasedViewResolver.setDefaultParentView("parentView");;
+//		registry.enableContentNegotiation(new MappingJackson2JsonView());
+//		registry.jsp();
 	}
 
 	/* (non-Javadoc)
@@ -78,6 +114,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 		// needed otherwise exceptions won't be logged anywhere
 		exceptionResolver.setWarnLogCategory("warn");
 		exceptionResolvers.add(exceptionResolver);
+//		exceptionResolver.setDefaultErrorView("404");
 	}
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -89,10 +126,22 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-//		registry.addViewController("/").setViewName("index");
-		registry.addViewController("/form").setViewName("form");
-
+		registry.addViewController("/").setViewName("index");
 	}
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder()
+                .indentOutput(true)
+                .dateFormat(new SimpleDateFormat("yyyy-MM-dd"));
+//                .modulesToInstall(new ParameterNamesModule());
+        converters.add(new MappingJackson2HttpMessageConverter(builder.build()));
+        converters.add(new MappingJackson2XmlHttpMessageConverter(builder.xml().build()));
+	}
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = applicationContext;
+	}
+	
 	
 //	@Bean(name="templateEngine")
 //	@Description("org.thymeleaf.spring4.SpringTemplateEngine:"

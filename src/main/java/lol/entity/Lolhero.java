@@ -54,6 +54,18 @@ public class Lolhero implements Serializable {
 		this.type = type;
 	}
 
+	public Lolhero(String nameCn, String nameEn, String nickname,  String story,
+			String type,String headpicUrl, String soundsUrl) {
+		super();
+		this.headpicUrl = headpicUrl;
+		this.nameCn = nameCn;
+		this.nameEn = nameEn;
+		this.nickname = nickname;
+		this.soundsUrl = soundsUrl;
+		this.story = story;
+		this.type = type;
+	}
+
 	public int getId() {
 		return this.id;
 	}
