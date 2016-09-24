@@ -119,10 +119,15 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
 	}
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resources/**")
-		.addResourceLocations("classpath:/assets/").setCachePeriod(31556926)
+		registry.addResourceHandler("/resources/js/**")
+		.addResourceLocations("classpath:/assets/js/bower_components/").setCachePeriod(31556926)
 		.resourceChain(true).addResolver(
 				new VersionResourceResolver().addContentVersionStrategy("/**"));
+		registry.addResourceHandler("/resources/image/**")
+		.addResourceLocations("classpath:/assets/image/").setCachePeriod(31556926)
+		.resourceChain(true).addResolver(
+				new VersionResourceResolver().addContentVersionStrategy("/**"));
+		
 	}
 	
 	@Override
