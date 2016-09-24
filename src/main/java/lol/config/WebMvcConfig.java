@@ -109,6 +109,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
 	@Override
 	public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
 		SimpleMappingExceptionResolver exceptionResolver = new SimpleMappingExceptionResolver();
+//		exceptionResolver.
 		// results into 'WEB-INF/jsp/exception.jsp'
 		exceptionResolver.setDefaultErrorView("exception");
 		// needed otherwise exceptions won't be logged anywhere

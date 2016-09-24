@@ -1,4 +1,6 @@
-!/assets/gentelella/production/js/my*
-!/assets/gentelella/production/dashborad.html
-/assets/
+/assets/gentelella/
+/assets/image/
+/assets/js/bower_components/
+/assets/js/node_modules/
+
 
