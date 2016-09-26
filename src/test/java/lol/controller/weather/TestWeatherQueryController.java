@@ -4,9 +4,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
  * 2016年9月21日 下午11:07:39
  */
 public class TestWeatherQueryController {
-    private static final Logger log = LoggerFactory.getLogger(TestWeatherQueryController.class);
+    private static final Logger log = Logger.getLogger(TestWeatherQueryController.class);
 
 	@Test
 	public void testRestTemplate() {

@@ -127,6 +127,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
 		.addResourceLocations("classpath:/assets/image/").setCachePeriod(31556926)
 		.resourceChain(true).addResolver(
 				new VersionResourceResolver().addContentVersionStrategy("/**"));
+		registry.addResourceHandler("/resources/gentelella/**")
+		.addResourceLocations("classpath:/assets/gentelella/").setCachePeriod(31556926)
+		.resourceChain(true).addResolver(
+				new VersionResourceResolver().addContentVersionStrategy("/**"));
 		
 	}
 	
