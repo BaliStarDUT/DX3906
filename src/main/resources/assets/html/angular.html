@@ -360,7 +360,7 @@
                  <script src="/resources/js/angular/angular.min.js"></script>
                 <script src="/resources/js/controllers/myApp.js"></script>
                 <script src="/resources/js/controllers/weatherController.js"></script>
-                <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="col-md-6 col-sm-6 col-xs-12" ng-app="myApp" ng-controller="weatherController">
                   <div class="x_panel">
                     <div class="x_title">
                       <h2>Daily active users <small>Sessions</small></h2>
@@ -384,27 +384,34 @@
                     <div class="x_content">
                       <div class="row">
                         <div class="col-sm-12">
-                          <div class="temperature"><b>Monday</b>, 07:30 AM
-                            <span>F</span>
-                            <span><b>C</b></span>
+                          <div class="temperature"><b ng-bind="currentWeek">Monday</b>, <span ng-bind="currentDateTime">07:30 AM</span>
+                            <span>Beijing</span>
+                            <span><b>CN</b></span>
                           </div>
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                           <div class="weather-icon">
-                            <canvas height="84" width="84" id="partly-cloudy-day"></canvas>
+                            <canvas height="85" width="85" id="partly-cloudy-night"></canvas>
                           </div>
                         </div>
-                        <div class="col-sm-8">
+                        <div class="col-sm-6">
                           <div class="weather-text">
-                            <h2>Texas <br><i>Partly Cloudy Day</i></h2>
+                            <h2 ng-bind="cityName">Texas </h2><br>
+                            <p ng-bind="weatherInfo">Partly Cloudy Day</p>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="weather-text">
+                            <h3 class="degrees" >温度：<span ng-bind="temperature">23</span></h3>
+                            <h3 class="degrees" >湿度：<span ng-bind="humidity">23</span></h3>
                           </div>
                         </div>
                       </div>
                       <div class="col-sm-12">
                         <div class="weather-text pull-right">
-                          <h3 class="degrees">23</h3>
+                          <h3 class="degrees" ng-bind="temperature">23</h3>
                         </div>
                       </div>
 
@@ -493,7 +500,12 @@
                      <p>{{realTime}}</p>
                      <p ng-model="realTime"></p>
                      <p ng-bind="realTime"></p>
-                     <p>天气：<span ng-bind="realTime" class="green"></span>字节</p>
+                     <p>天气：<span ng-bind="realTime" class="green"></span></p>
+                     <p>天气：<span ng-bind="currentWeek" class="green"></span></p>
+                     <p>天气：<span ng-bind="currentDateTime" class="green"></span></p>
+                     <p>天气：<span ng-bind="weatherInfo" class="green"></span></p>
+                     <p>天气：<span ng-bind="cityName" class="green"></span></p>
+                     <p>天气：<span ng-bind="currentDateTime" class="green"></span></p>
                   </div>
                 </div>
               </div>
