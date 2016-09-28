@@ -357,9 +357,10 @@
                 <!-- End to do list -->
                 
                 <!-- start of weather widget -->
-                 <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
-                <script src="/resources/js/controllers/weatherController.js"></script> 
-                <div ng-app="weatherApp" ng-controller="weatherController" class="col-md-6 col-sm-6 col-xs-12">
+                 <script src="/resources/js/angular/angular.min.js"></script>
+                <script src="/resources/js/controllers/myApp.js"></script>
+                <script src="/resources/js/controllers/weatherController.js"></script>
+                <div class="col-md-6 col-sm-6 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
                       <h2>Daily active users <small>Sessions</small></h2>
@@ -466,7 +467,7 @@
                 </div>
                 <!-- end of weather widget -->
               </div>
-            <div ng-app="weatherApp" ng-controller="weatherController" class="row">
+            <div ng-app="myApp" ng-controller="weatherController" class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
@@ -489,7 +490,10 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                     {{weather}}
+                     <p>{{realTime}}</p>
+                     <p ng-model="realTime"></p>
+                     <p ng-bind="realTime"></p>
+                     <p>天气：<span ng-bind="realTime" class="green"></span>字节</p>
                   </div>
                 </div>
               </div>
@@ -517,6 +521,8 @@
     <script src="../gentelella/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="../gentelella/vendors/nprogress/nprogress.js"></script>
+    <!-- Skycons -->
+    <script src="../gentelella/vendors/skycons/skycons.js"></script>
     
     <!-- Custom Theme Scripts -->
     <script src="../gentelella/build/js/custom.min.js"></script>

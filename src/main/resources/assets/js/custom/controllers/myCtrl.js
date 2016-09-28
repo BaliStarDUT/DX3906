@@ -35,6 +35,12 @@ app.controller("myCtrl", function($scope,$http) {
 			$scope.metrics_heap = response.data.heap;
 		});
 	};
+	$scope.getWeather = function(){
+		$http.get("/weather/query.json?cityname=北京")
+	    .success(function(response) {
+	    	$scope.weather = response.records;
+	    	});
+	}
 	 $scope.getActuator();
 	 $scope.getHealth();
 	 $scope.getMetrics();
