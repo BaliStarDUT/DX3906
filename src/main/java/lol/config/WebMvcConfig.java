@@ -3,6 +3,8 @@ package lol.config;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -112,10 +114,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
 //		exceptionResolver.
 		// results into 'WEB-INF/jsp/exception.jsp'
 		exceptionResolver.setDefaultErrorView("exception");
+		exceptionResolver.setDefaultStatusCode(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		// needed otherwise exceptions won't be logged anywhere
 		exceptionResolver.setWarnLogCategory("warn");
 		exceptionResolvers.add(exceptionResolver);
-//		exceptionResolver.setDefaultErrorView("404");
 	}
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
