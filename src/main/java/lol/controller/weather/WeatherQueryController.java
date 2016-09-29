@@ -42,6 +42,7 @@ public class WeatherQueryController {
         params.put("dtype",DEFAULT_DTYPE);
 		ResponseEntity<Map> weather = 	restTemplate.getForEntity(WEATHER_URL, Map.class, params);
 		log.debug("queryWeather:weather= "+weather.toString());
+		System.out.println(weather.toString());
 	    return weather;
 	}
 	

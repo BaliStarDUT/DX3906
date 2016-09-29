@@ -24,7 +24,13 @@ app.controller('weatherController', function($scope, $http) {
 		    	$scope.weatherInfo = result.realtime.weather.info;
 		    	$scope.temperature = result.realtime.weather.temperature;
 		    	$scope.humidity = result.realtime.weather.humidity;
-
+		    	$scope.windDirect = result.realtime.wind.direct;
+		    	$scope.windPower = result.realtime.wind.power;
+		    	$scope.windSpeed = result.realtime.wind.windspeed;
+		    	$scope.dateMoon = result.realtime.moon;
+		    	$scope.airQuality = result.pm25.pm25.quality;
+		    	$scope.airDes = result.pm25.pm25.des;
+		    	$scope.days5Weather = result.weather;
 		    	if($scope.weatherInfo.indexOf("多云")!=-1){
 		    		$scope.weatherInfoIcon = "partly-cloudy-day";
 		    	}
