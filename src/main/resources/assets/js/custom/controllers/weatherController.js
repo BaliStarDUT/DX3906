@@ -31,9 +31,38 @@ app.controller('weatherController', function($scope, $http) {
 		    	$scope.airQuality = result.pm25.pm25.quality;
 		    	$scope.airDes = result.pm25.pm25.des;
 		    	$scope.days5Weather = result.weather;
-		    	if($scope.weatherInfo.indexOf("多云")!=-1){
-		    		$scope.weatherInfoIcon = "partly-cloudy-day";
+		    	
+		    	var skycons = new Skycons({ "color": "#73879C"});
+		    	for(var we=0,len=result.weather.length; we<len; we++){
+		    		switch(result.weather[we].info.day[1]){
+		    			case "多云": 
+		    		    	skycons.add("weatherIcon"+(we+1), Skycons.PARTLY_CLOUDY_DAY);break;
+		    			case "阴":
+		    				skycons.add("weatherIcon"+(we+1),Skycons.CLOUDY);break;
+		    			case "晴":
+		    				skycons.add("weatherIcon"+(we+1),Skycons.CLEAR_DAY);break;
+		    			case "霾":
+		    				skycons.add("weatherIcon"+(we+1),Skycons.FOG);break;
+		    			case "雾":
+		    				skycons.add("weatherIcon"+(we+1),Skycons.FOG);break;
+		    			case "雨":
+		    				skycons.add("weatherIcon"+(we+1),Skycons.RAIN);break;
+		    			default:
+		    				skycons.add("weatherIcon"+(we+1),Skycons.CLOUDY);break;
+
+		    		}
 		    	}
+		    	
+		    	skycons.add("weatherIcon6", Skycons.SNOW);
+		    	skycons.add("weatherIcon7", Skycons.SNOW);
+		    	if($scope.weatherInfo.indexOf("多云")!=-1){
+			    	skycons.add("weatherIcon0", Skycons.PARTLY_CLOUDY_DAY);
+		    		$scope.weatherInfoIcon = "partly-cloudy-day";
+		    	}else if($scope.weatherInfo.indexOf("阴")!=-1){
+			    	skycons.add("weatherIcon0", Skycons.CLOUDY);
+		    		$scope.weatherInfoIcon = "cloudy";
+		    	}	
+		    	skycons.play();
 	    	}else{
 	    		 console.log("获取天气信息失败");
 	    	}
