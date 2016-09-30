@@ -373,10 +373,10 @@
                         <li class="dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                           <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Settings 1</a>
+                            <li><a href="#" ng-model="cityChosen">Bei Jing</a>
                             </li>
-                            <li><a href="#">Settings 2</a>
-                            </li>
+                            <li><a href="#" ng-model="cityChosen">An Yang</a>
+                            </li> 
                           </ul>
                         </li>
                         <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -387,7 +387,7 @@
                     <div class="x_content">
                       <div class="row">
                         <div class="col-sm-12">
-                          <div class="temperature"><b ng-bind="currentWeek">Monday</b>, <span ng-bind="currentDateTime">07:30 AM</span>
+                          <div class="temperature"><b ng-bind="currentWeek">Monday</b>, <span ng-bind="theTime">07:30 AM</span>
                             <span>Beijing</span>
                             <span><b>CN</b></span>
                           </div>
@@ -483,7 +483,8 @@
                           <div class="daily-weather">
                             <h2 class="day chineseChar" >周<span ng-bind="dayWeather.week">一</span></h2>
                             <h3 class="degrees" ng-bind="dayWeather.info.day[2]">23</h3>
-                            <canvas id={{'weatherIcon'+($index+1)}} width="32" height="32"></canvas>
+                            <h5 class="chineseChar" ng-bind="dayWeather.info.day[1]"></h5>
+<!--                             <canvas id={{'weatherIcon'+($index+1)}} width="32" height="32"></canvas> -->
 <!--                             <p >{{$index}}</p> -->
                             <h5 class="chineseChar" ng-bind="dayWeather.info.day[4]"></h5>
                           </div>

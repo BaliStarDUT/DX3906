@@ -1,4 +1,4 @@
-app.controller('weatherController', function($scope, $http) {
+app.controller('weatherController', function($scope, $http,$interval) {
 	$scope.weather ;
 	$scope.weatherInfo ;
 	$scope.getWeather = function(){
@@ -18,7 +18,7 @@ app.controller('weatherController', function($scope, $http) {
 		    	weekday[4]="Thursday";
 		    	weekday[5]="Firday";
 		    	weekday[6]="Saturday";
-		    	$scope.currentWeek = weekday[(result.realtime.week+1)];
+		    	$scope.currentWeek = weekday[result.realtime.week];
 		    	$scope.currentDateTime = $scope.realTime;
 		    	$scope.cityName = result.realtime['city_name'];
 		    	$scope.weatherInfo = result.realtime.weather.info;
@@ -45,7 +45,7 @@ app.controller('weatherController', function($scope, $http) {
 		    				skycons.add("weatherIcon"+(we+1),Skycons.FOG);break;
 		    			case "雾":
 		    				skycons.add("weatherIcon"+(we+1),Skycons.FOG);break;
-		    			case "雨":
+		    			case "阵雨":
 		    				skycons.add("weatherIcon"+(we+1),Skycons.RAIN);break;
 		    			default:
 		    				skycons.add("weatherIcon"+(we+1),Skycons.CLOUDY);break;
@@ -61,7 +61,10 @@ app.controller('weatherController', function($scope, $http) {
 		    	}else if($scope.weatherInfo.indexOf("阴")!=-1){
 			    	skycons.add("weatherIcon0", Skycons.CLOUDY);
 		    		$scope.weatherInfoIcon = "cloudy";
-		    	}	
+		    	}else if($scope.weatherInfo.indexOf("晴")!=-1){
+			    	skycons.add("weatherIcon0", Skycons.CLEAR_DAY);
+		    		$scope.weatherInfoIcon = "cloudy";
+		    	}		
 		    	skycons.play();
 	    	}else{
 	    		 console.log("获取天气信息失败");
@@ -83,6 +86,13 @@ app.controller('weatherController', function($scope, $http) {
 	          icons.set(list[i], list[i]);
 	        icons.play();
 	}
+	$scope.getSchedulTime = function(){
+		 $scope.theTime = new Date().toLocaleTimeString();
+		  $interval(function () {
+		      $scope.theTime = new Date().toLocaleTimeString();
+		  }, 1000);
+	}
 	$scope.getWeather();
 	$scope.skyCons();
+	$scope.getSchedulTime();
 }); 
