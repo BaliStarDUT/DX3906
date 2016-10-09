@@ -3,7 +3,9 @@ package lol.controller.weather;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +33,12 @@ public class WeatherQueryController {
 	@JsonView(String.class)
 	public ResponseEntity<Map> queryWeather(@RequestParam(name="cityname",required=true,defaultValue="北京") String cityname, 
 			Model model) {
+		PropertyConfigurator.configure ("log4j.properties");
+		log.setLevel(Level.DEBUG);
 		log.debug("queryWeather:cityname = "+cityname);
+		log.info("queryWeather:cityname = "+cityname);
+		log.warn("queryWeather:cityname = "+cityname);
+		log.error("queryWeather:cityname = "+cityname);
 		RestTemplate restTemplate = new RestTemplate();
 		Map<String ,String> params = new HashMap<String ,String>();
 		final String DEFAULT_DTYPE = "json";
@@ -42,7 +49,7 @@ public class WeatherQueryController {
         params.put("dtype",DEFAULT_DTYPE);
 		ResponseEntity<Map> weather = 	restTemplate.getForEntity(WEATHER_URL, Map.class, params);
 		log.debug("queryWeather:weather= "+weather.toString());
-		System.out.println(weather.toString());
+//		System.out.println(weather.toString());
 	    return weather;
 	}
 	
