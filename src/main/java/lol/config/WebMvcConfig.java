@@ -138,6 +138,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
 		.addResourceLocations("classpath:/assets/html/").setCachePeriod(31556926)
 		.resourceChain(true).addResolver(
 				new VersionResourceResolver().addContentVersionStrategy("/**"));
+		registry.addResourceHandler("/resources/music/**")
+		.addResourceLocations("classpath:/assets/music/").setCachePeriod(31556926)
+		.resourceChain(true).addResolver(
+				new VersionResourceResolver().addContentVersionStrategy("/**"));
 		
 	}
 	

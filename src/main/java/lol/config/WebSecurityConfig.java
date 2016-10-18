@@ -26,7 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')") 
 				.anyRequest().authenticated() 
 			.and()
-		.formLogin()//.loginPage("/resources/view/login.html")
+		.formLogin().loginPage("/resources/view/login.html")
 			.permitAll();
         http.csrf().disable();
         http.logout()

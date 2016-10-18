@@ -21,7 +21,7 @@ public class ApplicationContextTest {
     new ClassPathXmlApplicationContext("spring/applicationcontext/namebean.xml");  
     log.info(beanFactory.containsBean("systemProperties"));
     	SystemEnvironmentPropertySource environmentPropertySource =  (SystemEnvironmentPropertySource) beanFactory.getBean("systemProperties");
-    Object object = beanFactory.getBean("systemProperties");
+    	Object object = beanFactory.getBean("systemProperties");
         //根据id获取bean  
         ResourceBundleMessageSource source = beanFactory.getBean("messageSource", ResourceBundleMessageSource.class);  
         String message = source.getMessage("message", null, "Default",null);
