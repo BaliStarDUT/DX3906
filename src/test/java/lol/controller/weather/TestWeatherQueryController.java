@@ -50,10 +50,9 @@ public class TestWeatherQueryController {
 	@Test
 	public void testQueryWeather() {
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<Map> weather = 	restTemplate.getForEntity("http://localhost:81/weather/query?cityname=北京",
+		@SuppressWarnings("rawtypes")
+		ResponseEntity<Map> weather = 	restTemplate.getForEntity("http://localhost:81/weather/query.json?cityname=北京",
 				Map.class);
-//		ResponseEntity<Map> weather = 	restTemplate.getForEntity("http://op.juhe.cn/onebox/weather/query?cityname=北京&dtype=&key=7c3913df657c1d30a9d284305f395e05",
-//				Map.class);
 		log.info(weather.toString());
 	}
 }
