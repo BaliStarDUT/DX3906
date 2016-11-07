@@ -99,6 +99,9 @@ app.controller('weatherController', function($scope, $http,$interval,$timeout) {
     	}else if($scope.weatherInfo.indexOf("阵雨")!=-1){
 	    	skycons.add("weatherIcon0", Skycons.RAIN);
     		$scope.weatherInfoIcon = "rain";
+    	}else if($scope.weatherInfo.indexOf("霾")!=-1){
+	    	skycons.add("weatherIcon0", Skycons.FOG);
+    		$scope.weatherInfoIcon = "fog";
     	}		
     	skycons.play();
 	}

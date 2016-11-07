@@ -23,9 +23,9 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 @Controller
 @RequestMapping("/weather")
-public class WeatherQueryController {
+public class WeatherController {
 	
-    private static final Logger log = Logger.getLogger(WeatherQueryController.class);
+    private static final Logger log = Logger.getLogger(WeatherController.class);
 	
     private static final String APPKEY = "7c3913df657c1d30a9d284305f395e05";
 

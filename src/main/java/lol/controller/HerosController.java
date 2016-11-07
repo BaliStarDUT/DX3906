@@ -44,8 +44,8 @@ import lol.service.storage.impl.StorageFileNotFoundException;
  * @since
  */
 @Controller
-public class HerosUploadController{
-	private static final Logger log = LoggerFactory.getLogger(HerosUploadController.class);
+public class HerosController{
+	private static final Logger log = LoggerFactory.getLogger(HerosController.class);
 	//资源文件的保存目录
 	public static final String ROOT = "E:\\mycode\\DX3906\\src\\main\\resources\\assets";
 	
@@ -66,7 +66,7 @@ public class HerosUploadController{
 	//关于系统文件的获取需要用到ResourceLoader
 	private final ResourceLoader resourceLoader;
 	@Autowired
-	public HerosUploadController(ResourceLoader resourceLoader) {
+	public HerosController(ResourceLoader resourceLoader) {
 		this.resourceLoader = resourceLoader;
 	}
 	/**
@@ -144,7 +144,7 @@ public class HerosUploadController{
                 .loadAll()
                 .map(path ->
                         MvcUriComponentsBuilder
-                                .fromMethodName(HerosUploadController.class, "serveFile", path.getFileName().toString())
+                                .fromMethodName(HerosController.class, "serveFile", path.getFileName().toString())
                                 .build().toString())
                 .collect(Collectors.toList()));
 
