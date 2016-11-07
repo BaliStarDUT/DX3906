@@ -32,6 +32,7 @@ app.controller("positionController", function($scope,$http) {
 		$scope.position.coords.altitudeAccuracy =position.coords.altitudeAccuracy;
 		$scope.position.coords.heading =position.coords.heading;
 		$scope.position.coords.speed =position.coords.speed;
+		$scope.uploadPosition();
 	}
 	//地理位置获取失败调用，显示错误信息
 	function showError(error)
@@ -52,7 +53,20 @@ app.controller("positionController", function($scope,$http) {
 				break;
 		}
 	}
-
+	$scope.uploadPosition = function(){
+		var url = "/position/upload";
+		$http.get(url,{params:{latitude:$scope.position.coords.latitude,
+			longitude:$scope.position.coords.longitude,
+			accuracy:$scope.position.coords.accuracy,
+			altitude:$scope.position.coords.altitude,
+			altitudeAccuracy:$scope.position.coords.altitudeAccuracy,
+			heading:$scope.position.coords.heading,
+			speed:$scope.position.coords.speed,
+			timestamp:$scope.position.timestamp}}).success(
+					function(response) {
+						$scope.position.message = "上传成功";
+					});
+	}
 
 	$scope.firstName = "John";
     $scope.lastName= "Doe";

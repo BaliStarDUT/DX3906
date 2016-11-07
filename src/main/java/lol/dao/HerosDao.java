@@ -20,11 +20,12 @@ import lol.entity.LolheroForm;
 @Repository
 public class HerosDao {
 	private JdbcTemplate jdbcTemplate;
-	//@Autowired
-    public void setDataSource() {
-    	DataSource dataSource = new DataSource();
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
+    
 	public List<Map<String,Object>>  getDate(){
 		List<Map<String,Object>>  heroList = jdbcTemplate.queryForList("SELECT * FROM heros ");//query( "SELECT * FROM heros ");
 		 return heroList;
