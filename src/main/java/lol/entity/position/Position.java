@@ -110,4 +110,11 @@ public class Position implements Serializable {
 		this.timestamp = timestamp;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("Position{时间：%s，纬度：%f，经度：%f，精度：%f，海拔：%f，海拔精度：%f，方向：%f，速度:%f}",
+				this.timestamp.toString(),this.latitude,this.longitude,this.accuracy,
+				this.altitude,this.altitudeAccuracy,this.heading,this.speed);
+	}
+	
 }

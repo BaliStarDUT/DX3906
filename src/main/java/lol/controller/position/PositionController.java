@@ -1,9 +1,11 @@
 package lol.controller.position;
 
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.sun.org.apache.xpath.internal.functions.FuncFalse;
 
+import lol.controller.weather.WeatherController;
 import lol.entity.LolheroForm;
 import lol.entity.position.Position;
 import lol.service.positon.PositionService;
@@ -25,6 +28,8 @@ import lol.service.positon.PositionService;
  */
 @Controller
 public class PositionController {
+    private static final Logger log = Logger.getLogger(PositionController.class);
+
 	private PositionService positionService;
 	@Autowired
 	public void setPositionService(PositionService positionService) {
@@ -33,7 +38,7 @@ public class PositionController {
 	
 	@RequestMapping(value="/position/upload", method=RequestMethod.GET)
 	@ResponseBody
-    public String showNewHeroForm(Model model,
+    public String uploadPosition(Model model,
     		@RequestParam(required=true) Float latitude,
     		@RequestParam(required=true) Float longitude,
     		@RequestParam(required=true) Float accuracy,
@@ -50,9 +55,12 @@ public class PositionController {
 		position.setAltitudeAccuracy(altitudeAccuracy);
 		position.setHeading(heading);
 		position.setSpeed(speed);
-		position.setTimestamp(new Date(timestamp));
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(timestamp);
+		position.setTimestamp(calendar.getTime());
 		positionService.save(position);
 //		List<Map<String, Object>> positionList = positionService.findAll();
+		log.info("uploadPosition:"+position.toString());
     	model.addAttribute("lolheroForm",new LolheroForm());
         return "form";
     }

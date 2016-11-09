@@ -317,9 +317,10 @@
                     </div>
                     <div class="x_content">
                       <div class="chineseChar">
-                      	<button  ng-click="getPostion()">获取实时位置</button>
+                      	<button  ng-click="getPostion()" class="btn btn-default source">获取实时位置</button>
                       	<P>消息：<span ng-bind="position.message" >0</span></P>
-                      	<P>维度：<span ng-bind="position.coords.latitude" >0</span></P>                      	
+                      	<P>时间戳：<span ng-bind="position.timestamp" >0</span></P>                      	
+                      	<P>纬度：<span ng-bind="position.coords.latitude" >0</span></P>                      	
                       	<P>经度：<span ng-bind="position.coords.longitude" >0</span></P>
                       	<P>位置精度：<span ng-bind="position.coords.accuracy" >0</span></P>
                       	<P>海拔：<span ng-bind="position.coords.altitude" >0</span></P>
