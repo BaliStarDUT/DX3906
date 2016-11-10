@@ -1,8 +1,6 @@
 package lol.controller.position;
 
 import java.sql.Date;
-import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,9 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.sun.org.apache.bcel.internal.generic.NEW;
-import com.sun.org.apache.xpath.internal.functions.FuncFalse;
 
 import lol.entity.LolheroForm;
 import lol.entity.position.Position;
@@ -24,6 +19,7 @@ import lol.service.positon.PositionService;
  * 2016年11月7日 下午1:57:29
  */
 @Controller
+@RequestMapping("/position")
 public class PositionController {
 	private PositionService positionService;
 	@Autowired
@@ -31,7 +27,7 @@ public class PositionController {
 		this.positionService = positionService;
 	}
 	
-	@RequestMapping(value="/position/upload", method=RequestMethod.GET)
+	@RequestMapping(value="/upload", method=RequestMethod.GET)
 	@ResponseBody
     public String showNewHeroForm(Model model,
     		@RequestParam(required=true) Float latitude,
@@ -56,5 +52,11 @@ public class PositionController {
     	model.addAttribute("lolheroForm",new LolheroForm());
         return "form";
     }
+	
+	@RequestMapping(value="/uploadposition", method=RequestMethod.GET)
+	@ResponseBody
+	public String uploadPositionObject(){
+		return "success";
+	}
 	
 }
