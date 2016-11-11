@@ -11,6 +11,7 @@ app.controller("positionController", function($scope,$http) {
 				heading : 0,
 				speed : 0
 			},
+			image:"",
 			message:""
 	}
 	//调用HTML5的地理定位API，需要用户同意
@@ -32,6 +33,11 @@ app.controller("positionController", function($scope,$http) {
 		$scope.position.coords.altitudeAccuracy =position.coords.altitudeAccuracy;
 		$scope.position.coords.heading =position.coords.heading;
 		$scope.position.coords.speed =position.coords.speed;
+		var latlon=$scope.position.coords.latitude+","+$scope.position.coords.longitude;
+
+		$scope.position.image="http://maps.googleapis.com/maps/api/staticmap?center="
+		+latlon+"&zoom=14&size=400x300&sensor=false";
+		
 		$scope.uploadPosition();
 	}
 	//地理位置获取失败调用，显示错误信息
