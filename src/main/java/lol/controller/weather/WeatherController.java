@@ -37,8 +37,6 @@ public class WeatherController {
 		log.setLevel(Level.DEBUG);
 		log.debug("queryWeather:cityname = "+cityname);
 		log.info("queryWeather:cityname = "+cityname);
-		log.warn("queryWeather:cityname = "+cityname);
-		log.error("queryWeather:cityname = "+cityname);
 		RestTemplate restTemplate = new RestTemplate();
 		Map<String ,String> params = new HashMap<String ,String>();
 		final String DEFAULT_DTYPE = "json";
@@ -49,7 +47,6 @@ public class WeatherController {
         params.put("dtype",DEFAULT_DTYPE);
 		ResponseEntity<Map> weather = 	restTemplate.getForEntity(WEATHER_URL, Map.class, params);
 		log.debug("queryWeather:weather= "+weather.toString());
-//		System.out.println(weather.toString());
 	    return weather;
 	}
 	

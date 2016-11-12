@@ -1,5 +1,5 @@
-DROP TABLE heros IF EXISTS; 
-CREATE TABLE heros(
+--DROP TABLE heros IF EXISTS; 
+CREATE TABLE IF NOT EXISTS heros(
   id         INTEGER IDENTITY PRIMARY KEY,
 	nickname	VARCHAR(20),
 	name_en		VARCHAR(20),
@@ -12,8 +12,8 @@ CREATE TABLE heros(
 	sounds		BLOB
 );
 --CREATE INDEX nicknameIndex ON heros (nickname);
-DROP TABLE position IF EXISTS; 
-CREATE TABLE position (
+--DROP TABLE position IF EXISTS; 
+CREATE TABLE IF NOT EXISTS position (
   sid int(11) NOT NULL AUTO_INCREMENT,
   latitude double DEFAULT NULL,
   longitude double DEFAULT NULL,
