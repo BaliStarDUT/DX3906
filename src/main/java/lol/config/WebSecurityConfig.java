@@ -19,19 +19,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-            .authorizeRequests()
-	            .antMatchers("/resources/**","/weather/**","/position/**","/signup", 
-	            		"/about","/h2-console/**").permitAll()  
-				.antMatchers("/admin/**").hasRole("ADMIN")       
-				.antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')") 
-				.anyRequest().authenticated() 
-			.and()
-		.formLogin().loginPage("/resources/view/login.html")
-			.usernameParameter("username")
-			.passwordParameter("password")
-			.defaultSuccessUrl("/")
-			.permitAll();
+ 		http.authorizeRequests().antMatchers("/**").hasRole("USER").and().httpBasic();
+//            .authorizeRequests()
+//	            .antMatchers("/resources/**","/weather/**","/position/**","/signup", 
+//	            		"/about","/h2-console/**").permitAll()  
+//				.antMatchers("/admin/**").hasRole("ADMIN")       
+//				.antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')") 
+//				.anyRequest().authenticated() 
+//			.and()
+//		.formLogin().loginPage("/resources/view/login.html")
+//			.usernameParameter("username")
+//			.passwordParameter("password")
+//			.defaultSuccessUrl("/")
+//			.permitAll();
         http.csrf().disable();
         http.logout()
         		.logoutUrl("/logout")
