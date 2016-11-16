@@ -121,6 +121,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
 	}
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/view/**")
+		.addResourceLocations("classpath:/assets/html/").setCachePeriod(31556926)
+		.resourceChain(true).addResolver(
+				new VersionResourceResolver().addContentVersionStrategy("/**"));
 		registry.addResourceHandler("/resources/js/**")
 		.addResourceLocations("classpath:/assets/js/bower_components/",
 				"classpath:/assets/js/custom/").setCachePeriod(31556926)
@@ -132,10 +136,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
 				new VersionResourceResolver().addContentVersionStrategy("/**"));
 		registry.addResourceHandler("/resources/gentelella/**")
 		.addResourceLocations("classpath:/assets/gentelella/").setCachePeriod(31556926)
-		.resourceChain(true).addResolver(
-				new VersionResourceResolver().addContentVersionStrategy("/**"));
-		registry.addResourceHandler("/resources/view/**")
-		.addResourceLocations("classpath:/assets/html/").setCachePeriod(31556926)
 		.resourceChain(true).addResolver(
 				new VersionResourceResolver().addContentVersionStrategy("/**"));
 		registry.addResourceHandler("/resources/music/**")
