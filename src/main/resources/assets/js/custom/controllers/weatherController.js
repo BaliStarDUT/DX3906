@@ -77,6 +77,10 @@ app.controller('weatherController', function($scope, $http,$interval,$timeout) {
     				skycons.add("weatherIcon"+(we+1),Skycons.RAIN);break;
     			case "小雨":
     				skycons.add("weatherIcon"+(we+1),Skycons.RAIN);break;
+    			case "小雪":
+    				skycons.add("weatherIcon"+(we+1),Skycons.SNOW);break;
+    			case "阵雪":
+    				skycons.add("weatherIcon"+(we+1),Skycons.SNOW);break;
     			default:
     				skycons.add("weatherIcon"+(we+1),Skycons.CLOUDY);break;
 
@@ -102,7 +106,13 @@ app.controller('weatherController', function($scope, $http,$interval,$timeout) {
     	}else if($scope.weatherInfo.indexOf("霾")!=-1){
 	    	skycons.add("weatherIcon0", Skycons.FOG);
     		$scope.weatherInfoIcon = "fog";
-    	}		
+    	}else if($scope.weatherInfo.indexOf("小雪")!=-1){
+	    	skycons.add("weatherIcon0", Skycons.SNOW);
+    		$scope.weatherInfoIcon = "snow";
+    	}else if($scope.weatherInfo.indexOf("阵雪")!=-1){
+	    	skycons.add("weatherIcon0", Skycons.SNOW);
+    		$scope.weatherInfoIcon = "snow";
+    	}			
     	skycons.play();
 	}
 	$scope.getSchedulTime = function(){

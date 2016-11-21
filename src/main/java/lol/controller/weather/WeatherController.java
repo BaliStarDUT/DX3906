@@ -46,7 +46,17 @@ public class WeatherController {
 		params.put("key",APPKEY );
         params.put("dtype",DEFAULT_DTYPE);
 		ResponseEntity<Map> weather = 	restTemplate.getForEntity(WEATHER_URL, Map.class, params);
-		log.debug("queryWeather:weather= "+weather.toString());
+//		if(weather.getStatusCode().value() == 200){
+//			if(weather.getBody().containsKey("reason")){
+				String reason = (String) weather.getBody().get("reason");
+				if(reason.startsWith("successed")){
+					log.debug("queryWeather:weather= "+weather.toString());
+				}else {
+					log.error("queryWeather:weather= "+weather.toString());
+				}
+//			}
+//		}
+		
 	    return weather;
 	}
 	
