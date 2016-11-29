@@ -119,17 +119,21 @@
 			        <layout>ZIP</layout>
 			        <source>1.8</source>
           			<target>1.8</target>
-          			 <encoding.source>UTF-8</encoding.source>
-	                <encoding.reporting>UTF-8</encoding.reporting>
-	                <java.source>1.8</java.source>
-	                <java.target>1.8</java.target>
 		      	</configuration>
                 <executions>
                     <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
+		            <goals>
+		              <goal>build-info</goal>
+		            </goals>
+		            <configuration>
+		              <additionalProperties>
+		                <encoding.source>UTF-8</encoding.source>
+		                <encoding.reporting>UTF-8</encoding.reporting>
+		                <java.source>1.8</java.source>
+		                <java.target>1.8</java.target>
+		              </additionalProperties>
+		            </configuration>
+		          </execution>
                 </executions>
             </plugin>
         </plugins>
