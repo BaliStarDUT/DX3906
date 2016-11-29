@@ -5,13 +5,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -63,15 +56,15 @@ public class ControllerTest {
 	
 	@Test
 	public void testFileTree(){
-		final String ROOT = "/media/james/home/yangz/code/hello-world/";
-		try {
-			List<Path> pathList = Files.walk(Paths.get(ROOT)).collect(Collectors.toList());
-			for(Path path:pathList){
-				System.out.println(path.toUri());
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		final String ROOT = "/media/james/home/yangz/code/hello-world/";
+//		try {
+//			List<Path> pathList = Files.walk(Paths.get(ROOT)).collect(Collectors.toList());
+//			for(Path path:pathList){
+//				System.out.println(path.toUri());
+//			}
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
 	}
 	@SuppressWarnings("resource")
@@ -86,7 +79,7 @@ public class ControllerTest {
 	public void testMessage2(){
 		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:/lol/controller/beans.xml");
 //		MessageSource source = new ClassPathXmlApplicationContext("/lol/controller/beans.xml");
-		Example example = (Example)context.getBean("example");;
-		example.excute();
+//		Example example = (Example)context.getBean("example");;
+//		example.excute();
 	}
 }
