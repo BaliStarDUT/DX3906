@@ -114,10 +114,16 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>1.4.2.RELEASE</version>
-                  <configuration>
+                <configuration>
 			        <mainClass>lol.Application</mainClass>
 			        <layout>ZIP</layout>
-			      </configuration>
+			        <source>1.8</source>
+          			<target>1.8</target>
+          			 <encoding.source>UTF-8</encoding.source>
+	                <encoding.reporting>UTF-8</encoding.reporting>
+	                <java.source>1.8</java.source>
+	                <java.target>1.8</java.target>
+		      	</configuration>
                 <executions>
                     <execution>
                         <goals>
