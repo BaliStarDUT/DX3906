@@ -23,8 +23,15 @@ public class InitDataSourceConfig {
 	@PostConstruct
 	public void init() {
 		ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
-		databasePopulator.addScript(new ClassPathResource(env.getProperty("jdbc.initLocation")));
-		databasePopulator.addScript(new ClassPathResource(env.getProperty("jdbc.dataLocation")));
+		if(env.getProperty("jdbc.driverClassName").contains("mysql")){
+			databasePopulator.addScript(new ClassPathResource(env.getProperty("jdbc.mysql.initLocation")));
+			databasePopulator.addScript(new ClassPathResource(env.getProperty("jdbc.mysql.dataLocation")));
+		}else{
+			databasePopulator.addScript(new ClassPathResource(env.getProperty("jdbc.h2.initLocation")));
+			databasePopulator.addScript(new ClassPathResource(env.getProperty("jdbc.h2.dataLocation")));
+		}
+		
 		DatabasePopulatorUtils.execute(databasePopulator, dataSource);
+		
 	}
 }
