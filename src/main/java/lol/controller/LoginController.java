@@ -1,5 +1,11 @@
 package lol.controller;
 
+import java.security.Principal;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,12 +13,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mysql.jdbc.log.LogUtils;
+
 /**
  * 
  * 2016年11月12日上午10:59:22
  */
 @Controller
 public class LoginController{
+	private static final Logger log = LoggerFactory.getLogger(LoginController.class);
+	
 	@RequestMapping(value = "/")
 //	@ResponseBody
 	public String index() {
@@ -69,6 +79,20 @@ public class LoginController{
 	@RequestMapping(value = "/welcome")
 	@ResponseBody
 	public String welcome() {
+		try {
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if(principal instanceof UserDetails){
+				log.info(((UserDetails)principal).getUsername());
+			}
+			if(principal instanceof Principal){
+				log.info(((Principal)principal).getName());
+			}
+			log.info(String.valueOf(principal));
+			log.info(SecurityContextHolder.getContext().getAuthentication().getName());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "welcome";
 	}
 
