@@ -1,11 +1,21 @@
 package lol.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * 
@@ -71,5 +81,36 @@ public class LoginController{
 	public String welcome() {
 		return "welcome";
 	}
-
+	@RequestMapping(value = "/hostinfo/getjson")
+	@ResponseBody
+	public void hostinfo(HttpServletResponse response) {
+		Map<String, Object> result = new HashMap<>(1);
+		List<Object> groupList = new ArrayList<>(4);
+		Map<String, Object> groupMap = new HashMap<>(4);
+		Map<String, String> memberMap = new HashMap<>(4);
+		memberMap.put("ip", "192.168.0.107");
+		memberMap.put("hostname", "james-CW65");
+		groupMap.put("groupname", "web");
+		groupMap.put("members", memberMap);
+		
+		Map<String, Object> groupMap2 = new HashMap<>(4);
+		Map<String, String> memberMap2 = new HashMap<>(4);
+		memberMap2.put("ip", "192.168.0.105");
+		memberMap2.put("hostname", "airs-MacBook-Air.local");
+		groupMap2.put("groupname", "db");
+		groupMap2.put("members", memberMap2);
+		
+		groupList.add(groupMap);
+		groupList.add(groupMap2);
+		result.put("data", groupList);
+		JSONObject jsonObject = new JSONObject(result);
+		String responseStr =  jsonObject.toJSONString();
+		try {
+			response.getWriter().write(responseStr);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return;
+	}
 }
