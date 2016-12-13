@@ -1,6 +1,6 @@
 --DROP TABLE heros IF EXISTS; 
 CREATE TABLE IF NOT EXISTS heros(
-     id         INTEGER IDENTITY PRIMARY KEY,
+     id         INTEGER PRIMARY KEY,
 	nickname	VARCHAR(20),
 	name_en		VARCHAR(20),
 	name_cn		VARCHAR(20),

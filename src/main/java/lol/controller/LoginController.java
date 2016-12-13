@@ -1,6 +1,7 @@
 package lol.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +28,8 @@ import com.alibaba.fastjson.JSONObject;
  */
 @Controller
 public class LoginController{
+	private static final Logger log = LoggerFactory.getLogger(LoginController.class);
+	
 	@RequestMapping(value = "/")
 //	@ResponseBody
 	public String index() {
@@ -79,6 +86,20 @@ public class LoginController{
 	@RequestMapping(value = "/welcome")
 	@ResponseBody
 	public String welcome() {
+		try {
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if(principal instanceof UserDetails){
+				log.info(((UserDetails)principal).getUsername());
+			}
+			if(principal instanceof Principal){
+				log.info(((Principal)principal).getName());
+			}
+			log.info(String.valueOf(principal));
+			log.info(SecurityContextHolder.getContext().getAuthentication().getName());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "welcome";
 	}
 	@RequestMapping(value = "/hostinfo/getjson")

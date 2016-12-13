@@ -1,4 +1,5 @@
 app.controller("positionController", function($scope,$http) {
+	$scope.isCollapsed = false;
 	//定义位置类，赋初始值
 	$scope.position = {
 			timestamp:"2016-11-07",
