@@ -112,7 +112,10 @@ app.controller('weatherController', function($scope, $http,$interval,$timeout) {
     	}else if($scope.weatherInfo.indexOf("阵雪")!=-1){
 	    	skycons.add("weatherIcon0", Skycons.SNOW);
     		$scope.weatherInfoIcon = "snow";
-    	}			
+    	}else if($scope.weatherInfo.indexOf("雾")!=-1){
+	    	skycons.add("weatherIcon0", Skycons.SNOW);
+    		$scope.weatherInfoIcon = "fog";
+    	}				
     	skycons.play();
 	}
 	$scope.getSchedulTime = function(){

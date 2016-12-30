@@ -37,8 +37,7 @@ app.controller("positionController", function($scope,$http) {
 		var latlon=$scope.position.coords.latitude+","+$scope.position.coords.longitude;
 
 		$scope.position.image="http://maps.googleapis.com/maps/api/staticmap?center="
-		+latlon+"&zoom=14&size=400x300&sensor=false";
-		
+		+latlon+"&zoom=14&size=400x300&sensor=false&key=AIzaSyCN1sj7QVdLd5PoYXMk4IbkuRYloXrekrs";
 		$scope.uploadPosition();
 	}
 	//地理位置获取失败调用，显示错误信息

@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mysql.jdbc.log.LogUtils;
-
 /**
  * 
  * 2016年11月12日上午10:59:22
