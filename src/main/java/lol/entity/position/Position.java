@@ -9,13 +9,13 @@ import java.util.Date;
  * The persistent class for the position database table.
  * 
  */
-//@Entity
-//@NamedQuery(name="Position.findAll", query="SELECT p FROM Position p")
+@Entity
+@NamedQuery(name="Position.findAll", query="SELECT p FROM Position p")
 public class Position implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-//	@Id
-//	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int sid;
 
 	private double accuracy;
@@ -32,7 +32,7 @@ public class Position implements Serializable {
 
 	private double speed;
 
-//	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
 
 	public Position() {

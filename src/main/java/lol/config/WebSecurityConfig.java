@@ -48,11 +48,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication();
-//            .inMemoryAuthentication()
-//                .withUser("user").password("password").roles("USER").and()
-//                .withUser("admin").password("admin").roles("ADMIN").and()
-//                .withUser("user2").password("password").roles("DBA");
+//    	.jdbcAuthentication();
+        auth
+            .inMemoryAuthentication()
+                .withUser("user").password("password").roles("USER").and()
+                .withUser("admin").password("admin").roles("ADMIN").and()
+                .withUser("user2").password("password").roles("DBA");
     }
     
 }

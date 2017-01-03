@@ -1,6 +1,10 @@
 package lol.controller.position;
 
 import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import lol.config.ApplicationKeyConfig;
 import lol.entity.LolheroForm;
 import lol.entity.position.Position;
 import lol.service.positon.PositionService;
@@ -23,12 +28,12 @@ import lol.service.positon.PositionService;
 @RequestMapping("/position")
 public class PositionController {
     private static final Logger log = Logger.getLogger(PositionController.class);
-
-	private PositionService positionService;
-	@Autowired
-	public void setPositionService(PositionService positionService) {
-		this.positionService = positionService;
-	}
+    
+    @Resource(name="ApplicationKey")
+    private ApplicationKeyConfig applicationKeyConfig;
+    
+    @Autowired
+    private PositionService positionService;
 	
 	@RequestMapping(value="/upload", method=RequestMethod.GET)
 	@ResponseBody
@@ -55,8 +60,8 @@ public class PositionController {
 		positionService.save(position);
 //		List<Map<String, Object>> positionList = positionService.findAll();
 		log.info("uploadPosition:"+position.toString());
-    	model.addAttribute("lolheroForm",new LolheroForm());
-        return "form";
+//    	model.addAttribute("lolheroForm",new LolheroForm());
+        return applicationKeyConfig.googleMapAppKey;
     }
 	
 	@RequestMapping(value="/uploadposition", method=RequestMethod.GET)

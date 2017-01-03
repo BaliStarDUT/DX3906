@@ -34,11 +34,7 @@ app.controller("positionController", function($scope,$http) {
 		$scope.position.coords.altitudeAccuracy =position.coords.altitudeAccuracy;
 		$scope.position.coords.heading =position.coords.heading;
 		$scope.position.coords.speed =position.coords.speed;
-		var latlon=$scope.position.coords.latitude+","+$scope.position.coords.longitude;
-
-		$scope.position.image="http://maps.googleapis.com/maps/api/staticmap?center="
-		+latlon+"&zoom=14&size=400x300&sensor=false&key=AIzaSyCN1sj7QVdLd5PoYXMk4IbkuRYloXrekrs";
-		$scope.uploadPosition();
+		uploadPosition();
 	}
 	//地理位置获取失败调用，显示错误信息
 	function showError(error)
@@ -59,7 +55,7 @@ app.controller("positionController", function($scope,$http) {
 				break;
 		}
 	}
-	$scope.uploadPosition = function(){
+	function uploadPosition(){
 		var url = "/position/upload";
 		$http.get(url,{params:{latitude:$scope.position.coords.latitude,
 			longitude:$scope.position.coords.longitude,
@@ -70,6 +66,9 @@ app.controller("positionController", function($scope,$http) {
 			speed:$scope.position.coords.speed,
 			timestamp:$scope.position.timestamp}}).success(
 					function(response) {
+						var latlon=$scope.position.coords.latitude+","+$scope.position.coords.longitude;
+						$scope.position.image="http://maps.googleapis.com/maps/api/staticmap?center="
+						+latlon+"&zoom=14&size=400x300&sensor=false&key="+response;
 						$scope.position.message = "上传成功";
 					});
 	}
