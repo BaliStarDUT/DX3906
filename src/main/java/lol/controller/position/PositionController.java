@@ -43,7 +43,7 @@ public class PositionController {
     		@RequestParam(required=true) Float accuracy,
     		@RequestParam(required=false,defaultValue="0") Float altitude,
     		@RequestParam(required=false,defaultValue="0") Float altitudeAccuracy,
-    		@RequestParam(required=false,defaultValue="0") Float heading,
+    		@RequestParam(required=false,defaultValue="0") float heading,
     		@RequestParam(required=false,defaultValue="0") Float speed,
     		@RequestParam(required=true) Long timestamp) {
 		Position position = new Position();
