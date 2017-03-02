@@ -1,4 +1,4 @@
-package lol.service.positon;
+package top.hunaner.lol.service.positon;
 
 import java.util.List;
 import java.util.Map;
@@ -6,8 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lol.dao.position.PositionDao;
-import lol.entity.position.Position;
+import top.hunaner.lol.dao.position.PositionDao;
+import top.hunaner.lol.entity.position.Position;
 
 /**
  * 

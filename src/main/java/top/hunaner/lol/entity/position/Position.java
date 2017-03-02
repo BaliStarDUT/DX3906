@@ -1,4 +1,4 @@
-package lol.entity.position;
+package top.hunaner.lol.entity.position;
 
 import java.io.Serializable;
 import javax.persistence.*;

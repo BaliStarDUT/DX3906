@@ -13,7 +13,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.jdbc.JdbcTestUtils;
 
-import lol.entity.position.Position;
+import top.hunaner.lol.entity.position.Position;
+
 
 /**
  * 

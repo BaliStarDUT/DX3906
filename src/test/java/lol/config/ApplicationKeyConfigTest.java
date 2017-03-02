@@ -10,6 +10,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.context.WebApplicationContext;
 
+import top.hunaner.lol.config.ApplicationKeyConfig;
+
 /**
  * 
  * 2017年1月3日 下午7:01:47

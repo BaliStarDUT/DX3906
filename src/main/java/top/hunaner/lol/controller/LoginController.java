@@ -1,4 +1,4 @@
-package lol.controller;
+package top.hunaner.lol.controller;
 
 import java.io.IOException;
 import java.security.Principal;

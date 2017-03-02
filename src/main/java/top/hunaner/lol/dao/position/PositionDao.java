@@ -1,4 +1,4 @@
-package lol.dao.position;
+package top.hunaner.lol.dao.position;
 
 import java.util.Collection;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import lol.entity.position.Position;
+import top.hunaner.lol.entity.position.Position;
 
 /**
  * 

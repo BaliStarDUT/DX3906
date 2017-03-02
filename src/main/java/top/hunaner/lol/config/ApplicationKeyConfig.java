@@ -1,4 +1,4 @@
-package lol.config;
+package top.hunaner.lol.config;
 
 import javax.annotation.PostConstruct;
 
