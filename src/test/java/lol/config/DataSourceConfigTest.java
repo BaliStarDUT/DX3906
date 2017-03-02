@@ -3,10 +3,13 @@ package lol.config;
 import static org.junit.Assert.*;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 import javax.sql.DataSource;
 
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +31,7 @@ import top.hunaner.lol.config.DataSourceConfig;
 @ContextConfiguration(classes = DataSourceConfig.class)
 @WebAppConfiguration
 public class DataSourceConfigTest {
+    private static final Logger log = Logger.getLogger(DataSourceConfigTest.class);
 	@Autowired
     private WebApplicationContext wac;
 
@@ -40,30 +44,57 @@ public class DataSourceConfigTest {
     
 	@Test
 	public void testDataSource() {
+		log.debug("Starting test class DataSourceConfig:");
 		assertNotNull("WebApplicationContext can't be null",wac);
-		System.out.println(this.wac.getBeanDefinitionCount());
-		for(String bean :this.wac.getBeanDefinitionNames()){
-			System.out.println(bean);
-		}
-		System.out.println(this.wac.getDisplayName());
-		System.out.println(this.wac.getApplicationName());
+		log.debug("WebApplicationContext:"+this.wac.getDisplayName());
+		log.debug("BeanDefinitionCount:"+this.wac.getBeanDefinitionCount());
 		assertTrue("Bean named dataSource must be defined", this.wac.containsBean("dataSource"));
 		if(this.wac.containsBean("dataSource")){
 			DataSource dataSource = (DataSource) this.wac.getBean("dataSource");
 			assertNotNull("Bean named dataSource must not be null",dataSource);
-			System.out.println(dataSource.getClass().getName());
+			log.debug("Bean named dataSource:"+dataSource.getClass().getName());
 			try {
 				Connection connection = dataSource.getConnection();
 				assertNotNull("dataSource must can get a connection", connection);
-//				System.out.println(connection.getSchema());
+				log.debug("Get a connection from dataSource:"+connection.toString());
 				Properties properties = connection.getClientInfo();
 				for(Object ob :properties.keySet()){
-					System.out.println(ob);
+					log.debug("Properties in dataSource:"+ob.toString());
+				}
+				String sql ="show databases";
+				PreparedStatement preparedStatement = connection.prepareStatement(sql);
+				log.debug(sql+":"+preparedStatement.toString());
+				ResultSet resultSet = preparedStatement.executeQuery();
+				for(int i =1 ;resultSet.next();i++){
+					log.debug(resultSet.getString(1));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-
+	@Autowired DataSource dataSource;
+	@Test
+	public void testDatasource(){
+		assertNotNull("Bean named dataSource must not be null",dataSource);
+		log.debug("Bean named dataSource:"+dataSource.getClass().getName());
+		try {
+			Connection connection = dataSource.getConnection();
+			assertNotNull("dataSource must can get a connection", connection);
+			log.debug("Get a connection from dataSource:"+connection.toString());
+			Properties properties = connection.getClientInfo();
+			for(Object ob :properties.keySet()){
+				log.debug("Properties in dataSource:"+ob.toString());
+			}
+			String sql ="show databases";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			log.debug(sql+":"+preparedStatement.toString());
+			ResultSet resultSet = preparedStatement.executeQuery();
+			for(int i =1 ;resultSet.next();i++){
+				log.debug(resultSet.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

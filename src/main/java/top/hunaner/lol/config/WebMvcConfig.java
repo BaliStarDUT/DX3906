@@ -3,6 +3,8 @@ package top.hunaner.lol.config;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -109,19 +111,38 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
 	@Override
 	public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
 		SimpleMappingExceptionResolver exceptionResolver = new SimpleMappingExceptionResolver();
+//		exceptionResolver.
 		// results into 'WEB-INF/jsp/exception.jsp'
 		exceptionResolver.setDefaultErrorView("exception");
+		exceptionResolver.setDefaultStatusCode(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		// needed otherwise exceptions won't be logged anywhere
 		exceptionResolver.setWarnLogCategory("warn");
 		exceptionResolvers.add(exceptionResolver);
-//		exceptionResolver.setDefaultErrorView("404");
 	}
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resources/**")
-		.addResourceLocations("classpath:/assets/").setCachePeriod(31556926)
+		registry.addResourceHandler("/resources/view/**")
+		.addResourceLocations("classpath:/assets/html/").setCachePeriod(31556926)
 		.resourceChain(true).addResolver(
 				new VersionResourceResolver().addContentVersionStrategy("/**"));
+		registry.addResourceHandler("/resources/js/**")
+		.addResourceLocations("classpath:/assets/js/bower_components/",
+				"classpath:/assets/js/custom/").setCachePeriod(31556926)
+		.resourceChain(true).addResolver(
+				new VersionResourceResolver().addContentVersionStrategy("/**"));
+		registry.addResourceHandler("/resources/image/**")
+		.addResourceLocations("classpath:/assets/image/").setCachePeriod(31556926)
+		.resourceChain(true).addResolver(
+				new VersionResourceResolver().addContentVersionStrategy("/**"));
+		registry.addResourceHandler("/resources/gentelella/**")
+		.addResourceLocations("classpath:/assets/gentelella/").setCachePeriod(31556926)
+		.resourceChain(true).addResolver(
+				new VersionResourceResolver().addContentVersionStrategy("/**"));
+		registry.addResourceHandler("/resources/music/**")
+		.addResourceLocations("classpath:/assets/music/").setCachePeriod(31556926)
+		.resourceChain(true).addResolver(
+				new VersionResourceResolver().addContentVersionStrategy("/**"));
+		
 	}
 	
 	@Override

@@ -4,9 +4,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
  * 2016年9月21日 下午11:07:39
  */
 public class TestWeatherQueryController {
-    private static final Logger log = LoggerFactory.getLogger(TestWeatherQueryController.class);
+    private static final Logger log = Logger.getLogger(TestWeatherQueryController.class);
 
 	@Test
 	public void testRestTemplate() {
@@ -51,10 +50,9 @@ public class TestWeatherQueryController {
 	@Test
 	public void testQueryWeather() {
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<Map> weather = 	restTemplate.getForEntity("http://localhost:81/weather/query?cityname=北京",
+		@SuppressWarnings("rawtypes")
+		ResponseEntity<Map> weather = 	restTemplate.getForEntity("http://localhost:81/weather/query.json?cityname=北京",
 				Map.class);
-//		ResponseEntity<Map> weather = 	restTemplate.getForEntity("http://op.juhe.cn/onebox/weather/query?cityname=北京&dtype=&key=7c3913df657c1d30a9d284305f395e05",
-//				Map.class);
 		log.info(weather.toString());
 	}
 }

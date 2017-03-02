@@ -12,6 +12,8 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
   
   <dependencies>
@@ -22,85 +24,55 @@
     <dependency>
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-test</artifactId>
-         <scope>test</scope>
     </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-rest</artifactId>
+    </dependency>
+      
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>     
+         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-rest</artifactId>
-        </dependency>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>  
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <!-- 加入视图模板 -->
-        <dependency>
+        </dependency> 
+         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-<!--         <dependency> -->
-<!--             <groupId>org.springframework.boot</groupId> -->
-<!--             <artifactId>spring-boot-starter-security</artifactId> -->
-<!--         </dependency> -->
-        <!-- 以下两个为文件上传中加入的：https://spring.io/guides/gs/uploading-files/ -->
+        </dependency>   
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-hateoas</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-        </dependency>
-       <dependency>
-           <groupId>org.hibernate</groupId>
-           <artifactId>hibernate-validator</artifactId>
-       </dependency>
+	    	<groupId>mysql</groupId>
+	    	<artifactId>mysql-connector-java</artifactId>
+    	</dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
-       <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-        <dependency>
-		    <groupId>com.fasterxml.jackson.dataformat</groupId>
-		    <artifactId>jackson-dataformat-xml</artifactId>
-<!--     <version>2.8.1</version> -->
-	</dependency>
         <!--  -->
-       <dependency>
-            <groupId>com.jayway.jsonpath</groupId>
-            <artifactId>json-path</artifactId>
-            <scope>test</scope>
-        </dependency>
         <dependency>
    			 <groupId>com.alibaba</groupId>
     		<artifactId>fastjson</artifactId>
     		<version>1.2.12</version>
 		</dependency>
-	<dependency>
-		<groupId>org.apache.tomcat.embed</groupId>
-		<artifactId>tomcat-embed-el</artifactId>
-	</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.dataformat</groupId>
+		    <artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
 	<dependency>
 		<groupId>commons-httpclient</groupId>
 		<artifactId>commons-httpclient</artifactId>
 		<version>3.1</version>
 	</dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
   
   <build>
@@ -108,6 +80,28 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.4.2.RELEASE</version>
+                <configuration>
+			        <mainClass>lol.Application</mainClass>
+			        <layout>ZIP</layout>
+			        <source>1.8</source>
+          			<target>1.8</target>
+		      	</configuration>
+                <executions>
+                    <execution>
+		            <goals>
+		              <goal>build-info</goal>
+		            </goals>
+		            <configuration>
+		              <additionalProperties>
+		                <encoding.source>UTF-8</encoding.source>
+		                <encoding.reporting>UTF-8</encoding.reporting>
+		                <java.source>1.8</java.source>
+		                <java.target>1.8</java.target>
+		              </additionalProperties>
+		            </configuration>
+		          </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

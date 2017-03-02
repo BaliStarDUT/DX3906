@@ -1,0 +1,46 @@
+ <!-- Start of Position widget -->
+<!--                 <script src="/resources/js/controllers/positionController.js"></script> -->
+                <div class="col-md-6 col-sm-6 col-xs-12" ng-controller="positionController">
+                  <div class="x_panel">
+                    <div class="x_title">
+                      <h2 class="chineseChar">实时位置<small>HTML5地理定位</small></h2>
+                      <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link" ng-click="isCollapsed = !isCollapsed"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                         <li >
+						   <a ng-click="getPostion()"><i class="fa fa-refresh"></i></a>
+						</li>
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Settings 1</a>
+                            </li>
+                            <li><a href="#">Settings 2</a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                      </ul>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div collapse="isCollapsed" class="x_content" >
+                      <div class="chineseChar">
+                      	<button  ng-click="getPostion()" class="btn btn-default source">获取实时位置</button>
+                      	<P>消息：<span ng-bind="position.message" >0</span></P>
+                      	<P>时间戳：<span ng-bind="position.timestamp" >0</span></P>                      	
+                      	<P>纬度：<span ng-bind="position.coords.latitude" >0</span></P>                      	
+                      	<P>经度：<span ng-bind="position.coords.longitude" >0</span></P>
+                      	<P>位置精度：<span ng-bind="position.coords.accuracy" >0</span></P>
+                      	<P>海拔：<span ng-bind="position.coords.altitude" >0</span></P>
+                      	<P>海拔精度：<span ng-bind="position.coords.altitudeAccuracy" >0</span></P>
+                      	<P>方向：<span ng-bind="position.coords.heading" >0</span></P>
+                      	<P>速度：<span ng-bind="position.coords.speed" >0</span></P>
+                      	<div>
+						    <img ng-src="{{position.image}}">Position</img>
+						</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End of Position widget -->
