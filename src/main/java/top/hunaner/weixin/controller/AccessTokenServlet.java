@@ -1,4 +1,4 @@
-package weixin.controller;
+package top.hunaner.weixin.controller;
 
 import java.io.IOException;
 import java.util.Map;
@@ -15,10 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.boot.json.JacksonJsonParser;
+import top.hunaner.weixin.entity.AccessToken;
+import top.hunaner.weixin.entity.AccessTokenInfo;
+import top.hunaner.weixin.util.NetWorkHelper;
 
-import weixin.entity.AccessToken;
-import weixin.entity.AccessTokenInfo;
-import weixin.util.NetWorkHelper;
 
 /**
  * Servlet implementation class AccessTokenServlet
@@ -96,7 +96,7 @@ public class AccessTokenServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	public AccessToken getAccessToken(String appid,String appsecret){
+	public AccessToken getAccessToken(String appid, String appsecret){
 		NetWorkHelper netHelper = new NetWorkHelper();
 		String url = String.format("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s", appid,appsecret);
 		String result = netHelper.getHttpsResponse(url, "GET");

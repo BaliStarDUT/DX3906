@@ -1,4 +1,4 @@
-package lol.config;
+package top.hunaner.lol.config;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -137,7 +137,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
         converters.add(new MappingJackson2HttpMessageConverter(builder.build()));
         converters.add(new MappingJackson2XmlHttpMessageConverter(builder.xml().build()));
 	}
-	@Override
+
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
 	}

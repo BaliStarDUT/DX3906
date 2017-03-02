@@ -1,4 +1,4 @@
-package lol.controller;
+package top.hunaner.lol.controller;
 /**
  * Controller used to showcase what happens when an exception is thrown
  * <p/>

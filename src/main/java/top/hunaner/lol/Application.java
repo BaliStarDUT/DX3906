@@ -1,4 +1,4 @@
-package lol;
+package top.hunaner.lol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -10,10 +10,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.web.WebAppConfiguration;
 
-import lol.config.WebAppInitializer;
-import lol.service.storage.impl.StorageProperties;
+import top.hunaner.lol.config.WebAppInitializer;
+import top.hunaner.lol.service.storage.impl.StorageProperties;
+
 
 /**
  *

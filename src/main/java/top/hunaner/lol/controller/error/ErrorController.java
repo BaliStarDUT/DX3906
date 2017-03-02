@@ -1,4 +1,4 @@
-package lol.controller.error;
+package top.hunaner.lol.controller.error;
 
 import org.springframework.boot.autoconfigure.web.BasicErrorController;
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;

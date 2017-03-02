@@ -1,4 +1,4 @@
-package lol.service.storage.impl;
+package top.hunaner.lol.service.storage.impl;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

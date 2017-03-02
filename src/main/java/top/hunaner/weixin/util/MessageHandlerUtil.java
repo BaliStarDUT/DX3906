@@ -1,5 +1,17 @@
-package weixin.util;
+package top.hunaner.weixin.util;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+import top.hunaner.weixin.entity.MessageType;
+import top.hunaner.weixin.entity.Music;
+import top.hunaner.weixin.entity.Video;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
@@ -8,21 +20,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.apache.juli.logging.Log;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
-import weixin.entity.MessageType;
-import weixin.entity.Music;
-import weixin.entity.Video;
-
+import static top.hunaner.weixin.entity.MessageType.*;
 
 
 public class MessageHandlerUtil {

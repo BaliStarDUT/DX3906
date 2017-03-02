@@ -1,4 +1,4 @@
-package lol.config;
+package top.hunaner.lol.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -15,7 +15,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		 return new Class[] { WebMvcConfig.class };	
+		 return new Class[] { WebMvcConfig.class };
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package lol.controller.weather;
+package top.hunaner.lol.controller.weather;
 
 import java.util.HashMap;
 import java.util.Map;

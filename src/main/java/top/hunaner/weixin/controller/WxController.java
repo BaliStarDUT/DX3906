@@ -1,4 +1,4 @@
-package weixin.controller;
+package top.hunaner.weixin.controller;
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import top.hunaner.weixin.util.MessageHandlerUtil;
 
-import weixin.util.MessageHandlerUtil;
 
 /**
  * Servlet implementation class WxServlet

@@ -1,4 +1,4 @@
-package weixin.entity;
+package top.hunaner.weixin.entity;
 /**
  *
  * @date 2016年5月21日 下午2:15:12

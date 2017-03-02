@@ -1,4 +1,6 @@
-package lol.entity.model;
+package top.hunaner.lol.entity.model;
+
+import top.hunaner.lol.entity.Lolhero;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +8,6 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import lol.entity.Lolhero;
 
 /**
  * Simple domain object representing a list of Lolheros. Mostly here to be used for the 'lolheros' {@link

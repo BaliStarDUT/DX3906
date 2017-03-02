@@ -1,8 +1,9 @@
-package lol.service;
+package top.hunaner.lol.service;
+
+
+import top.hunaner.lol.entity.Lolhero;
 
 import java.util.Collection;
-
-import lol.entity.Lolhero;
 
 public interface HerosService {
 	Collection<Lolhero> findHeros();

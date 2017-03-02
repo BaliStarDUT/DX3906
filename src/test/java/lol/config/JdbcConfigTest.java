@@ -17,6 +17,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import top.hunaner.lol.config.DataSourceConfig;
+import top.hunaner.lol.config.JdbcConfig;
+
 /**
  * Test JdbcConfig, it must get a valid JdbcTemplate and NamedParameterJdbcTemplate.
  * Depend on DataSourceConfig to run.

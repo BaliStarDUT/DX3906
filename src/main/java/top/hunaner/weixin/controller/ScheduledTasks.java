@@ -1,11 +1,12 @@
-package weixin.controller;
+package top.hunaner.weixin.controller;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
 
-import weixin.entity.AccessTokenInfo;
+import top.hunaner.weixin.controller.AccessTokenServlet;
+import top.hunaner.weixin.entity.AccessTokenInfo;
 
 @Component
 public class ScheduledTasks {

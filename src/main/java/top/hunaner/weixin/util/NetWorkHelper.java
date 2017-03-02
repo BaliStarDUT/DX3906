@@ -1,4 +1,4 @@
-package weixin.util;
+package top.hunaner.weixin.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,10 +1,6 @@
-package lol.controller;
+package top.hunaner.lol.controller;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 import javax.validation.Valid;
 
@@ -28,13 +24,19 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import top.hunaner.lol.entity.Lolhero;
+import top.hunaner.lol.entity.LolheroForm;
+import top.hunaner.lol.entity.model.Lolheros;
+import top.hunaner.lol.service.HerosService;
+import top.hunaner.lol.service.storage.StorageService;
+import top.hunaner.lol.service.storage.impl.StorageFileNotFoundException;
 
-import lol.entity.Lolhero;
-import lol.entity.LolheroForm;
-import lol.entity.model.Lolheros;
-import lol.service.HerosService;
-import lol.service.storage.StorageService;
-import lol.service.storage.impl.StorageFileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 /**
  *
@@ -169,7 +171,8 @@ public class HerosUploadController{
 
     
     @RequestMapping(value = { "/lolheros/heros.json", "/lolheros/heros.xml"})
-    public @ResponseBody  Lolheros showResourcesVetList() {
+    public @ResponseBody
+	Lolheros showResourcesVetList() {
         // Here we are returning an object of type 'Lolheros' rather than a collection of Lolhero objects
         // so it is simpler for JSon/Object mapping
     	Lolheros lolheros = new Lolheros();

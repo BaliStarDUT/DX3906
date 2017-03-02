@@ -1,4 +1,4 @@
-package lol.service;
+package top.hunaner.lol.service;
 
 import java.util.Collection;
 
@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import top.hunaner.lol.dao.HerosRepository;
+import top.hunaner.lol.entity.Lolhero;
 
-import lol.dao.HerosRepository;
-import lol.entity.Lolhero;
+
 /**
  * Mostly used as a facade for all Heros controllers
  * Also a placeholder for @Transactional and @Cacheable annotations

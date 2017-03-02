@@ -1,9 +1,9 @@
-package lol.dao.springdatajpa;
+package top.hunaner.lol.dao.springdatajpa;
 
 import org.springframework.data.repository.Repository;
+import top.hunaner.lol.dao.HerosRepository;
+import top.hunaner.lol.entity.Lolhero;
 
-import lol.dao.HerosRepository;
-import lol.entity.Lolhero;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package lol.entity;
+package top.hunaner.lol.entity;
 
 import java.io.Serializable;
 

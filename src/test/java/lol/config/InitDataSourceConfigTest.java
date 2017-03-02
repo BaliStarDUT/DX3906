@@ -14,6 +14,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import top.hunaner.lol.config.DataSourceConfig;
+import top.hunaner.lol.config.InitDataSourceConfig;
+
 /**
  * 
  * 2016年8月31日 下午4:12:40

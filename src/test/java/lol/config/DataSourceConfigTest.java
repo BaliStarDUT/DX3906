@@ -18,6 +18,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import top.hunaner.lol.config.DataSourceConfig;
+
 /**
  * Test DataSourceConfig, it must get a valid dataSource and connection
  * 2016年8月31日 上午10:06:06

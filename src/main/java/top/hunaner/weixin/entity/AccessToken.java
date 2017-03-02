@@ -1,4 +1,4 @@
-package weixin.entity;
+package top.hunaner.weixin.entity;
 
 public class AccessToken {
 	private String accessToken;

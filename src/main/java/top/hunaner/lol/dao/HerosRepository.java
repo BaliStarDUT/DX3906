@@ -1,8 +1,10 @@
-package lol.dao;
+package top.hunaner.lol.dao;
+
+import top.hunaner.lol.entity.Lolhero;
 
 import java.util.Collection;
 
-import lol.entity.Lolhero;
+
 
 /**
  * Repository class for <code>Heros</code> domain objects All method names are compliant with Spring Data naming

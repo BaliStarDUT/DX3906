@@ -6,4 +6,4 @@
  * @author root
  *
  */
-package lol.dao.springdatajpa;
+package top.hunaner.lol.dao.springdatajpa;
