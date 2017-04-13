@@ -1,4 +1,4 @@
-package top.hunaner.lol;
+package top.hunaner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -25,7 +25,7 @@ import top.hunaner.lol.service.storage.impl.StorageProperties;
 @Configuration
 @EnableAutoConfiguration
 @EnableConfigurationProperties(StorageProperties.class)
-@ComponentScan(basePackages="lol") //lol,weixin
+@ComponentScan(basePackages="top.hunaner.lol") //lol,weixin
 @Import(value = WebAppInitializer.class)
 public class Application extends SpringBootServletInitializer{
 	@Override
