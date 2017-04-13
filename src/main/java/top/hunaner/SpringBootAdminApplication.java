@@ -27,13 +27,13 @@ import top.hunaner.lol.service.storage.impl.StorageProperties;
 @EnableConfigurationProperties(StorageProperties.class)
 @ComponentScan(basePackages="top.hunaner.lol") //lol,weixin
 @Import(value = WebAppInitializer.class)
-public class Application extends SpringBootServletInitializer{
+public class SpringBootAdminApplication extends SpringBootServletInitializer{
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return super.configure(builder);
 	}
-	private static final Logger log = LoggerFactory.getLogger(Application.class);
+	private static final Logger log = LoggerFactory.getLogger(SpringBootAdminApplication.class);
 	 public static void main(String[] args) throws Exception {
-	        ApplicationContext ctx =  SpringApplication.run(Application.class, args);
+	        ApplicationContext ctx =  SpringApplication.run(SpringBootAdminApplication.class, args);
 	 }
 }

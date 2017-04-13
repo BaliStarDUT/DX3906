@@ -21,7 +21,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import top.hunaner.Application;
+import top.hunaner.SpringBootAdminApplication;
 
 
 /**
@@ -33,7 +33,7 @@ import top.hunaner.Application;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = Application.class)
+@ContextConfiguration(classes = SpringBootAdminApplication.class)
 public class ControllerTest {
 	@Autowired
     private WebApplicationContext wac;
