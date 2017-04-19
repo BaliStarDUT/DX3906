@@ -6,6 +6,9 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +36,12 @@ public class PositionController {
     
     @Autowired
     private PositionService positionService;
-	
+
+	@ApiOperation(value="上传地理位置接口", notes="上传地理位置接口")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "latitude", value = "纬度", required = true, dataType = "Float"),
+			@ApiImplicitParam(name = "longitude", value = "经度", required = true, dataType = "Float")
+	})
 	@RequestMapping(value="/upload", method=RequestMethod.GET)
 	@ResponseBody
     public String uploadPosition(Model model,
@@ -62,7 +70,8 @@ public class PositionController {
 //    	model.addAttribute("lolheroForm",new LolheroForm());
         return applicationKeyConfig.googleMapAppKey;
     }
-	
+
+	@ApiOperation(value="上传地理位置响应", notes="上传地理位置响应接口")
 	@RequestMapping(value="/uploadposition", method=RequestMethod.GET)
 	@ResponseBody
 	public String uploadPositionObject(){

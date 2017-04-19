@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,19 +34,21 @@ public class LoginController{
 	private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
 	@ApiOperation(value="网站首页", notes="index页面")
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "/",method = RequestMethod.GET)
 	public String index(ModelMap map) {
         map.addAttribute("title","Legue Of Legends");
 		return "index";
 	}
 
-	@RequestMapping(value = "/login")
+	@ApiOperation(value="用户登录", notes="用户登录调用的接口")
+	@ApiImplicitParam(name = "body", value = "用户登录传递的参数", required = false, dataType = "Object")
+	@RequestMapping(value = "/login",method = RequestMethod.POST)
 	public ModelAndView login(@RequestBody(required= false) Object body ) {
 		//1、收集参数  
         //2、绑定参数到命令对象  
         //3、调用业务对象  
         //4、选择下一个页面  
-        ModelAndView mv = new ModelAndView();  
+        ModelAndView mv = new ModelAndView();
         //添加模型数据 可以是任意的POJO对象  
         mv.addObject("message", "Hello World!");  
         mv.addObject("_csrf.parameterName","yang");
@@ -71,15 +74,19 @@ public class LoginController{
         mv.setViewName("hello");  
         return mv;  
 	}
-	
-	@RequestMapping(value = "/hello")
+
+	@ApiOperation(value="hello页面", notes="用来返回问候页面")
+	@RequestMapping(value = "/hello",method = RequestMethod.GET)
 	public ModelAndView hello() {
         ModelAndView mv = new ModelAndView();  
         mv.addObject("message", "Hello World!");
-        mv.setViewName("hello");
+		mv.addObject("name", "James");
+		mv.setViewName("greeting");
         return mv;  
 	}
-	@RequestMapping(value = "/welcome")
+
+	@ApiOperation(value="welcome接口", notes="用来分析用户登录过程")
+	@RequestMapping(value = "/welcome",method = RequestMethod.GET)
 	@ResponseBody
 	public String welcome() {
 //		try {
@@ -98,7 +105,8 @@ public class LoginController{
 //		}
 		return "welcome";
 	}
-	@RequestMapping(value = "/hostinfo/getjson")
+	@ApiOperation(value="主机信息接口", notes="用来获取主机信息")
+	@RequestMapping(value = "/hostinfo/getjson",method = RequestMethod.GET)
 	@ResponseBody
 	public void hostinfo(HttpServletResponse response) {
 		Map<String, Object> result = new HashMap<>(1);

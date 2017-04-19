@@ -11,8 +11,10 @@
             }, "slow");
         });
     </script>
+    <title th:text="${message}">欢迎访问</title>
 </head>
 <body>
-    <p th:text="'Hello, ' + ${name} + '!'" />
+
+    <p th:text="'Hello, ' + ${name} + '!'" >Hello world!</p>
 </body>
 </html>

@@ -1,50 +1,50 @@
-//package top.hunaner.lol.config;
-//
-//import java.text.SimpleDateFormat;
-//import java.util.List;
-//
-//import javax.servlet.http.HttpServletResponse;
-//
-//import org.springframework.beans.BeansException;
-//import org.springframework.context.ApplicationContext;
-//import org.springframework.context.ApplicationContextAware;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.http.MediaType;
-//import org.springframework.http.converter.HttpMessageConverter;
-//import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-//import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-//import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
-//import org.springframework.web.servlet.HandlerExceptionResolver;
-//import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
-//import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-//import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-//import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-//import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-//import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
-//import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-//import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
-//import org.springframework.web.servlet.resource.VersionResourceResolver;
-//import org.springframework.web.servlet.view.InternalResourceViewResolver;
-//import org.springframework.web.servlet.view.JstlView;
-//import org.springframework.web.servlet.view.ResourceBundleViewResolver;
-//import org.thymeleaf.spring4.SpringTemplateEngine;
-//import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-//import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
-//
-///**
-// *
-// * @date 2016年6月30日 下午5:05:18
-// * @author James Yang
-// * @version 1.0
-// * @since
-// */
-//@Configuration
-//@EnableWebMvc
-//public class WebMvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{
-//
-//	/** ApplicationContext this object runs in */
-//	private ApplicationContext applicationContext;
-//
+package top.hunaner.lol.config;
+
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
+import org.springframework.web.servlet.resource.VersionResourceResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.view.ResourceBundleViewResolver;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+
+/**
+ *
+ * @date 2016年6月30日 下午5:05:18
+ * @author James Yang
+ * @version 1.0
+ * @since
+ */
+@Configuration
+@EnableWebMvc
+public class WebMvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{
+
+	/** ApplicationContext this object runs in */
+	private ApplicationContext applicationContext;
+
 //	/** Default if no other location is supplied */
 //	public final static String ViEWS_LOCATION = "classpath:/spring/views.xml";
 //
@@ -96,10 +96,10 @@
 ////		registry.enableContentNegotiation(new MappingJackson2JsonView());
 ////		registry.jsp();
 //	}
-//
-//	/* (non-Javadoc)
-//	 * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter#configureDefaultServletHandling(org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer)
-//	 */
+
+	/* (non-Javadoc)
+	 * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter#configureDefaultServletHandling(org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer)
+	 */
 //	@Override
 //	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 //		configurer.enable();
@@ -119,66 +119,66 @@
 //		exceptionResolver.setWarnLogCategory("warn");
 //		exceptionResolvers.add(exceptionResolver);
 //	}
-//	@Override
-//	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//		registry.addResourceHandler("/resources/view/**")
-//		.addResourceLocations("classpath:/assets/html/").setCachePeriod(31556926)
-//		.resourceChain(true).addResolver(
-//				new VersionResourceResolver().addContentVersionStrategy("/**"));
-//		registry.addResourceHandler("/resources/js/**")
-//		.addResourceLocations("classpath:/assets/js/bower_components/",
-//				"classpath:/assets/js/custom/").setCachePeriod(31556926)
-//		.resourceChain(true).addResolver(
-//				new VersionResourceResolver().addContentVersionStrategy("/**"));
-//		registry.addResourceHandler("/resources/image/**")
-//		.addResourceLocations("classpath:/assets/image/").setCachePeriod(31556926)
-//		.resourceChain(true).addResolver(
-//				new VersionResourceResolver().addContentVersionStrategy("/**"));
-//		registry.addResourceHandler("/resources/gentelella/**")
-//		.addResourceLocations("classpath:/assets/gentelella/").setCachePeriod(31556926)
-//		.resourceChain(true).addResolver(
-//				new VersionResourceResolver().addContentVersionStrategy("/**"));
-//		registry.addResourceHandler("/resources/music/**")
-//		.addResourceLocations("classpath:/assets/music/").setCachePeriod(31556926)
-//		.resourceChain(true).addResolver(
-//				new VersionResourceResolver().addContentVersionStrategy("/**"));
-//
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/view/**")
+		.addResourceLocations("classpath:/assets/html/").setCachePeriod(31556926)
+		.resourceChain(true).addResolver(
+				new VersionResourceResolver().addContentVersionStrategy("/**"));
+		registry.addResourceHandler("/resources/js/**")
+		.addResourceLocations("classpath:/assets/js/bower_components/",
+				"classpath:/assets/js/custom/").setCachePeriod(31556926)
+		.resourceChain(true).addResolver(
+				new VersionResourceResolver().addContentVersionStrategy("/**"));
+		registry.addResourceHandler("/resources/image/**")
+		.addResourceLocations("classpath:/assets/image/").setCachePeriod(31556926)
+		.resourceChain(true).addResolver(
+				new VersionResourceResolver().addContentVersionStrategy("/**"));
+		registry.addResourceHandler("/resources/gentelella/**")
+		.addResourceLocations("classpath:/assets/gentelella/").setCachePeriod(31556926)
+		.resourceChain(true).addResolver(
+				new VersionResourceResolver().addContentVersionStrategy("/**"));
+		registry.addResourceHandler("/resources/music/**")
+		.addResourceLocations("classpath:/assets/music/").setCachePeriod(31556926)
+		.resourceChain(true).addResolver(
+				new VersionResourceResolver().addContentVersionStrategy("/**"));
+
+	}
+
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/").setViewName("index");
+	}
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder()
+                .indentOutput(true)
+                .dateFormat(new SimpleDateFormat("yyyy-MM-dd"));
+//                .modulesToInstall(new ParameterNamesModule());
+        converters.add(new MappingJackson2HttpMessageConverter(builder.build()));
+        converters.add(new MappingJackson2XmlHttpMessageConverter(builder.xml().build()));
+	}
+
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = applicationContext;
+	}
+
+
+//	@Bean(name="templateEngine")
+//	@Description("org.thymeleaf.spring4.SpringTemplateEngine:"
+//			+ "http://www.thymeleaf.org/doc/tutorials/2.1/thymeleafspring.html#integrating-thymeleaf-with-spring")
+//	public SpringTemplateEngine getTemplateEngine(){
+//		SpringTemplateEngine template = new SpringTemplateEngine();
+//		template.setTemplateResolver(getTemplateResolver());
+//		return template;
 //	}
-//
-//	@Override
-//	public void addViewControllers(ViewControllerRegistry registry) {
-//		registry.addViewController("/").setViewName("index");
+//	@Bean
+//	@Description("org.thymeleaf.templateresolver.ServletContextTemplateResolver")
+//	public ServletContextTemplateResolver getTemplateResolver(){
+//		ServletContextTemplateResolver resolver = new ServletContextTemplateResolver();
+//		resolver.setPrefix("/WEB-INF/templates/");
+//		resolver.setSuffix(".html");
+//		resolver.setTemplateMode("HTML5");
+//		return resolver;
 //	}
-//	@Override
-//	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-//		Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder()
-//                .indentOutput(true)
-//                .dateFormat(new SimpleDateFormat("yyyy-MM-dd"));
-////                .modulesToInstall(new ParameterNamesModule());
-//        converters.add(new MappingJackson2HttpMessageConverter(builder.build()));
-//        converters.add(new MappingJackson2XmlHttpMessageConverter(builder.xml().build()));
-//	}
-//
-//	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-//		this.applicationContext = applicationContext;
-//	}
-//
-//
-////	@Bean(name="templateEngine")
-////	@Description("org.thymeleaf.spring4.SpringTemplateEngine:"
-////			+ "http://www.thymeleaf.org/doc/tutorials/2.1/thymeleafspring.html#integrating-thymeleaf-with-spring")
-////	public SpringTemplateEngine getTemplateEngine(){
-////		SpringTemplateEngine template = new SpringTemplateEngine();
-////		template.setTemplateResolver(getTemplateResolver());
-////		return template;
-////	}
-////	@Bean
-////	@Description("org.thymeleaf.templateresolver.ServletContextTemplateResolver")
-////	public ServletContextTemplateResolver getTemplateResolver(){
-////		ServletContextTemplateResolver resolver = new ServletContextTemplateResolver();
-////		resolver.setPrefix("/WEB-INF/templates/");
-////		resolver.setSuffix(".html");
-////		resolver.setTemplateMode("HTML5");
-////		return resolver;
-////	}
-//}
+}
