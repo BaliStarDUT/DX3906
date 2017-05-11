@@ -16,13 +16,15 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class Swagger2Config {
+    public static final com.google.common.base.Predicate<String> ANY = PathSelectors.any();
+
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("top.hunaner.lol"))
-                .paths(PathSelectors.any())
+                .paths(ANY)
                 .build();
     }
     private ApiInfo apiInfo() {

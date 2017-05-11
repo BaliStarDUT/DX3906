@@ -151,10 +151,10 @@ public class WeChatApiUtil {
 		JSONObject jsonob = uploadMedia(f,token,type);
 		return jsonob;
 	}
-	public static void main(String[] args){
-		String filePath = "D:\\code\\DX3906\\src\\main\\resource\\Jhin.mp3";
-		String type = "voice";
-		JSONObject uploadResult = uploadMedia(filePath, type);
-		System.out.println(uploadResult.toJSONString());
-	}
+//	public static void main(String[] args){
+//		String filePath = "D:\\code\\DX3906\\src\\main\\resource\\Jhin.mp3";
+//		String type = "voice";
+//		JSONObject uploadResult = uploadMedia(filePath, type);
+//		System.out.println(uploadResult.toJSONString());
+//	}
 }
