@@ -31,7 +31,7 @@ import top.hunaner.lol.service.storage.impl.StorageProperties;
 @EnableConfigurationProperties(StorageProperties.class)
 @ComponentScan(basePackages="top.hunaner.lol") //lol,weixin
 //@Import(value = WebAppInitializer.class)
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 public class SpringBootAdminApplication {
 	private static final Logger log = LoggerFactory.getLogger(SpringBootAdminApplication.class);
 	 public static void main(String[] args) {

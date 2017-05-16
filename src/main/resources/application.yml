@@ -58,6 +58,7 @@ spring:
   h2:
     console:
       enabled: true
+      path: /config/h2-console
 logging:
   level:
     root: INFO
