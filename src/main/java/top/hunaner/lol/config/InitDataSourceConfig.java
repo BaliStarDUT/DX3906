@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
@@ -14,6 +15,7 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
  * 初始化数据库，加入一些模拟数据
  * 2016年7月19日 下午11:41:27
  */
+@Profile(value = "production")
 @Configuration
 public class InitDataSourceConfig {
 	@Autowired
@@ -30,8 +32,8 @@ public class InitDataSourceConfig {
 			databasePopulator.addScript(new ClassPathResource(env.getProperty("jdbc.h2.initLocation")));
 //			databasePopulator.addScript(new ClassPathResource(env.getProperty("jdbc.h2.dataLocation")));
 		}
-		
+
 		DatabasePopulatorUtils.execute(databasePopulator, dataSource);
-		
+
 	}
 }

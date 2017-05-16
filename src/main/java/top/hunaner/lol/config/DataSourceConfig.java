@@ -3,10 +3,7 @@ package top.hunaner.lol.config;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Description;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 /**
  * 配置数据库，从classpath:spring/data-access.properties中获取数据库配置
@@ -14,10 +11,11 @@ import org.springframework.core.env.Environment;
  * @author Administrator
  *
  */
+@Profile(value = "production")
 @Configuration(value="dataSourceConfig")
 @PropertySource("classpath:spring/data-access.properties")
 public class DataSourceConfig {
-	
+
 	@Autowired
 	private Environment env;
 	@Bean(name="dataSource")

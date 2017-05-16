@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -30,11 +31,8 @@ import top.hunaner.lol.service.storage.impl.StorageProperties;
 @EnableConfigurationProperties(StorageProperties.class)
 @ComponentScan(basePackages="top.hunaner.lol") //lol,weixin
 //@Import(value = WebAppInitializer.class)
-public class SpringBootAdminApplication extends SpringBootServletInitializer{
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return super.configure(builder);
-	}
+@EnableDiscoveryClient
+public class SpringBootAdminApplication {
 	private static final Logger log = LoggerFactory.getLogger(SpringBootAdminApplication.class);
 	 public static void main(String[] args) {
 	        ApplicationContext ctx =  SpringApplication.run(SpringBootAdminApplication.class, args);

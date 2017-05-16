@@ -15,12 +15,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 //import org.springframework.security.core.context.SecurityContextHolder;
 //import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -32,6 +32,19 @@ import com.alibaba.fastjson.JSONObject;
 @Controller
 public class LoginController{
 	private static final Logger log = LoggerFactory.getLogger(LoginController.class);
+
+	@Autowired
+	private DiscoveryClient discoveryClient;
+
+	/**
+	 * 本地服务实例的信息
+	 * @return
+	 */
+	@GetMapping("/instance-info")
+	public ServiceInstance showInfo() {
+		ServiceInstance localServiceInstance = this.discoveryClient.getLocalServiceInstance();
+		return localServiceInstance;
+	}
 
 	@ApiOperation(value="网站首页", notes="index页面")
 	@RequestMapping(value = "/",method = RequestMethod.GET)
