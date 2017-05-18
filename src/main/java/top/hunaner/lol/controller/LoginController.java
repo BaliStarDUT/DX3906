@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 //import org.springframework.security.core.context.SecurityContextHolder;
 //import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,12 @@ public class LoginController{
 	private DiscoveryClient discoveryClient;
 
 	/**
+	 * 从属性文件application.yml中获取的h2的控制台路径
+     */
+	@Value(value = "${spring.h2.console.path}")
+	private String h2_console;
+
+	/**
 	 * 本地服务实例的信息
 	 * @return
 	 */
@@ -50,6 +57,7 @@ public class LoginController{
 	@RequestMapping(value = "/",method = RequestMethod.GET)
 	public String index(ModelMap map) {
         map.addAttribute("title","Legue Of Legends");
+		map.addAttribute("h2console",h2_console);
 		return "index";
 	}
 

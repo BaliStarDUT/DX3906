@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <link rel="stylesheet" href="./resources/js/bootstrap/dist/css/bootstrap.min.css"></link>
   <script src="./resources/js/jquery/dist/jquery.min.js"></script>
@@ -12,7 +12,7 @@
 		<nav>
           <ul class="nav nav-justified">
             <li class="active"><a href="lolheros">Champion Grid</a></li>
-            <li><a href="h2-console">DataBase</a></li>
+  		    <li><a th:href="${h2console}">h2_DataBase_console</a></li>
             <li><a href="lolheros/new">Update Heros</a></li>
             <li><a href="resources/gentelella/production/index.html">Gentelella</a></li>
             <li><a href="resources/view/angular.html">Angular</a></li>
