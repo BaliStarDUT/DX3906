@@ -34,19 +34,19 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                           <div class="weather-icon">
                             <canvas height="85" width="85" id="weatherIcon0"></canvas>
                           </div>
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm-3">
                           <div class="weather-text">
                             <h2 ng-bind="cityName" class="chineseChar">Texas </h2>
                             <p ng-bind="weatherInfo" class="chineseChar">多云</p>
                             <p ng-bind="dateMoon" class="chineseChar">八月廿八</p>
                           </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-2">
                           <div class="weather-text">
                             <h5 class="degrees chineseChar" >温度：<span ng-bind="temperature">23</span></h5>
                             <h5 class="percentCus chineseChar" >湿度：<span ng-bind="humidity">23</span></h5>
@@ -55,7 +55,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-sm-12">
+                      <div class="col-sm-7">
                         <div class="weather-text pull-left">
                           <div class="chineseChar charOverFlow">
                           	空气质量：<span ng-bind="airQuality">优</span> |
@@ -67,7 +67,7 @@
                       <div class="clearfix"></div>
                        <div class="row weather-days">
                        
-                        <div class="col-sm-2" ng-repeat="dayWeather in days5Weather">
+                        <div class="col-sm-1" ng-repeat="dayWeather in days5Weather">
                           <div class="daily-weather">
                             <h2 class="day chineseChar" >周<span ng-bind="dayWeather.week">一</span></h2>
                             <h3 class="degrees" ng-bind="dayWeather.info.day[2]">23</h3>

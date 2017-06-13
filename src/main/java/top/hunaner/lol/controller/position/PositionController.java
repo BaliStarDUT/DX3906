@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import top.hunaner.lol.config.ApplicationKeyConfig;
+import top.hunaner.lol.dao.position.PositionRepository;
 import top.hunaner.lol.entity.position.Position;
 import top.hunaner.lol.service.positon.PositionService;
 
@@ -36,6 +37,9 @@ public class PositionController {
     
     @Autowired
     private PositionService positionService;
+
+	@Autowired
+	PositionRepository positionRepository;
 
 	@ApiOperation(value="上传地理位置接口", notes="上传地理位置接口")
 	@ApiImplicitParams({
@@ -75,7 +79,17 @@ public class PositionController {
 	@RequestMapping(value="/uploadposition", method=RequestMethod.GET)
 	@ResponseBody
 	public String uploadPositionObject(){
+		List<Map<String, Object>> list = positionService.findAll();
 		return "success";
 	}
-	
+
+	@RequestMapping(value = "/",method = RequestMethod.GET)
+	public void position(){
+		long count = positionRepository.count();
+		log.debug("positon count:"+count);
+		log.debug(positionRepository.findOne(Integer.valueOf(1)).toString());
+		for (Position positon:positionRepository.findAll()) {
+			log.debug(positon.toString());
+		}
+	}
 }

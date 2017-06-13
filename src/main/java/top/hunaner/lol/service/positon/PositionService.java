@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import top.hunaner.lol.dao.position.PositionDao;
+import top.hunaner.lol.dao.position.PositionRepository;
 import top.hunaner.lol.entity.position.Position;
 
 /**
@@ -21,7 +22,10 @@ public class PositionService {
 	public PositionService(PositionDao positionDao) {
 		this.positionDao = positionDao;
 	}
-	
+
+	@Autowired
+	PositionRepository positionRepository;
+
 	public void save(Position position) {
 		this.positionDao.insert(position);;
 	}

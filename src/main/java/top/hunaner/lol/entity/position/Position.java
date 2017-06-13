@@ -1,7 +1,7 @@
 package top.hunaner.lol.entity.position;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -10,7 +10,8 @@ import java.util.Date;
  * 
  */
 @Entity
-@NamedQuery(name="Position.findAll", query="SELECT p FROM Position p")
+@Table(name = "position")
+//@NamedQuery(name="Position.findAll", query="SELECT p FROM position p")
 public class Position implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -22,6 +23,7 @@ public class Position implements Serializable {
 
 	private double altitude;
 
+	@Column(name = "altitudeAccuracy" )
 	private double altitudeAccuracy;
 
 	private double heading;

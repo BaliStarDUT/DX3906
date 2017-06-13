@@ -5,6 +5,7 @@ spring:
     active: test
   application:
     name: microservice-provider-dx3906    # 项目名称尽量用小写
+
 #  jpa:
 #    generate-ddl: false
 #    show-sql: true
@@ -20,6 +21,7 @@ logging:
     org.hibernate: INFO
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    springfox: warn
     top.hunaner.lol: INFO
 eureka:
   client:
@@ -27,9 +29,20 @@ eureka:
       defaultZone: http://peer1:8761/eureka/,http://peer2:8762/eureka    # 指定注册中心的地址
   instance:
     preferIpAddress: true
+#在此指定保存文件的路径
+locale:
+    storageProperties:
+        location: "src/main/resources/assets/image/champions"
 ---
 spring:
   profiles: development
+  datasource:
+      platform: mysql
+      name: mysql
+      url: jdbc:mysql://windows.james.com:3306/test
+      driver-class-name: com.mysql.jdbc.Driver
+      username: root
+      password: yang
 logging:
   level:
     root: INFO
@@ -61,6 +74,11 @@ spring:
     console:
       enabled: true
       path: /config/h2-console
+  thymeleaf:
+    cache: false
+#下面加入的config配置没有起作用
+#  config:
+#    location: classpath:spring/application-local.properties
 logging:
   level:
     root: INFO

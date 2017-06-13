@@ -5,9 +5,12 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,11 +25,25 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 @Controller
 @RequestMapping("/weather")
+@RefreshScope
 public class WeatherQueryController {
 	
     private static final Logger log = LoggerFactory.getLogger(WeatherQueryController.class);
 	
-    private static final String APPKEY = "7c3913df657c1d30a9d284305f395e05";
+//    private static final String APPKEY = "7c3913df657c1d30a9d284305f395e05";
+
+
+	@Value("${profile}")
+	private String profile;
+
+	@Value("${juhe.cn.API.key}")
+	private String juheApiKey;
+
+	@GetMapping("/hello")
+	public String hello() {
+		log.info(juheApiKey);
+		return this.profile;
+	}
 
 	@RequestMapping(value="/query",method=RequestMethod.GET)
 	@JsonView(String.class)
@@ -39,7 +56,7 @@ public class WeatherQueryController {
 		final String WEATHER_URL = "http://op.juhe.cn/onebox/weather/query?"
 				+ "cityname={cityname}&key={key}&dtype={dtype}";
 		params.put("cityname",cityname);
-		params.put("key",APPKEY );
+	     	params.put("key",juheApiKey);
         params.put("dtype",DEFAULT_DTYPE);
 		ResponseEntity<Map> weather = 	restTemplate.getForEntity(WEATHER_URL, Map.class, params);
 		log.info("queryWeather:weather= {}.", weather.toString());

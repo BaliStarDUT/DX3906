@@ -5,7 +5,7 @@ app.controller('weatherController', function($scope, $http,$interval,$timeout) {
 	$scope.getWeather = function(){
 		$http.get("/weather/query.json?cityname=北京")
 	    .success(function(response) {
-	    	if(response.reason.indexOf("successed")!=-1){
+	    	if(response.error_code==0){
 		    	var result = response.result.data;
 		    	$scope.weather = result;
 		    	var realTimeDate = result.realtime.date;

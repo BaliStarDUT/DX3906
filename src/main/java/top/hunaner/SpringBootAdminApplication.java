@@ -29,7 +29,7 @@ import top.hunaner.lol.service.storage.impl.StorageProperties;
 @EnableAutoConfiguration
 //		(exclude = {WebSecurityConfig.class, WebMvcConfig.class})
 @EnableConfigurationProperties(StorageProperties.class)
-@ComponentScan(basePackages="top.hunaner.lol") //lol,weixin
+@ComponentScan(basePackages="top.hunaner") //lol,weixin
 //@Import(value = WebAppInitializer.class)
 //@EnableDiscoveryClient
 public class SpringBootAdminApplication {

@@ -1,4 +1,4 @@
-package top.hunaner.lol.controller;
+package top.hunaner.lol.controller.heros;
 
 
 
@@ -203,5 +203,4 @@ public class HerosUploadController{
         model.addAttribute("lolheroForm","heroList");
         return "redirect:/result";
     }
-    
 }
