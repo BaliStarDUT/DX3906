@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>404</title>
+    <style>
+        h1 {text-align:center;}
+        h3 {text-align:center;}
+        .Absolute-Center {
+            margin: auto;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="Absolute-Center">
+    <h1>404</h1>
+    <h3>Something went wrong with:<span th:text="${url}"></span></h3>
+    <h3 th:text="${exception}"></h3>
+</div>
+</body>
+</html>

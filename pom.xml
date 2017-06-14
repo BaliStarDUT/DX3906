@@ -144,15 +144,45 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-resources-plugin</artifactId>-->
+                <!--<version>2.7</version>-->
+                <!--<configuration>-->
+                    <!--<skip>true</skip>-->
+                    <!--<resources>-->
+                        <!--<resource>-->
+
+                        <!--</resource>-->
+                    <!--</resources>-->
+                    <!--<filters>-->
+                        <!--<filter>-->
+
+                        <!--</filter>-->
+                    <!--</filters>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
-      <!--<resources>-->
+      <resources>
+          <resource>
+             <directory>src/main/resources/</directory>
+             <excludes>
+                 <exclude>assets/js/node_modules/**</exclude>
+                 <exclude>assets/js/bower_components/**</exclude>
+                 <exclude>assets/gentelella/vendors/**</exclude>
+                 <exclude>static/gentelella/**</exclude>
+             </excludes>
+              <!--<targetPath>assets/js/node_modules/</targetPath>-->
+          </resource>
           <!--<resource>-->
-             <!--<directory>src/main/resources/assets/js/node_modules/</directory>-->
-             <!--<excludes>-->
-                 <!--<exclude>src/main/resources/assets/js/node_modules/**/**</exclude>-->
-             <!--</excludes>-->
+              <!--<directory>src/main/resources/assets/js/bower_components</directory>-->
+              <!--<includes>-->
+                  <!--<include>**/*.js</include>-->
+                  <!--<include>**/*.css</include>-->
+              <!--</includes>-->
+              <!--<targetPath>assets/js/bower_components</targetPath>-->
           <!--</resource>-->
-      <!--</resources>-->
+      </resources>
     </build>
     
 </project>
