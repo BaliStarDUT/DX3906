@@ -51,27 +51,26 @@ public class WxController{
 				||timestamp==null||timestamp.length()==0
 				||nonce==null||nonce.length()==0
 				||echostr==null||echostr.length()==0){
-			System.out.println("Param error.....");
+			log.log(Level.WARNING,"Param error.....");
 			return "Param error.....";
 		}
-		System.out.println(signature);
-		System.out.println(timestamp);
-		System.out.println(nonce);
-		System.out.println(echostr);
-
+		log.log(Level.INFO,"signature:"+signature);
+		log.log(Level.INFO,"timestamp:"+timestamp);
+		log.log(Level.INFO,"nonce:"+nonce);
+		log.log(Level.INFO,"echostr:"+echostr);
 		String sortString = sort(TOKEN,timestamp,nonce);
-		System.out.println(sortString);
+		log.log(Level.INFO,"sortString:"+sortString);
 
 		String mySignature = sha1(sortString);
-		System.out.println(mySignature);
+		log.log(Level.INFO,"mySignature:"+mySignature);
 
 		if(mySignature!=null&&mySignature!=""&&mySignature.equals(signature)){ 
-			System.out.println("success!");
 			log.log(Level.INFO, "check out success");
-			System.out.println(echostr);
+			log.log(Level.INFO, "echostr："+echostr);
 			return (echostr);
 		}else{
 			System.out.println("failed!");
+			log.log(Level.WARNING, "check out failed！");
 		}
 		return echostr;
 	}
@@ -90,7 +89,7 @@ public class WxController{
 		if(result.equals("")){
 			result = "response failed";
 		}
-		System.out.println(result);
+		log.log(Level.INFO, "result:"+result);
 		response.getWriter().println(result);
 	}
 	public String sort(String token,String timestamp,String nonce){

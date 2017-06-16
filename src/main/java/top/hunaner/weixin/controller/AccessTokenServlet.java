@@ -101,11 +101,6 @@ public class AccessTokenServlet extends HttpServlet {
 		String url = String.format("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s", appid,appsecret);
 		String result = netHelper.getHttpsResponse(url, "GET");
 		log.log(Level.INFO, "get response:"+result);
-		log.log(Level.WARNING, "get response:"+result);
-		log.log(Level.CONFIG, "get response:"+result);
-		log.log(Level.FINEST, "get response:"+result);
-		log.log(Level.SEVERE, "get response:"+result);
-
 
 		JacksonJsonParser parser = new JacksonJsonParser();
 		Map<String ,Object> jsonMap = parser.parseMap(result);

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="students.xsl"?>
+<students>
+    <student sn="01">
+        <name>费德提克</name>
+        <age>18</age>
+    </student>
+    <student sn="02">
+        <name>安妮</name>
+        <age>17</age>
+    </student>
+</students>

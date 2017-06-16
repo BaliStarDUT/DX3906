@@ -1,8 +1,10 @@
 package top.hunaner.weixin.util;
 
+import org.springframework.util.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import top.hunaner.weixin.entity.MessageType;
 import top.hunaner.weixin.entity.Music;
@@ -12,8 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,26 +32,36 @@ public class MessageHandlerUtil {
 		InputStream input;
 		try {
 			input = request.getInputStream();
+//			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(input));
+//			StringBuilder body = new StringBuilder();
+//			String temp = "";
+//			while ((temp = bufferedReader.readLine())!=null){
+//				body = body.append(temp);
+//			}
+//
+//			log.log(Level.INFO,"HttpServletRequest body："+body.toString());
 			DocumentBuilderFactory docBuilderFac =  DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docBuilderFac.newDocumentBuilder();
+//			InputSource inputSource = new InputSource(new ByteArrayInputStream(body.toString().getBytes()));
+//			InputSource inputSource = new InputSource(input);
+//			inputSource.set
+//			Document document = docBuilder.parse(inputSource);
 			Document document = docBuilder.parse(input);
-
-//			System.out.println(document.getDocumentElement());
-
-//			System.out.println(document.getFirstChild());
 			Node firstnode = document.getFirstChild();
-			
 			NodeList nodelist = firstnode.getChildNodes();//document.getChildNodes();
 			for(int i=0;i<nodelist.getLength();i++){
 				Node node = nodelist.item(i);
-				if(node.getNodeValue().trim().equals("")){
+				log.log(Level.INFO, "node name:"+node.getNodeName()+
+						" node value:"+node.getNodeValue()+
+						" text content:"+node.getTextContent());
+				if(StringUtils.isEmpty(node.getTextContent())||
+						node.getTextContent().equals("\n")){
 					continue;
 				}
-				log.log(Level.INFO, "node name:"+node.getNodeName()+" node value:"+node.getNodeValue()+" node textcontent:"+node.getNodeValue());
-				map.put(node.getNodeName(), node.getNodeValue());
+				map.put(node.getNodeName(), node.getTextContent());
 			}
 		} catch (IOException | ParserConfigurationException | SAXException e) {
-			log.log(Level.INFO, "parse xml error");
+			log.log(Level.SEVERE, "parse xml error:"+e.getMessage());
 			e.printStackTrace();
 		}
 		return map;
