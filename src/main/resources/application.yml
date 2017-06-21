@@ -85,4 +85,4 @@ logging:
     org.hibernate: INFO
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
-    top.hunaner.lol: DEBUG
+    top.hunaner: DEBUG

@@ -27,7 +27,7 @@ import static top.hunaner.weixin.entity.MessageType.*;
 public class MessageHandlerUtil {
 
 	public static Map<String,String> parseXml(HttpServletRequest request){
-		Logger log = Logger.getLogger("MessageHandlerUtil");
+		Logger log = Logger.getLogger("top.hunaner.weixin.util.MessageHandlerUtil");
 		Map<String,String> map = new HashMap<String, String>();
 		InputStream input;
 		try {
@@ -51,13 +51,14 @@ public class MessageHandlerUtil {
 			NodeList nodelist = firstnode.getChildNodes();//document.getChildNodes();
 			for(int i=0;i<nodelist.getLength();i++){
 				Node node = nodelist.item(i);
-				log.log(Level.INFO, "node name:"+node.getNodeName()+
-						" node value:"+node.getNodeValue()+
-						" text content:"+node.getTextContent());
 				if(StringUtils.isEmpty(node.getTextContent())||
-						node.getTextContent().equals("\n")){
+						node.getTextContent().equals("\n ")){
+					//将解析到的空字符串及特殊无用字符过滤掉，包括“\n ”
 					continue;
 				}
+				log.log(Level.CONFIG, "node name:"+node.getNodeName()+
+						" node value:"+node.getNodeValue()+
+						" text content:"+node.getTextContent());
 				map.put(node.getNodeName(), node.getTextContent());
 			}
 		} catch (IOException | ParserConfigurationException | SAXException e) {
@@ -150,7 +151,7 @@ public class MessageHandlerUtil {
 			music.setDescription("嗯，非常有趣");
 			music.setMusicurl("http://lol.52pk.com/pifu/sounds/heimodingge/8.mp3");
 			music.setHqmusicurl("http://lol.52pk.com/pifu/sounds/heimodingge/8.mp3");
-			music.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
+			music.setThumbmediaid("3RtWsjhJ6QtGTAJ8u0Hu_Xfe9wIrhhuMw5FRb_s25kwWl8I65e-50-y2LM5GvgvY");
 			responseMessage = buildMusicMessage(map, music);
 			break;
 		case "亚索":
@@ -159,7 +160,7 @@ public class MessageHandlerUtil {
 			music2.setDescription("亚索：我的剑比什么都重要！除了美酒");
 			music2.setMusicurl("http://lol.52pk.com/pifu/sounds/yasuo/30.mp3");
 			music2.setHqmusicurl("http://lol.52pk.com/pifu/sounds/yasuo/30.mp3");
-			music2.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
+			music2.setThumbmediaid("3RtWsjhJ6QtGTAJ8u0Hu_Xfe9wIrhhuMw5FRb_s25kwWl8I65e-50-y2LM5GvgvY");
 			responseMessage = buildMusicMessage(map, music2);
 			break;
 		case "提莫":
@@ -168,7 +169,7 @@ public class MessageHandlerUtil {
 			music3.setDescription("提莫：提莫队长正在待命。");
 			music3.setMusicurl("http://lol.52pk.com/pifu/sounds/Teemo.mp3");
 			music3.setHqmusicurl("http://lol.52pk.com/pifu/sounds/Teemo.mp3");
-			music3.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
+			music3.setThumbmediaid("3RtWsjhJ6QtGTAJ8u0Hu_Xfe9wIrhhuMw5FRb_s25kwWl8I65e-50-y2LM5GvgvY");
 			responseMessage = buildMusicMessage(map, music3);
 			break;
 		case "伊泽瑞尔":
@@ -177,7 +178,7 @@ public class MessageHandlerUtil {
 			music4.setDescription("伊泽瑞尔：是时候表演真正的技术了");
 			music4.setMusicurl("http://lol.52pk.com/pifu/sounds/Ezreal.mp3");
 			music4.setHqmusicurl("http://lol.52pk.com/pifu/sounds/Ezreal.mp3");
-			music4.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
+			music4.setThumbmediaid("3RtWsjhJ6QtGTAJ8u0Hu_Xfe9wIrhhuMw5FRb_s25kwWl8I65e-50-y2LM5GvgvY");
 			responseMessage = buildMusicMessage(map, music4);
 			break;
 		case "费德提克":
@@ -186,7 +187,7 @@ public class MessageHandlerUtil {
 			music5.setDescription("费德提克：我知道你怕");
 			music5.setMusicurl("http://lol.52pk.com/pifu/sounds/feidetike/7.mp3");
 			music5.setHqmusicurl("http://lol.52pk.com/pifu/sounds/feidetike/7.mp3");
-			music5.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
+			music5.setThumbmediaid("3RtWsjhJ6QtGTAJ8u0Hu_Xfe9wIrhhuMw5FRb_s25kwWl8I65e-50-y2LM5GvgvY");
 			responseMessage = buildMusicMessage(map, music5);
 			break;
 		case "video":
@@ -284,7 +285,7 @@ public class MessageHandlerUtil {
 				+ "</Music>"
 				+ "</xml>",
 			      fromUserName, toUserName, System.currentTimeMillis(), music.getTitle(),
-			      music.getMusicurl(),music.getDescription(),music.getHqmusicurl(),
+				  music.getDescription(),music.getMusicurl(),music.getHqmusicurl(),
 			      music.getThumbmediaid());
 	}
 	/**
@@ -348,7 +349,7 @@ public class MessageHandlerUtil {
 				music2.setDescription("费德提克：是，我的主人");
 				music2.setMusicurl("http://lol.52pk.com/pifu/sounds/feidetike/4.mp3");
 				music2.setHqmusicurl("http://lol.52pk.com/pifu/sounds/feidetike/4.mp3");
-				music2.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
+				music2.setThumbmediaid("3RtWsjhJ6QtGTAJ8u0Hu_Xfe9wIrhhuMw5FRb_s25kwWl8I65e-50-y2LM5GvgvY");
 				responseMessage = buildMusicMessage(map, music2);
 			}else if(key.equals("tupian")){
 				Music music = new Music();
@@ -356,7 +357,7 @@ public class MessageHandlerUtil {
 				music.setDescription("嗯，非常有趣");
 				music.setMusicurl("http://lol.52pk.com/pifu/sounds/heimodingge/8.mp3");
 				music.setHqmusicurl("http://lol.52pk.com/pifu/sounds/heimodingge/8.mp3");
-				music.setThumbmediaid("E1T8i5Bw6UJAcI_GW_STBei3HCEJOWdwN34Qi4bptD9MJkcbNIo1p0xHghTggGnZ");
+				music.setThumbmediaid("3RtWsjhJ6QtGTAJ8u0Hu_Xfe9wIrhhuMw5FRb_s25kwWl8I65e-50-y2LM5GvgvY");
 				responseMessage = buildMusicMessage(map, music);
 			}else{
 				responseMessage = buildTextMessage(map,"事件KEY值："+key);

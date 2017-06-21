@@ -1,6 +1,7 @@
 /target/
 /target*
 /build/
+/assets/
 .settings/
 .idea/
 /bin/
