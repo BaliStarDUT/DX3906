@@ -166,13 +166,21 @@
       <resources>
           <resource>
              <directory>src/main/resources/</directory>
+              <filtering>true</filtering>
              <excludes>
                  <exclude>assets/js/node_modules/**</exclude>
                  <exclude>assets/js/bower_components/**</exclude>
                  <exclude>assets/gentelella/vendors/**</exclude>
                  <exclude>static/gentelella/**</exclude>
              </excludes>
-              <!--<targetPath>assets/js/node_modules/</targetPath>-->
+          </resource>
+          <resource>
+              <directory>src/main/resources/</directory>
+              <filtering>true</filtering>
+              <includes>
+                    <include>assets/js/bower_components/bootstrap/dist/</include>
+                    <include>assets/js/bower_components/jquery/dist/</include>
+              </includes>
           </resource>
           <!--<resource>-->
               <!--<directory>src/main/resources/assets/js/bower_components</directory>-->

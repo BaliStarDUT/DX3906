@@ -56,7 +56,7 @@ public class WeatherQueryController {
 		final String WEATHER_URL = "http://op.juhe.cn/onebox/weather/query?"
 				+ "cityname={cityname}&key={key}&dtype={dtype}";
 		params.put("cityname",cityname);
-	     	params.put("key",juheApiKey);
+		params.put("key",juheApiKey);
         params.put("dtype",DEFAULT_DTYPE);
 		ResponseEntity<Map> weather = 	restTemplate.getForEntity(WEATHER_URL, Map.class, params);
 		log.info("queryWeather:weather= {}.", weather.toString());
