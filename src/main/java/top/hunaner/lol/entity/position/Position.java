@@ -40,6 +40,20 @@ public class Position implements Serializable {
 	public Position() {
 	}
 
+	public Position(String jack, String bauer) {
+		System.out.println(jack+"---"+bauer);
+		this.setAccuracy(0);
+		this.setAltitude(1);
+		this.setAltitudeAccuracy(3);
+		this.setHeading(4);
+		this.setLatitude(5);
+		this.setLongitude(6);
+		this.setSid(3);
+		this.setSpeed(8);
+		this.setTimestamp(new Date());
+		System.out.println(this.toString());
+	}
+
 	public int getSid() {
 		return this.sid;
 	}
