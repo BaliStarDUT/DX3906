@@ -48,9 +48,7 @@ import java.util.stream.Collectors;
 @Controller
 public class HerosUploadController{
 	private static final Logger log = LoggerFactory.getLogger(HerosUploadController.class);
-	//资源文件的保存目录
-	public static final String ROOT = "E:\\mycode\\DX3906\\src\\main\\resources\\assets";
-	
+
 	private HerosService herosService;
 	
 	@Autowired
@@ -179,24 +177,6 @@ public class HerosUploadController{
     	lolheros.getLolheros().addAll(this.herosService.findHeros());
         return lolheros;
     }
-    @RequestMapping(value = "/upload",method = RequestMethod.POST)
-	public String handleFileUpload(@RequestParam("heroheadpic") MultipartFile file,
-								   RedirectAttributes redirectAttributes) {
-
-		if (!file.isEmpty()) {
-			try {
-				Files.copy(file.getInputStream(), Paths.get(ROOT, file.getOriginalFilename()));
-				redirectAttributes.addFlashAttribute("message",
-						"You successfully uploaded " + file.getOriginalFilename() + "!");
-			} catch (IOException|RuntimeException e) {
-				redirectAttributes.addFlashAttribute("message", "Failued to upload " + file.getOriginalFilename() + " => " + e.getMessage());
-			}
-		} else {
-			redirectAttributes.addFlashAttribute("message", "Failed to upload " + file.getOriginalFilename() + " because it was empty");
-		}
-
-		return "redirect:/";
-	}
    
     @RequestMapping(value="/jdbc", method=RequestMethod.GET)
     public String checkHeroInfo(Model model) {

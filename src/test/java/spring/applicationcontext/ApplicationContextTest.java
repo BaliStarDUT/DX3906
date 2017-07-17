@@ -17,10 +17,12 @@ public class ApplicationContextTest {
     @Test  
     public void test1() {  
     	Log log = LogFactory.getLog(ApplicationContextTest.class);
-    BeanFactory beanFactory =  
-    new ClassPathXmlApplicationContext("spring/applicationcontext/namebean.xml");  
-    log.info(beanFactory.containsBean("systemProperties"));
-    	SystemEnvironmentPropertySource environmentPropertySource =  (SystemEnvironmentPropertySource) beanFactory.getBean("systemProperties");
+        BeanFactory beanFactory =
+            new ClassPathXmlApplicationContext("spring/applicationcontext/namebean.xml");
+        log.info(beanFactory.containsBean("systemProperties"));
+
+//    	SystemEnvironmentPropertySource environmentPropertySource =
+//                (SystemEnvironmentPropertySource) beanFactory.getBean("systemProperties");
     	Object object = beanFactory.getBean("systemProperties");
         //根据id获取bean  
         ResourceBundleMessageSource source = beanFactory.getBean("messageSource", ResourceBundleMessageSource.class);  
