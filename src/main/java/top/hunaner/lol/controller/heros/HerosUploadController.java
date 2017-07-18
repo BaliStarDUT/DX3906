@@ -46,6 +46,7 @@ import java.util.stream.Collectors;
  * @since
  */
 @Controller
+@RequestMapping("/lolheros")
 public class HerosUploadController{
 	private static final Logger log = LoggerFactory.getLogger(HerosUploadController.class);
 
@@ -65,6 +66,7 @@ public class HerosUploadController{
     
 	//关于系统文件的获取需要用到ResourceLoader
 	private final ResourceLoader resourceLoader;
+
 	@Autowired
 	public HerosUploadController(ResourceLoader resourceLoader) {
 		this.resourceLoader = resourceLoader;
@@ -75,7 +77,7 @@ public class HerosUploadController{
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping("/index")
+	@RequestMapping(method = RequestMethod.GET)
     public String index(Model model) throws IOException {
 //		List<Path> pathList = Files.walk(Paths.get(ROOT)).collect(Collectors.toList());
 //		List<Path> fileNameList = new ArrayList();
@@ -92,7 +94,7 @@ public class HerosUploadController{
 //        return "login";
 //    }
 //	
-	@RequestMapping(value="/lolheros",method=RequestMethod.GET)
+	@RequestMapping(value="/all",method=RequestMethod.GET)
 	public ModelAndView  Form(ModelAndView modelAndView){
 		List<Lolhero> herosList = (List<Lolhero>) this.herosService.findHeros();
 		modelAndView.addObject("herosList",herosList);
@@ -100,13 +102,13 @@ public class HerosUploadController{
 		modelAndView.setViewName("result");
         return modelAndView;
 	}
-    @RequestMapping(value="/lolheros/new", method=RequestMethod.GET)
+    @RequestMapping(value="/new", method=RequestMethod.GET)
     public String showNewHeroForm(Model model) {
     	model.addAttribute("lolheroForm",new LolheroForm());
-        return "form";
+        return "heros/heros_upload_resource";
     }
     
-    @RequestMapping(value="/lolheros/new", method=RequestMethod.POST)
+    @RequestMapping(value="/new", method=RequestMethod.POST)
     public String saveHeroInfo(@Valid LolheroForm lolheroForm, 
     		@RequestParam(value = "heroheadpic",required = true) MultipartFile picFile,
     		@RequestParam(value = "herosound",required = true) MultipartFile soundFile,
@@ -135,7 +137,7 @@ public class HerosUploadController{
         List<Lolhero> herosList = (List<Lolhero>) this.herosService.findHeros();
         model.addAttribute("herosList",herosList);
         model.addAttribute("msg","获取成功");
-        return "result";
+        return "heros/heros_info_list";
     }
     
     @RequestMapping(value = "/files",method=RequestMethod.GET)
@@ -148,7 +150,7 @@ public class HerosUploadController{
                                 .build().toString())
                 .collect(Collectors.toList()));
 
-        return "uploadForm";
+        return "heros/heros_resources";
     }
     
     @ExceptionHandler(StorageFileNotFoundException.class)
@@ -168,7 +170,7 @@ public class HerosUploadController{
     }
 
     
-    @RequestMapping(value = { "/lolheros/heros.json", "/lolheros/heros.xml"})
+    @RequestMapping(value = { "/heros.json", "/heros.xml"})
     public @ResponseBody
 	Lolheros showResourcesVetList() {
         // Here we are returning an object of type 'Lolheros' rather than a collection of Lolhero objects

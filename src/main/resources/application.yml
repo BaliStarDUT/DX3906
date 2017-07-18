@@ -32,7 +32,7 @@ eureka:
 #在此指定保存文件的路径
 locale:
     storageProperties:
-        location: "src/main/resources/assets/image/champions"
+        location: "E:/mycode/DX3906/src/main/resources/assets/image/champions"
 ---
 spring:
   profiles: development
