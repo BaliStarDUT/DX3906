@@ -34,8 +34,8 @@ public class HerosServiceImpl implements HerosService {
 
 	@Override
 	@Transactional
-	public void saveHero(Lolhero hero) {
-		herosRepository.save(hero);
+	public Long saveHero(Lolhero hero) {
+		return herosRepository.save(hero);
 	}
 
 }

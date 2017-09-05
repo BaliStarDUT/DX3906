@@ -1,11 +1,14 @@
 package top.hunaner.lol.service.storage.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
+import top.hunaner.lol.controller.heros.HerosUploadController;
 import top.hunaner.lol.service.storage.StorageService;
 
 import java.io.IOException;
@@ -23,6 +26,8 @@ import java.util.stream.Stream;
 @Service
 public class FileSystemStorageService implements StorageService {
 
+    private static final Logger log = LoggerFactory.getLogger(FileSystemStorageService.class);
+
     private final Path rootLocation;
 
     @Autowired
@@ -31,15 +36,18 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
-    public void store(MultipartFile file) {
+    public boolean store(MultipartFile file) {
+        long length = 0L;
         try {
-            if (file.isEmpty()) {
-                throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
-            }
-            Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+            if (file.isEmpty())
+                return false;
+            length = Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
         } catch (IOException e) {
-            throw new StorageException("Failed to store file " + file.getOriginalFilename(), e);
+            log.debug("message", "Failed to upload " + file.getOriginalFilename() + "."+e.getMessage());
         }
+        log.debug("message",
+                "You successfully uploaded " + file.getOriginalFilename() + "!");
+        return length>0?true:false;
     }
 
     @Override

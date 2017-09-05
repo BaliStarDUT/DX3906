@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +35,7 @@ import top.hunaner.lol.service.storage.impl.StorageFileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -89,55 +91,39 @@ public class HerosUploadController{
 //		model.addAttribute("paths", pathList);
         return "index";
     }
-//	@RequestMapping("/login")
-//    public String login(Model model) throws IOException {
-//        return "login";
-//    }
-//	
+
 	@RequestMapping(value="/all",method=RequestMethod.GET)
-	public ModelAndView  Form(ModelAndView modelAndView){
+	public ModelAndView  getAllView(ModelAndView modelAndView){
 		List<Lolhero> herosList = (List<Lolhero>) this.herosService.findHeros();
 		modelAndView.addObject("herosList",herosList);
 		modelAndView.addObject("msg","获取成功");
 		modelAndView.setViewName("result");
         return modelAndView;
 	}
+	@RequestMapping(value = "/data/all",method = RequestMethod.GET)
+	public ResponseEntity<Collection<Lolhero>> getAll(){
+		return new ResponseEntity<Collection<Lolhero>>(herosService.findHeros(), HttpStatus.OK);
+	}
+
     @RequestMapping(value="/new", method=RequestMethod.GET)
     public String showNewHeroForm(Model model) {
     	model.addAttribute("lolheroForm",new LolheroForm());
         return "heros/heros_upload_resource";
     }
     
-    @RequestMapping(value="/new", method=RequestMethod.POST)
-    public String saveHeroInfo(@Valid LolheroForm lolheroForm, 
+    @RequestMapping(value="/data/new", method=RequestMethod.POST)
+    public ResponseEntity<Long> saveHeroInfo(@Valid LolheroForm lolheroForm,
     		@RequestParam(value = "heroheadpic",required = true) MultipartFile picFile,
     		@RequestParam(value = "herosound",required = true) MultipartFile soundFile,
     		BindingResult bindingResult,Model model) {
-        if (bindingResult.hasErrors()) {
-            return "form";
-        }else{
-        	if (!picFile.isEmpty()&&!soundFile.isEmpty()) {
-    			try {
-    				storageService.store(picFile);
-    				log.debug("message",
-    						"You successfully uploaded " + picFile.getOriginalFilename() + "!");
-    				storageService.store(soundFile);
-    				log.debug("message",
-    						"You successfully uploaded " + soundFile.getOriginalFilename() + "!");
-    			} catch (Exception e) {
-    				log.debug("message", "Failued to upload " + soundFile.getOriginalFilename() + " => " + e.getMessage());
-    			}
-    		} else {
-    			log.debug("message", "Failed to upload " + soundFile.getOriginalFilename() + " because it was empty");
-    		}
-        	Lolhero hero = new Lolhero(lolheroForm.getNameCn(),lolheroForm.getNameEn() ,
-        			lolheroForm.getNickname(),lolheroForm.getStory(),lolheroForm.getType(),picFile.getOriginalFilename(),soundFile.getOriginalFilename()) ;
-        	this.herosService.saveHero(hero);
-        }
-        List<Lolhero> herosList = (List<Lolhero>) this.herosService.findHeros();
-        model.addAttribute("herosList",herosList);
-        model.addAttribute("msg","获取成功");
-        return "heros/heros_info_list";
+		if (bindingResult.hasErrors()) {
+			return new ResponseEntity<Long>(HttpStatus.BAD_REQUEST);
+		}
+		boolean picstore = storageService.store(picFile);
+		boolean soundstore = storageService.store(soundFile);
+		Lolhero hero = new Lolhero(lolheroForm.getNameCn(),lolheroForm.getNameEn() ,
+				lolheroForm.getNickname(),lolheroForm.getStory(),lolheroForm.getType(),picFile.getOriginalFilename(),soundFile.getOriginalFilename());
+		return new ResponseEntity<Long>(this.herosService.saveHero(hero),HttpStatus.OK);
     }
     
     @RequestMapping(value = "/files",method=RequestMethod.GET)

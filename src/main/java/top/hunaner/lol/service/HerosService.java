@@ -7,5 +7,5 @@ import java.util.Collection;
 
 public interface HerosService {
 	Collection<Lolhero> findHeros();
-	void saveHero(Lolhero hero);
+	Long saveHero(Lolhero hero);
 }
