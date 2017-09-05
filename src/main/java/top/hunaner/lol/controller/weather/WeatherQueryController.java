@@ -5,8 +5,10 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import top.hunaner.lol.controller.ResultBean;
 
 /**
  * root
@@ -30,18 +33,15 @@ public class WeatherQueryController {
 	
     private static final Logger log = LoggerFactory.getLogger(WeatherQueryController.class);
 	
-//    private static final String APPKEY = "7c3913df657c1d30a9d284305f395e05";
-
-
-	@Value("${profile}")
+	@Value("${spring.profiles}")
 	private String profile;
 
-	@Value("${juhe.cn.API.key}")
-	private String juheApiKey;
+	@Autowired
+	WeatherService weatherService;
 
 	@GetMapping("/hello")
 	public String hello() {
-		log.info(juheApiKey);
+		log.info(profile);
 		return this.profile;
 	}
 
@@ -49,18 +49,6 @@ public class WeatherQueryController {
 	@JsonView(String.class)
 	public ResponseEntity<Map> queryWeather(@RequestParam(name="cityname",required=true,defaultValue="北京") String cityname, 
 			Model model) {
-		log.info("queryWeather:cityname = {}.", cityname);
-		RestTemplate restTemplate = new RestTemplate();
-		Map<String ,String> params = new HashMap<String ,String>();
-		final String DEFAULT_DTYPE = "json";
-		final String WEATHER_URL = "http://op.juhe.cn/onebox/weather/query?"
-				+ "cityname={cityname}&key={key}&dtype={dtype}";
-		params.put("cityname",cityname);
-		params.put("key",juheApiKey);
-        params.put("dtype",DEFAULT_DTYPE);
-		ResponseEntity<Map> weather = 	restTemplate.getForEntity(WEATHER_URL, Map.class, params);
-		log.info("queryWeather:weather= {}.", weather.toString());
-	    return weather;
+		return weatherService.getWeather(cityname);
 	}
-	
 }
