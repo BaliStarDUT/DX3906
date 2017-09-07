@@ -6,6 +6,6 @@ import top.hunaner.lol.entity.Lolhero;
 import java.util.Collection;
 
 public interface HerosService {
-	Collection<Lolhero> findHeros();
-	Long saveHero(Lolhero hero);
+	Collection<Lolhero> getAll();
+	Lolhero saveHero(Lolhero hero);
 }

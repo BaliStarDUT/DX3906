@@ -38,7 +38,7 @@ public class HerosAssetsController {
                 .loadAll()
                 .map(path ->
                         MvcUriComponentsBuilder
-                                .fromMethodName(HerosController.class, "serveFile", path.getFileName().toString())
+                                .fromMethodName(HerosAssetsController.class, "serveFile", path.getFileName().toString())
                                 .build().toString())
                 .collect(Collectors.toList()));
 

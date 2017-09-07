@@ -87,7 +87,7 @@ public class HerosController{
 
 	@RequestMapping(value="/all",method=RequestMethod.GET)
 	public ModelAndView  getAllView(ModelAndView modelAndView){
-		List<Lolhero> herosList = (List<Lolhero>) this.herosService.findHeros();
+		List<Lolhero> herosList = (List<Lolhero>) this.herosService.getAll();
 		modelAndView.addObject("herosList",herosList);
 		modelAndView.addObject("msg","获取成功");
 		modelAndView.setViewName("result");
@@ -95,7 +95,7 @@ public class HerosController{
 	}
 	@RequestMapping(value = "/data/all",method = RequestMethod.GET)
 	public ResponseEntity<Collection<Lolhero>> getAll(){
-		return new ResponseEntity<Collection<Lolhero>>(herosService.findHeros(), HttpStatus.OK);
+		return new ResponseEntity<Collection<Lolhero>>(herosService.getAll(), HttpStatus.OK);
 	}
 
     @RequestMapping(value="/new", method=RequestMethod.GET)
@@ -105,17 +105,17 @@ public class HerosController{
     }
 
 	@RequestMapping(value="/data/new", method= RequestMethod.POST)
-	public ResponseEntity<Long> saveHeroInfo(@Valid LolheroForm lolheroForm,
+	public ResponseEntity<Lolhero> saveHeroInfo(@Valid LolheroForm lolheroForm,
 											 @RequestParam(value = "heroheadpic",required = true) MultipartFile picFile,
 											 @RequestParam(value = "herosound",required = true) MultipartFile soundFile,
 											 BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
-			return new ResponseEntity<Long>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Lolhero>(HttpStatus.BAD_REQUEST);
 		}
 		boolean picstore = storageService.store(picFile);
 		boolean soundstore = storageService.store(soundFile);
 		Lolhero hero = new Lolhero(lolheroForm.getNameCn(),lolheroForm.getNameEn() ,
 				lolheroForm.getNickname(),lolheroForm.getStory(),lolheroForm.getType(),picFile.getOriginalFilename(),soundFile.getOriginalFilename());
-		return new ResponseEntity<Long>(this.herosService.saveHero(hero),HttpStatus.OK);
+		return new ResponseEntity<Lolhero>(this.herosService.saveHero(hero),HttpStatus.OK);
 	}
 }

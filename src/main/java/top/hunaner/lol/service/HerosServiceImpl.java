@@ -2,6 +2,8 @@ package top.hunaner.lol.service;
 
 import java.util.Collection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,8 @@ import top.hunaner.lol.entity.Lolhero;
  */
 @Service
 public class HerosServiceImpl implements HerosService {
-	
+	private static final Logger log = LoggerFactory.getLogger(HerosServiceImpl.class);
+
 	private HerosRepository herosRepository;
 	
 	@Autowired
@@ -28,14 +31,18 @@ public class HerosServiceImpl implements HerosService {
 	@Override
 	@Transactional(readOnly = true)
 	@Cacheable(value = "heros")
-	public Collection<Lolhero> findHeros() {
-		return herosRepository.findAll();
+	public Collection<Lolhero> getAll() {
+		Collection<Lolhero> lolheroes = herosRepository.findAll();
+		log.debug("getAllHeros success:"+lolheroes.size());
+		return lolheroes;
 	}
 
 	@Override
 	@Transactional
-	public Long saveHero(Lolhero hero) {
-		return herosRepository.save(hero);
+	public Lolhero saveHero(Lolhero hero) {
+		Lolhero lolhero = herosRepository.save(hero);
+		log.debug("saveHero success:"+lolhero.toString());
+		return lolhero;
 	}
 
 }

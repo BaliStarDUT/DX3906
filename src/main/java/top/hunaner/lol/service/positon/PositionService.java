@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import top.hunaner.lol.controller.position.PositionController;
 import top.hunaner.lol.dao.position.PositionDao;
 import top.hunaner.lol.dao.position.PositionRepository;
 import top.hunaner.lol.entity.position.Position;

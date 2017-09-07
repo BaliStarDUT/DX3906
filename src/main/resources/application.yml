@@ -32,7 +32,7 @@ eureka:
 #在此指定保存文件的路径
 locale:
     storageProperties:
-        location: "E:/mycode/DX3906/src/main/resources/assets/image/champions"
+        location: "/Users/air/Documents/GitHub/DX3906/"
 ---
 spring:
   profiles: development
@@ -83,6 +83,6 @@ logging:
   level:
     root: INFO
     org.hibernate: INFO
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
-    top.hunaner: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: INFO
+    org.hibernate.type.descriptor.sql.BasicExtractor: INFO
+    top.hunaner.lol: DEBUG

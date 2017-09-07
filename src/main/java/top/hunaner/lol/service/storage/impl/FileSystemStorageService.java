@@ -8,7 +8,6 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
-import top.hunaner.lol.controller.heros.HerosUploadController;
 import top.hunaner.lol.service.storage.StorageService;
 
 import java.io.IOException;
@@ -42,11 +41,10 @@ public class FileSystemStorageService implements StorageService {
             if (file.isEmpty())
                 return false;
             length = Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+            log.debug("You successfully uploaded "+length +" bytes " + file.getOriginalFilename() + "!");
         } catch (IOException e) {
-            log.debug("message", "Failed to upload " + file.getOriginalFilename() + "."+e.getMessage());
+            log.error("Failed to upload " + file.getOriginalFilename() + "."+e.toString());
         }
-        log.debug("message",
-                "You successfully uploaded " + file.getOriginalFilename() + "!");
         return length>0?true:false;
     }
 

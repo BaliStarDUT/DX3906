@@ -29,7 +29,7 @@ public interface HerosRepository{
      * Save an <code>Hero</code> to the data store, either inserting or updating it.
 	 * @param hero
 	 */
-	Long save(Lolhero hero);
+	Lolhero save(Lolhero hero);
 }
 //@RepositoryRestResource(collectionResourceRel="heros",path="heros")
 //public interface HerosRepository extends PagingAndSortingRepository<Lolhero,Integer>{
