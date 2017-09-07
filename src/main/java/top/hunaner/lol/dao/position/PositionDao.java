@@ -25,14 +25,15 @@ public class PositionDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
     
-    public void insert(Position position){
-    	this.jdbcTemplate.update("INSERT INTO position "
+    public int insert(Position position){
+    	int updateCount = this.jdbcTemplate.update("INSERT INTO position "
     			+ "(sid, latitude, longitude, accuracy, altitude, "
     			+ "altitudeAccuracy, heading, speed, timestamp) "
     			+ "VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)",position.getLatitude(),
     			position.getLongitude(),position.getAccuracy(),position.getAltitude(),
     			position.getAltitudeAccuracy(),position.getHeading(),position.getSpeed(),
     			position.getTimestamp());
+    	return updateCount;
     }
 
 	public List<Map<String, Object>> findAll() {

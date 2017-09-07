@@ -48,9 +48,9 @@ import java.util.stream.Collectors;
  * @since
  */
 @Controller
-@RequestMapping("/lolheros")
-public class HerosUploadController{
-	private static final Logger log = LoggerFactory.getLogger(HerosUploadController.class);
+@RequestMapping("/heros")
+public class HerosController{
+	private static final Logger log = LoggerFactory.getLogger(HerosController.class);
 
 	private HerosService herosService;
 	
@@ -66,13 +66,6 @@ public class HerosUploadController{
 		this.storageService = storageService;
 	}
     
-	//关于系统文件的获取需要用到ResourceLoader
-	private final ResourceLoader resourceLoader;
-
-	@Autowired
-	public HerosUploadController(ResourceLoader resourceLoader) {
-		this.resourceLoader = resourceLoader;
-	}
 	/**
 	 * 首页显示欢迎信息
 	 * @param model
@@ -110,12 +103,12 @@ public class HerosUploadController{
     	model.addAttribute("lolheroForm",new LolheroForm());
         return "heros/heros_upload_resource";
     }
-    
-    @RequestMapping(value="/data/new", method=RequestMethod.POST)
-    public ResponseEntity<Long> saveHeroInfo(@Valid LolheroForm lolheroForm,
-    		@RequestParam(value = "heroheadpic",required = true) MultipartFile picFile,
-    		@RequestParam(value = "herosound",required = true) MultipartFile soundFile,
-    		BindingResult bindingResult,Model model) {
+
+	@RequestMapping(value="/data/new", method= RequestMethod.POST)
+	public ResponseEntity<Long> saveHeroInfo(@Valid LolheroForm lolheroForm,
+											 @RequestParam(value = "heroheadpic",required = true) MultipartFile picFile,
+											 @RequestParam(value = "herosound",required = true) MultipartFile soundFile,
+											 BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			return new ResponseEntity<Long>(HttpStatus.BAD_REQUEST);
 		}
@@ -124,51 +117,5 @@ public class HerosUploadController{
 		Lolhero hero = new Lolhero(lolheroForm.getNameCn(),lolheroForm.getNameEn() ,
 				lolheroForm.getNickname(),lolheroForm.getStory(),lolheroForm.getType(),picFile.getOriginalFilename(),soundFile.getOriginalFilename());
 		return new ResponseEntity<Long>(this.herosService.saveHero(hero),HttpStatus.OK);
-    }
-    
-    @RequestMapping(value = "/files",method=RequestMethod.GET)
-    public String listUploadedFiles(Model model) throws IOException {
-        model.addAttribute("files", storageService
-                .loadAll()
-                .map(path ->
-                        MvcUriComponentsBuilder
-                                .fromMethodName(HerosUploadController.class, "serveFile", path.getFileName().toString())
-                                .build().toString())
-                .collect(Collectors.toList()));
-
-        return "heros/heros_resources";
-    }
-    
-    @ExceptionHandler(StorageFileNotFoundException.class)
-    public ResponseEntity handleStorageFileNotFound(StorageFileNotFoundException exc) {
-        return ResponseEntity.notFound().build();
-    }
-    
-    @RequestMapping(value = "/files/{filename:.+}",method=RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-
-        Resource file = storageService.loadAsResource(filename);
-        return ResponseEntity
-                .ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getFilename()+"\"")
-                .body(file);
-    }
-
-    
-    @RequestMapping(value = { "/heros.json", "/heros.xml"})
-    public @ResponseBody
-	Lolheros showResourcesVetList() {
-        // Here we are returning an object of type 'Lolheros' rather than a collection of Lolhero objects
-        // so it is simpler for JSon/Object mapping
-    	Lolheros lolheros = new Lolheros();
-    	lolheros.getLolheros().addAll(this.herosService.findHeros());
-        return lolheros;
-    }
-   
-    @RequestMapping(value="/jdbc", method=RequestMethod.GET)
-    public String checkHeroInfo(Model model) {
-        model.addAttribute("lolheroForm","heroList");
-        return "redirect:/result";
-    }
+	}
 }
