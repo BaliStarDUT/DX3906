@@ -47,7 +47,7 @@ public class WeatherQueryController {
 
 	@RequestMapping(value="/query",method=RequestMethod.GET)
 	@JsonView(String.class)
-	public ResponseEntity<Map> queryWeather(@RequestParam(name="cityname",required=true,defaultValue="北京") String cityname, 
+	public ResponseEntity<Map> queryWeather(@RequestParam(name="cityname",required=true,defaultValue="北京") String cityname,
 			Model model) {
 		return weatherService.getWeather(cityname);
 	}

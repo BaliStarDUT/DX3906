@@ -32,7 +32,7 @@ eureka:
 #在此指定保存文件的路径
 locale:
     storageProperties:
-        location: "/Users/air/Documents/GitHub/DX3906/"
+        location: "/Users/aliyun/Documents/GitHub/DX3906"
 ---
 spring:
   profiles: development

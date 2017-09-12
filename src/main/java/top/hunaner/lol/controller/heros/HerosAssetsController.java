@@ -23,13 +23,26 @@ import java.util.stream.Collectors;
 /**
  * Created by James Yang on 2017/7/17 0017 下午 7:20.
  */
-@Controller(value = "herosassets")
+@Controller
+@RequestMapping(value = "herosassets")
 public class HerosAssetsController {
     private StorageService storageService;
 
     @Autowired
     public void setStorageService(StorageService storageService) {
         this.storageService = storageService;
+    }
+
+    @RequestMapping(value = "/data/files",method=RequestMethod.GET)
+    public ResponseEntity<Model> getAll(Model model){
+        model.addAttribute("files", storageService
+                .loadAll()
+                .map(path ->
+                        MvcUriComponentsBuilder
+                                .fromMethodName(HerosAssetsController.class, "serveFile", path.getFileName().toString())
+                                .build().toString())
+                .collect(Collectors.toList()));
+        return  new ResponseEntity(model, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/files",method=RequestMethod.GET)

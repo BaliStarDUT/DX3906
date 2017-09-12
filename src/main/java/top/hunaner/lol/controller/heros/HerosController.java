@@ -90,7 +90,7 @@ public class HerosController{
 		List<Lolhero> herosList = (List<Lolhero>) this.herosService.getAll();
 		modelAndView.addObject("herosList",herosList);
 		modelAndView.addObject("msg","获取成功");
-		modelAndView.setViewName("result");
+		modelAndView.setViewName("heros/heros_info_list");
         return modelAndView;
 	}
 	@RequestMapping(value = "/data/all",method = RequestMethod.GET)

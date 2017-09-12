@@ -64,7 +64,7 @@ app.controller("positionController", function($scope,$http) {
 			altitudeAccuracy:$scope.position.coords.altitudeAccuracy,
 			heading:$scope.position.coords.heading,
 			speed:$scope.position.coords.speed,
-			timestamp:$scope.position.timestamp}}).success(
+			timestamp:$scope.position.timestamp}}).then(
 					function(response) {
 						var latlon=$scope.position.coords.latitude+","+$scope.position.coords.longitude;
 						$scope.position.image="http://maps.googleapis.com/maps/api/staticmap?center="

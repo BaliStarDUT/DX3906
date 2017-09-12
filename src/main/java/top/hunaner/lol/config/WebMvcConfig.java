@@ -135,7 +135,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
 		.resourceChain(true).addResolver(
 				new VersionResourceResolver().addContentVersionStrategy("/**"));
 		registry.addResourceHandler("/resources/gentelella/**")
-		.addResourceLocations("classpath:/assets/gentelella/").setCachePeriod(31556926)
+		.addResourceLocations("classpath:/assets/js/bower_components/gentelella/").setCachePeriod(31556926)
 		.resourceChain(true).addResolver(
 				new VersionResourceResolver().addContentVersionStrategy("/**"));
 		registry.addResourceHandler("/resources/music/**")

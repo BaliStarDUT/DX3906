@@ -51,10 +51,12 @@ public class FileSystemStorageService implements StorageService {
     @Override
     public Stream<Path> loadAll() {
         try {
+            log.debug("Load all files from " + rootLocation.toAbsolutePath() + "!");
             return Files.walk(this.rootLocation, 1)
                     .filter(path -> !path.equals(this.rootLocation))
                     .map(path -> this.rootLocation.relativize(path));
         } catch (IOException e) {
+            log.debug("Load all files Exception:" + e.getMessage() + "!");
             throw new StorageException("Failed to read stored files", e);
         }
 
@@ -68,16 +70,17 @@ public class FileSystemStorageService implements StorageService {
     @Override
     public Resource loadAsResource(String filename) {
         try {
+            log.debug("Load file:"+ filename +" from "+ rootLocation.toAbsolutePath() + "!");
             Path file = load(filename);
             Resource resource = new UrlResource(file.toUri());
             if(resource.exists() || resource.isReadable()) {
                 return resource;
-            }
-            else {
+            }else {
+                log.debug(filename +" doesn't exist from "+ rootLocation.toAbsolutePath() + "!");
                 throw new StorageFileNotFoundException("Could not read file: " + filename);
-
             }
         } catch (MalformedURLException e) {
+            log.debug("Load File:"+filename +" failed from "+ rootLocation.toAbsolutePath() + "!"+e.getMessage());
             throw new StorageFileNotFoundException("Could not read file: " + filename, e);
         }
     }
@@ -90,8 +93,10 @@ public class FileSystemStorageService implements StorageService {
     @Override
     public void init() {
         try {
+            log.debug("Create "+ rootLocation.toAbsolutePath() + "!");
             Files.createDirectory(rootLocation);
         } catch (IOException e) {
+            log.debug("Init failed:"+ rootLocation.toAbsolutePath() + "!"+e.getMessage());
             throw new StorageException("Could not initialize storage", e);
         }
     }

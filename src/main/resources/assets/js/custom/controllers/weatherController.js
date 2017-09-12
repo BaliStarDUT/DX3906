@@ -4,7 +4,7 @@ app.controller('weatherController', function($scope, $http,$interval,$timeout) {
 	//调用http服务来获取weather对象
 	$scope.getWeather = function(){
 		$http.get("/weather/query.json?cityname=北京")
-	    .success(function(response) {
+	    .then(function(response) {
 	    	if(response.error_code==0){
 		    	var result = response.result.data;
 		    	$scope.weather = result;
