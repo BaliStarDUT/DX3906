@@ -5,6 +5,9 @@ app.controller('weatherController', function($scope, $http,$interval,$timeout) {
 	$scope.getWeather = function(){
 		$http.get("/weather/query.json?cityname=北京")
 	    .then(function(response) {
+	        if(response.status==200){
+	            response=response.data;
+	        }
 	    	if(response.error_code==0){
 		    	var result = response.result.data;
 		    	$scope.weather = result;

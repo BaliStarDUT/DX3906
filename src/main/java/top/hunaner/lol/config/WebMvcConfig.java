@@ -130,8 +130,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
 				"classpath:/assets/js/custom/").setCachePeriod(31556926)
 		.resourceChain(true).addResolver(
 				new VersionResourceResolver().addContentVersionStrategy("/**"));
-		registry.addResourceHandler("/resources/image/**")
-		.addResourceLocations("classpath:/assets/image/").setCachePeriod(31556926)
+		registry.addResourceHandler("/resources/image/champions/**")
+		.addResourceLocations("file:/Users/aliyun/Downloads/image_champions/").setCachePeriod(31556926)
 		.resourceChain(true).addResolver(
 				new VersionResourceResolver().addContentVersionStrategy("/**"));
 		registry.addResourceHandler("/resources/gentelella/**")
@@ -139,7 +139,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
 		.resourceChain(true).addResolver(
 				new VersionResourceResolver().addContentVersionStrategy("/**"));
 		registry.addResourceHandler("/resources/music/**")
-		.addResourceLocations("classpath:/assets/music/").setCachePeriod(31556926)
+		.addResourceLocations("file:/Users/aliyun/Downloads/sound_champions/").setCachePeriod(31556926)
 		.resourceChain(true).addResolver(
 				new VersionResourceResolver().addContentVersionStrategy("/**"));
 //		registry.
@@ -165,6 +165,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
 //        converters.add(new MappingJackson2XmlHttpMessageConverter(builder.xml().build()));
 //	}
 
+	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
 	}
