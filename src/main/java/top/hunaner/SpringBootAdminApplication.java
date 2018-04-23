@@ -41,40 +41,4 @@ public class SpringBootAdminApplication {
 	 public static void main(String[] args) {
 	        ApplicationContext ctx =  SpringApplication.run(SpringBootAdminApplication.class, args);
 	 }
-
-	@Bean
-	public CommandLineRunner demo(PositionRepository repository) {
-		return (args) -> {
-			// save a couple of customers
-			repository.save(new Position("Jack", "Bauer"));
-			repository.save(new Position("Chloe", "O'Brian"));
-			repository.save(new Position("Kim", "Bauer"));
-			repository.save(new Position("David", "Palmer"));
-			repository.save(new Position("Michelle", "Dessler"));
-
-			// fetch all customers
-			log.info("Customers found with findAll():");
-			log.info("-------------------------------");
-			for (Position customer : repository.findAll()) {
-				log.info(customer.toString());
-			}
-			log.info("");
-
-			// fetch an individual customer by ID
-			Position customer = repository.findOne(1);
-			log.info("Customer found with findOne(1L):");
-			log.info("--------------------------------");
-			log.info(customer.toString());
-			log.info("");
-
-			// fetch customers by last name
-			log.info("Customer found with findByLastName('Bauer'):");
-			log.info("--------------------------------------------");
-			for (Position bauer : repository.findBySid(3)) {
-				log.info(bauer.toString());
-			}
-			log.info("");
-		};
-	}
-
 }

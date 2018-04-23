@@ -1,0 +1,115 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2 class="chineseChar">计算机状态接口</h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Settings 1</a>
+              </li>
+              <li><a href="#">Settings 2</a>
+              </li>
+            </ul>
+          </li>
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <div class="row  fontawesome-icon-list">
+          <div ng-repeat="(key,data) in urls" class="fa-hover col-md-3 col-sm-4 col-xs-12">
+            <a ng-href="{{data.href}}"><i class="fa fa-link"></i>{{key}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+          <h2 class="chineseChar">计算机状态接口</h2>
+          <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+              <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Settings 1</a>
+              </li>
+              <li><a href="#">Settings 2</a>
+              </li>
+             </ul>
+            </li>
+            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+          </ul>
+      <div class="clearfix"></div>
+    </div>
+      <div class="x_content">
+        <ul>
+              <li ng-repeat="(key,data) in urls"><a ng-href="{{data.href}}" ng-bind="key"></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="x_panel">
+       <div class="x_title">
+        <h2 class="chineseChar">计算机状态<small><span ng-bind="health_status" class="green"></span></small></h2>
+        <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+              <li >
+              <a ng-click="getHealth()"><i class="fa fa-refresh"></i></a>
+            </li>
+            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+        </ul>
+       <div class="clearfix"></div>
+        </div>
+        <div class="x_content chineseChar">
+          <h2 class="title" >磁盘状态</h2>
+          <p>运行状态：<span ng-bind="health_diskSpace.status" class="green"></span></p>
+          <p>总共：<span ng-bind="health_diskSpace.total" class="green"></span>字节</p>
+          <p>剩余：<span ng-bind="health_diskSpace.free" class="green"></span>字节</p>
+          <p>使用临界值：<span ng-bind="health_diskSpace.threshold" class="green"></span>字节</p>
+         <h2 class="title">数据库状态</h2>
+          <p>运行状态：<span ng-bind="health_db.status" class="green"></span></p>
+          <p>数据库类型：<span ng-bind="health_db.database" class="green"></span></p>
+          <p>连接数：<span ng-bind="health_db.hello" class="green"></span></p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="x_panel">
+     <div class="x_title">
+      <h2 class="chineseChar">Java虚拟机状态</h2>
+      <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+            <li >
+            <a ng-click="getMetrics()"><i class="fa fa-refresh"></i></a>
+          </li>
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+      </ul>
+     <div class="clearfix"></div>
+      </div>
+      <div class="x_content chineseChar">
+        <p>内存：<span ng-bind="metrics_mem" class="green"></span>字节</p>
+        <p>剩余内存：<span ng-bind="metrics_memfree" class="green"></span>字节</p>
+        <p>处理器核心：<span ng-bind="metrics_processors" class="green"></span>个</p>
+        <p>虚拟机启动时间：<span ng-bind="metrics_instanceuptime" class="green"></span>毫秒</p>
+        <p>主机启动时间：<span ng-bind="metrics_uptime" class="green"></span>毫秒</p>
+        <p>堆heap大小：<span ng-bind="metrics_heap" class="green"></span>字节</p>
+      </div>
+  </div>
+  </div>
+</div>

@@ -54,10 +54,10 @@
         <artifactId>spring-boot-starter-data-rest</artifactId>
     </dependency>
 
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-security</artifactId>
-    </dependency>
+    <!--<dependency>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-security</artifactId>-->
+    <!--</dependency>-->
      <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-jdbc</artifactId>
@@ -70,10 +70,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-thymeleaf</artifactId>
     </dependency>
-      <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-websocket</artifactId>
-      </dependency>
     <dependency>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-devtools</artifactId>
@@ -89,11 +85,6 @@
         <groupId>com.h2database</groupId>
         <artifactId>h2</artifactId>
     </dependency>
-      <dependency>
-          <groupId>redis.clients</groupId>
-          <artifactId>jedis</artifactId>
-          <version>2.9.0</version>
-      </dependency>
     <!--  -->
     <dependency>
          <groupId>com.alibaba</groupId>
@@ -176,32 +167,19 @@
       <resources>
           <resource>
              <directory>src/main/resources/</directory>
-              <filtering>true</filtering>
+             <filtering>true</filtering>
              <excludes>
-                 <exclude>assets/js/node_modules/**</exclude>
-                 <exclude>assets/js/bower_components/**</exclude>
-                 <!--<exclude>assets/gentelella/vendors/**</exclude>-->
-                 <!--<exclude>static/gentelella/**</exclude>-->
+                 <exclude>assetes/**</exclude>
+                 <exclude>public/**</exclude>
+                 <exclude>app/**</exclude>
+                 <exclude>static/**</exclude>
              </excludes>
           </resource>
           <resource>
               <directory>src/main/resources/</directory>
               <filtering>false</filtering>
               <includes>
-                    <include>assets/js/bower_components/bootstrap/dist/</include>
-                    <include>assets/js/bower_components/jquery/dist/</include>
-                  <include>assets/js/bower_components/angular/</include>
-                  <include>assets/js/bower_components/angular-bootstrap/</include>
-                  <include>assets/js/bower_components/angular-touch/</include>
-                  <include>assets/js/bower_components/angular-animate/</include>
-                    <include>assets/js/bower_components/gentelella/build/</include>
-                    <include>assets/js/bower_components/gentelella/vendors/bootstrap/dist/</include>
-                  <include>assets/js/bower_components/gentelella/vendors/font-awesome/</include>
-                  <include>assets/js/bower_components/gentelella/vendors/nprogress/</include>
-                  <include>assets/js/bower_components/gentelella/vendors/jquery/dist/</include>
-                  <include>assets/js/bower_components/gentelella/vendors/fastclick/lib/</include>
-                  <include>assets/js/bower_components/gentelella/vendors/skycons/</include>
-
+                  <include>public/</include>
               </includes>
           </resource>
           <!--<resource>-->

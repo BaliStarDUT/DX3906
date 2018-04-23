@@ -13,3 +13,4 @@
 .project
 DX3906.iml
 *.db
+**.DS_Store

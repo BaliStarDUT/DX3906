@@ -9,14 +9,14 @@
     <title>Gentellela Alela! | </title>
 
     <!-- Bootstrap -->
-    <link href="../gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/gentelella/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="../gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/gentelella/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
-    <link href="../gentelella/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <link href="/static/gentelella/nprogress/nprogress.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="../gentelella/build/css/custom.css" rel="stylesheet">
+    <link href="/static/gentelella/custom/css/custom.css" rel="stylesheet">
   </head>
 
   <body class="nav-md">
@@ -33,7 +33,7 @@
             <!-- menu profile quick info -->
             <div class="profile">
               <div class="profile_pic">
-                <img src="../image/champions/Ziggs_Square_0.png" alt="..." class="img-circle profile_img">
+                <img src="/resources/image/champions/Ziggs_Square_0.png" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
@@ -140,7 +140,7 @@
                         <li><a href="#level1_2">Level One</a>
                         </li>
                     </ul>
-                  </li>                  
+                  </li>
                   <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
                 </ul>
               </div>
@@ -178,7 +178,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="../image/champions/Ziggs_Square_0.png" alt="">Ziggs
+                    <img src="/resources/image/champions/Ziggs_Square_0.png" alt="">Ziggs
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -202,7 +202,7 @@
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                     <li>
                       <a>
-                        <span class="image"><img src="../image/champions/Ziggs_Square_0.png" alt="Profile Image" /></span>
+                        <span class="image"><img src="/resources/image/champions/Ziggs_Square_0.png" alt="Profile Image" /></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -214,7 +214,7 @@
                     </li>
                     <li>
                       <a>
-                        <span class="image"><img src="../image/champions/Ziggs_Square_0.png" alt="Profile Image" /></span>
+                        <span class="image"><img src="/resources/image/champions/Ziggs_Square_0.png" alt="Profile Image" /></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -226,7 +226,7 @@
                     </li>
                     <li>
                       <a>
-                        <span class="image"><img src="../image/champions/Ziggs_Square_0.png" alt="Profile Image" /></span>
+                        <span class="image"><img src="/resources/image/champions/Ziggs_Square_0.png" alt="Profile Image" /></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -238,7 +238,7 @@
                     </li>
                     <li>
                       <a>
-                        <span class="image"><img src="../image/champions/Ziggs_Square_0.png" alt="Profile Image" /></span>
+                        <span class="image"><img src="/resources/image/champions/Ziggs_Square_0.png" alt="Profile Image" /></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -263,11 +263,8 @@
           </div>
         </div>
         <!-- /top navigation -->
-        
-		<script src="/resources/js/angular/angular.min.js"></script>
-		<script src="/resources/js/controllers/myApp.js"></script>
-		<script src="/resources/js/controllers/myCtrl.js"></script>
-        <!-- page content -->
+
+		    <!-- page content -->
         <div ng-app="myApp" ng-controller="myCtrl" class="right_col" role="main">
           <div class="">
             <div class="page-title">
@@ -350,7 +347,7 @@
 		      </div>
 		      <div class="col-md-4 col-sm-4 col-xs-12">
 				<div class="x_panel">
-				     <div class="x_title">	
+				     <div class="x_title">
 				  		<h2 class="chineseChar">计算机状态<small><span ng-bind="health_status" class="green"></span></small></h2>
 						  <ul class="nav navbar-right panel_toolbox">
 							    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -378,7 +375,7 @@
 		      </div>
 		      <div class="col-md-4 col-sm-4 col-xs-12">
 				<div class="x_panel">
-				     <div class="x_title">	
+				     <div class="x_title">
 				  		<h2 class="chineseChar">Java虚拟机状态</h2>
 						  <ul class="nav navbar-right panel_toolbox">
 							    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -401,11 +398,11 @@
 				      </div>
 				</div>
 		      </div>
-		     
+
 	      	</div>
 	      	<div class= "row">
 	      		 <!-- start of weather widget -->
-                <script src="/resources/js/controllers/weatherController.js"></script> 
+                <script src="/app/js/custom/controllers/weatherController.js"></script>
                 <div ng-app="weatherApp" ng-controller="weatherController" class="col-md-6 col-sm-6 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
@@ -529,17 +526,37 @@
     </div>
 
     <!-- jQuery -->
-    <script src="../gentelella/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="/static/gentelella/jquery/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="../gentelella/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/static/gentelella/bootstrap/js/bootstrap.min.js"></script>
     <!-- FastClick -->
-    <script src="../gentelella/vendors/fastclick/lib/fastclick.js"></script>
+    <script src="/static/gentelella/fastclick/fastclick.js"></script>
     <!-- NProgress -->
-    <script src="../gentelella/vendors/nprogress/nprogress.js"></script>
+    <script src="/static/gentelella/nprogress/nprogress.js"></script>
     <!-- Skycons -->
-    <script src="../gentelella/vendors/skycons/skycons.js"></script>
-    
+    <script src="/static/gentelella/skycons/skycons.js"></script>
+
     <!-- Custom Theme Scripts -->
-    <script src="../gentelella/build/js/custom.min.js"></script>
+    <script src="/static/gentelella/custom/js/custom.js"></script>
+
+    <!-- AngularJs -->
+    <script src="/static/angular/angular.min.js"></script>
+   <script src="/static/angular-animate/angular-animate.min.js"></script>
+    <!-- AngularJs -->
+   <!--<script src="/resources/js/angular-touch.min.js"></script>-->
+   <!-- AngularJs -->
+   <script src="/static/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+   <script src="/static/angular-ui-router/angular-ui-router.min.js"></script>
+   <!-- Custom Theme Scripts -->
+   <script src="/static/gentelella/custom/js/custom.js"></script>
+   <!-- Custom Theme Style -->
+   <link href="/static/gentelella/custom/css/custom.css" rel="stylesheet">
+
+   <!-- Angular Application -->
+   <script src="/app/js/custom/controllers/myApp.js"></script>
+   <script src="/app/js/custom/controllers/myCtrl.js"></script>
+   <script src="/app/js/custom/infrastructure/infrastructure.js"></script>
+   <script src="/app/js/custom/infrastructure/httpErrorHandlingInterceptor.js"></script>
+
   </body>
 </html>

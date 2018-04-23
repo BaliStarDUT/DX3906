@@ -15,6 +15,19 @@ import com.sun.management.OperatingSystemMXBean;
  */
 public class DiskUseTest {
 
+	@Override
+	public String toString(){
+		return "DiskUseTest";
+	}
+	@Override
+	public int hashCode(){
+		return 1;
+	}
+	@Override
+	public boolean equals(Object object){
+		return true;
+	}
+
 	@Test
 	public void diskUseTest() {
 		File[] roots = File.listRoots();//获取磁盘分区列表     

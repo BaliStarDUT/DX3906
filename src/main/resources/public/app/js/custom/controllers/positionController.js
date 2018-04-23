@@ -14,7 +14,7 @@ app.controller("positionController", function($scope,$http) {
 			},
 			image:"",
 			message:""
-	}
+	};
 	//调用HTML5的地理定位API，需要用户同意
 	$scope.getPostion = function(){
 		if (navigator.geolocation){
@@ -42,16 +42,16 @@ app.controller("positionController", function($scope,$http) {
 		switch(error.code) 
 		{
 			case error.PERMISSION_DENIED:
-				$scope.position.message="用户拒绝对获取地理位置的请求。"
+				$scope.position.message="用户拒绝对获取地理位置的请求。";
 				break;
 			case error.POSITION_UNAVAILABLE:
-				$scope.position.message="位置信息是不可用的。"
+				$scope.position.message="位置信息是不可用的。";
 				break;
 			case error.TIMEOUT:
-				$scope.position.message="请求用户地理位置超时。"
+				$scope.position.message="请求用户地理位置超时。";
 				break;
 			case error.UNKNOWN_ERROR:
-				$scope.position.message="未知错误。"
+				$scope.position.message="未知错误。";
 				break;
 		}
 	}
@@ -67,8 +67,7 @@ app.controller("positionController", function($scope,$http) {
 			timestamp:$scope.position.timestamp}}).then(
 					function(response) {
 						var latlon=$scope.position.coords.latitude+","+$scope.position.coords.longitude;
-						$scope.position.image="http://maps.googleapis.com/maps/api/staticmap?center="
-						+latlon+"&zoom=14&size=400x300&sensor=false&key="+response;
+						$scope.position.image="http://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=400x300&sensor=false&key="+response;
 						$scope.position.message = "上传成功";
 					});
 	}
@@ -114,7 +113,7 @@ app.controller("positionController", function($scope,$http) {
 	    .success(function(response) {
 	    	$scope.weather = response.records;
 	    	});
-	}
+	};
 //	 $scope.getActuator();
 //	 $scope.getHealth();
 //	 $scope.getMetrics();

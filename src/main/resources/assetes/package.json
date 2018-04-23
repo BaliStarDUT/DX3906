@@ -1,0 +1,25 @@
+{
+  "name": "DX3906",
+  "version": "1.0.0",
+  "description": "DX3906 front end.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "java",
+    "anguler"
+  ],
+  "author": "james",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "gentelella": "^1.4.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-angular-templatecache": "^2.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-jshint": "^2.1.0",
+    "jshint": "^2.9.5"
+  }
+}

@@ -39,7 +39,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
  * @since
  */
 @Configuration
-@EnableWebMvc
+//@EnableWebMvc
 public class WebMvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{
 
 	/** ApplicationContext this object runs in */
@@ -121,25 +121,31 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
 //	}
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resources/view/**")
-		.addResourceLocations("classpath:/assets/html/").setCachePeriod(31556926)
-		.resourceChain(true).addResolver(
-				new VersionResourceResolver().addContentVersionStrategy("/**"));
-		registry.addResourceHandler("/resources/js/**")
-		.addResourceLocations("classpath:/assets/js/bower_components/",
-				"classpath:/assets/js/custom/").setCachePeriod(31556926)
-		.resourceChain(true).addResolver(
-				new VersionResourceResolver().addContentVersionStrategy("/**"));
+//		registry.addResourceHandler("/**")
+//				.addResourceLocations("classpath:/public/").setCachePeriod(31556926)
+//				.resourceChain(true).addResolver(
+//				new VersionResourceResolver().addContentVersionStrategy("/**"));
+
+//		registry.addResourceHandler("/resources/view/**")
+//		.addResourceLocations("classpath:/public/app/html/").setCachePeriod(31556926)
+//		.resourceChain(true).addResolver(
+//				new VersionResourceResolver().addContentVersionStrategy("/**"));
+//
+//		registry.addResourceHandler("/resources/js/**")
+//		.addResourceLocations("classpath:/public/static",
+//				"classpath:/public/app/js/custom/").setCachePeriod(31556926)
+//		.resourceChain(true).addResolver(
+//				new VersionResourceResolver().addContentVersionStrategy("/**"));
 		registry.addResourceHandler("/resources/image/champions/**")
-		.addResourceLocations("file:/Users/aliyun/Downloads/image_champions/").setCachePeriod(31556926)
+		.addResourceLocations("file:/Users/air/Pictures/lol/image_champions/").setCachePeriod(31556926)
 		.resourceChain(true).addResolver(
 				new VersionResourceResolver().addContentVersionStrategy("/**"));
-		registry.addResourceHandler("/resources/gentelella/**")
-		.addResourceLocations("classpath:/assets/js/bower_components/gentelella/").setCachePeriod(31556926)
-		.resourceChain(true).addResolver(
-				new VersionResourceResolver().addContentVersionStrategy("/**"));
+//		registry.addResourceHandler("/resources/gentelella/**")
+//		.addResourceLocations("classpath:/assetes/public/").setCachePeriod(31556926)
+//		.resourceChain(true).addResolver(
+//				new VersionResourceResolver().addContentVersionStrategy("/**"));
 		registry.addResourceHandler("/resources/music/**")
-		.addResourceLocations("file:/Users/aliyun/Downloads/sound_champions/").setCachePeriod(31556926)
+		.addResourceLocations("file:/Users/air/Pictures/lol/sound_champions/").setCachePeriod(31556926)
 		.resourceChain(true).addResolver(
 				new VersionResourceResolver().addContentVersionStrategy("/**"));
 //		registry.
@@ -148,7 +154,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
 //		registry.
 //				addResourceHandler("/documentation/webjars/**")
 //				.addResourceLocations("classpath:/META-INF/resources/webjars/");
-
+        super.addResourceHandlers(registry);
 	}
 
 //	@Override

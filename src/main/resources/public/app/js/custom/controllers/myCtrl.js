@@ -40,7 +40,7 @@ app.controller("myCtrl", function($scope,$http) {
 	    .success(function(response) {
 	    	$scope.weather = response.records;
 	    	});
-	}
+	};
 	 $scope.getActuator();
 	 $scope.getHealth();
 	 $scope.getMetrics();

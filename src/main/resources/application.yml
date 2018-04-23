@@ -76,6 +76,13 @@ spring:
       path: /config/h2-console
   thymeleaf:
     cache: false
+  resources.static-locations: file:/Users/air/Documents/GitHub/DX3906/src/main/resources/public/
+
+#spring.resources.static-locations=classpath:/static/,file:spring-petclinic-client/src/,file:spring-petclinic-client/bower_components/
+#
+#spring.devtools.restart.additional-paths=spring-petclinic-client/src/,spring-petclinic-client/bower_components/
+#spring.devtools.restart.additional-exclude=**/*.html,**/*.js,**/*.css
+
 #下面加入的config配置没有起作用
 #  config:
 #    location: classpath:spring/application-local.properties
